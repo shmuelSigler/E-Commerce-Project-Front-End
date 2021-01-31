@@ -28,4 +28,5 @@
     "babel-webpack-plugin": "^0.1.2",
     "html-webpack-plugin": "^4.5.1"
   }
+  
 }
