@@ -1,0 +1,18 @@
+.footerStyle{
+    /* font-family: "'Chakra Petch', sans-serif"; */
+    color: white;
+    font-weight: bold;
+    margin: 0 auto;
+    background-color: rgb(39, 38, 38);
+}
+
+.footer{
+    padding: 70px 100px;
+}
+
+.roww{
+    color: white;
+    border: 1px solid #3c3c3c;
+    border-radius: 100px;
+    padding: 10px;
+}
