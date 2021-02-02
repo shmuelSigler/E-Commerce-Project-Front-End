@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
 //     padding: "10px",
 // }
 
-class Footer extends Component{
+export default class Footer extends Component{
     render(){
         return(
             <footer className="footerStyle">
@@ -71,4 +71,3 @@ class Footer extends Component{
 }
 
 
-export default Footer;
