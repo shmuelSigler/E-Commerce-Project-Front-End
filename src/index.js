@@ -1,13 +1,40 @@
+//react
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import {Route, BrowserRouter as Router ,Switch} from 'react-router-dom';
+//components
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 import App from './App';
+import ProductPage from './components/productPage/ProductPage';
+import CatalogPage from './components/catalogPage/CatalogPage';
+import NotFound from './components/notFound/NotFound';
+//css
+import './index.css';
 // import reportWebVitals from './reportWebVitals';
 
+const routing = (
+  <div>
+  <Router>
+     <Header/>    
+     <div>
+        <Switch>
+          <Route exact path='/' component={App}/>
+          <Route path="/productPage" component={ProductPage}/>    
+          <Route path="/product/:id" component={ProductPage}/>
+          <Route path="/catalogPage" component={CatalogPage}/>
+          <Route  component={NotFound}/>
+        </Switch>
+        
+     </div>
+     <Footer/>
+  </Router>
+  </div>
+    
+)
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    routing,  
   document.getElementById('root')
 );
 

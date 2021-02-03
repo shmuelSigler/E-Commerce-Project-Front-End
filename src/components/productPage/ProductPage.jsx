@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {productsObj} from "../product/productsObj.js"
 import './productPage.css';
 
 //3 ways to fix context this - issue
@@ -11,10 +12,23 @@ export default class ProductPage extends Component{
    
    constructor(props){
       super(props);
+      const product = productsObj.filter((product) => (product.title ===  props.match.params.id))[0]
+       //console.log(product)
+      //console.log(props);
       this.state={
-         src:"images/product-imgs/product5.jpg",
-         stock: "5",
-         sku:"PB35"
+         title: product.title,
+         src:product.src,
+         image1:product.image1,
+         image2:product.image2,
+         image3:product.image3,
+         image4:product.image4,
+         
+         price: product.price,
+         previousPrice: product.previousPrice,
+         rating: product.rating,
+         stock: product.stock,
+         sku:product.sku,
+
       }
    }
 
@@ -25,26 +39,30 @@ export default class ProductPage extends Component{
     render(){
        return(
         <div  className="container-fluid p-5">
+         
           <div className="row">
            {/* images */}
              <div className="col-md-12 col-lg-6">
-		 	           <img src={this.state.src} width="50%" height="50%" id="big-img" className="img-fluid"/>
+
+		 	           <img src={this.state.src} id="big-img" className="img-fluid w-50 h-50" alt=''/>
                  <div className="row m-2">
-                 <img onClick={this.changeSrc.bind(this)} id='img1' src="images/product-imgs/product5.jpg" className="galary col-3 w-25 h-25 p-2 img-fluid"/>
-                 <img onClick={this.changeSrc.bind(this)} id='img2' src="images/product-imgs/product2.jpg" className="col-3 w-25 h-25 p-2 img-fluid"/>
-                 <img onClick={this.changeSrc.bind(this)} id='img3' src="images/product-imgs/product3.jpg" className="col-3 w-25 h-25 p-2 img-fluid"/>
-                 <img onClick={this.changeSrc.bind(this)} id='img4' src="images/product-imgs/product4.jpg" className="col-3 w-25 h-25 p-2 img-fluid"/>
+                 <img onClick={this.changeSrc.bind(this)} id='img1' src={this.state.image1} className="galary col-3 w-25 h-25 p-2 img-fluid" alt=''/>
+                 <img onClick={this.changeSrc.bind(this)} id='img2' src={this.state.image2} className="col-3 w-25 h-25 p-2 img-fluid" alt=''/>
+                 <img onClick={this.changeSrc.bind(this)} id='img3' src={this.state.image3} className="col-3 w-25 h-25 p-2 img-fluid" alt=''/>
+                 <img onClick={this.changeSrc.bind(this)} id='img4' src={this.state.image4} className="col-3 w-25 h-25 p-2 img-fluid" alt=''/>
                  </div>
 		         </div>
            {/* product datails */}
           <div className="col-md-12 col-lg-6">
-		 	      <h2 className='font-weight-bold' >The 3D Printed Marble Machine</h2>
-                  was: <span className='line-through mr-4'>$40</span>now: <span className='font-weight-bold '>$30</span>
+		 	      <h2 className='font-weight-bold' >{this.state.title}</h2>
+             <span>{this.state.rating}</span><br/>
+                  was: <span className='line-through mr-4'>${this.state.previousPrice}</span>now: <span className='font-weight-bold '>
+                  ${this.state.price}</span>
                {/* star rating */}
                <div className="row">
                   <div className="col-md-12">
                       <div className="stars">
-                          <form action=""> <input className="star star-5" id="star-5" type="radio" name="star" /> <label        className="star star-5" for="star-5"></label> <input className="star star-4" id="star-4" type="radio"           name="star" /> <label className="star star-4" for="star-4"></label> <input className="star star-3"          id="star-3" type="radio" name="star" /> <label className="star star-3" for="star-3"></label> <input        className="star star-2" id="star-2" type="radio" name="star" /> <label className="star star-2"        for="star-2"></label> <input className="star star-1" id="star-1" type="radio" name="star" /> <label          className="star star-1" for="star-1"></label> </form>
+                          <form action=""> <input className="star star-5" id="star-5" type="radio" name="star" /> <label        className="star star-5" htmlFor="star-5"></label> <input className="star star-4" id="star-4" type="radio"           name="star" /> <label className="star star-4" htmlFor="star-4"></label> <input className="star star-3"          id="star-3" type="radio" name="star" /> <label className="star star-3" htmlFor="star-3"></label> <input        className="star star-2" id="star-2" type="radio" name="star" /> <label className="star star-2"        htmlFor="star-2"></label> <input className="star star-1" id="star-1" type="radio" name="star" /> <label          className="star star-1" htmlFor="star-1"></label> </form>
                       </div>
                   </div>
               </div>
@@ -55,7 +73,7 @@ export default class ProductPage extends Component{
               <p id='sku'>Product Sku: {this.state.sku}</p>
               {/* add to cart  */}
               <input className='mr-5' type='number' min="1" max={this.state.stock} placeholder='1'></input>
-		 	    <a href="#" className="btn btn-primary">Add To Cart</a>
+		 	    <a href="" className="btn btn-primary">Add To Cart</a>
               {/* items in stock */}
               <p id='stock'>{this.state.stock} in stock</p>
               {/* add to favorite */}
@@ -117,11 +135,14 @@ export default class ProductPage extends Component{
           <div className="row mx-auto mt-5 related-product">
            <h2 className='font-weight-bold'>You may also like</h2>
            <div>
-             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid"></img>
-             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid"></img>
-             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid"></img>
+             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid" alt=''></img>
+             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid" alt=''></img>
+             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid" alt=''></img>
            </div>
           </div>
+          
+          
+
         </div>    
          
        );

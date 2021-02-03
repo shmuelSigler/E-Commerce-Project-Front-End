@@ -6,7 +6,7 @@ export default class Checkbox extends Component {
     render() {
         return (
             <div>
-                <input type="checkbox" id={this.props.title} /> <label for={this.props.title}> {this.props.title}</label>
+                <input type="checkbox" id={this.props.title} /> <label htmlFor={this.props.title}> {this.props.title}</label>
             </div>
         )
     }

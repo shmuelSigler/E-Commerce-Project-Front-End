@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Route, Link} from 'react-router-dom';
 
 export default class Header extends Component{
   render(){
@@ -7,7 +7,7 @@ export default class Header extends Component{
     <div >
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
-      <img src="images/logo.jpg" width="80" height="80" alt="" loading="lazy"></img>
+      <img src="/images/logo.jpg" width="80" height="80" alt="" loading="lazy"/>
       </a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -15,13 +15,15 @@ export default class Header extends Component{
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                <Link exact to='/' className="nav-link">Home</Link>
+                {/* <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a> */}
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
+                <Link to='/catalogPage' className="nav-link">Catalog Page</Link>
+                {/* <a className="nav-link" href="#">Link</a> */}
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"data-toggle="dropdown"         aria-haspopup="true" aria-expanded="false">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
