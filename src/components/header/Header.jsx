@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default class Header extends Component{
   render(){
@@ -23,7 +23,7 @@ export default class Header extends Component{
                 {/* <a className="nav-link" href="#">Link</a> */}
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -44,8 +44,9 @@ export default class Header extends Component{
       </div>
       <div className="details">
           <p>
-            <a className="mr-4" href="disconnect.html">Log In</a>
-            <a href="disconnect.html">Sign Up</a>
+            <Link  className="mr-4" to='/login' >Log In</Link>
+            <Link  to='/signUp' >Sign Up</Link>
+            
            </p>
           <i className="fas fa-cart-plus fa-2x  "></i>
       </div>

@@ -9,7 +9,7 @@ export default class Product extends Component {
         return (
         
             
-            <div className="singleProduct col-lg-4 col-md-6 col-sm">
+            <div className="singleProduct col-lg-4 col-md-6 ">
                 <figure className="">
                     <div className="image">
                         <Link to={"/product/" + this.props.title}>

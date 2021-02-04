@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link} from 'react-router-dom';
 import './footer.css';
 
 const year = new Date().getFullYear();
@@ -54,10 +55,10 @@ export default class Footer extends Component{
 
                         <div className="col-sm">
                           Quick Links<br /><br />
-                          <a href="#">About</a><br /><br />
-                          <a href="#">Terms of Use</a><br /><br />
-                          <a href="#">Disclaimers</a><br /><br />
-                          <a href="#">Contact</a>
+                          <Link  to='/about' >About</Link><br /><br />
+                          <Link  to='/blog' >Blog</Link><br /><br />
+                          <Link  to='/disclaimers' >Disclaimers</Link><br /><br />
+                          <Link  to='/contacts' >Contact</Link>
                         </div>
                     </div>
 

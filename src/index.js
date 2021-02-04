@@ -9,8 +9,15 @@ import App from './App';
 import ProductPage from './components/productPage/ProductPage';
 import CatalogPage from './components/catalogPage/CatalogPage';
 import NotFound from './components/notFound/NotFound';
+import Contacts from './components/contacts/Contacts';
+import About from './components/about/About';
+import Blog from './components/blog/Blog';
+import Disclaimers from './components/disclaimers/Disclaimers';
+import Login from './components/login/Login';
+import SignUp from './components/signUp/SignUp';
 //css
 import './index.css';
+
 // import reportWebVitals from './reportWebVitals';
 
 const routing = (
@@ -20,9 +27,19 @@ const routing = (
      <div>
         <Switch>
           <Route exact path='/' component={App}/>
+          
+          <Route path="/login" component={Login}/>
+          <Route path="/signUp" component={SignUp}/>
+          
           <Route path="/productPage" component={ProductPage}/>    
           <Route path="/product/:id" component={ProductPage}/>
           <Route path="/catalogPage" component={CatalogPage}/>
+
+          <Route path="/about" component={About}/>
+          <Route path="/blog" component={Blog} />
+          <Route path="/disclaimers" component={Disclaimers}/>
+          <Route path="/contacts" component={Contacts}/>
+          
           <Route  component={NotFound}/>
         </Switch>
         

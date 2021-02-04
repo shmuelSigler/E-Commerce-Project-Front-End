@@ -12,7 +12,7 @@ export default class ProductPage extends Component{
    
    constructor(props){
       super(props);
-      const product = productsObj.filter((product) => (product.title ===  props.match.params.id))[0]
+      const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
        //console.log(product)
       //console.log(props);
       this.state={
@@ -43,14 +43,13 @@ export default class ProductPage extends Component{
           <div className="row">
            {/* images */}
              <div className="col-md-12 col-lg-6">
-
-		 	           <img src={this.state.src} id="big-img" className="img-fluid w-50 h-50" alt=''/>
-                 <div className="row m-2">
-                 <img onClick={this.changeSrc.bind(this)} id='img1' src={this.state.image1} className="galary col-3 w-25 h-25 p-2 img-fluid" alt=''/>
-                 <img onClick={this.changeSrc.bind(this)} id='img2' src={this.state.image2} className="col-3 w-25 h-25 p-2 img-fluid" alt=''/>
-                 <img onClick={this.changeSrc.bind(this)} id='img3' src={this.state.image3} className="col-3 w-25 h-25 p-2 img-fluid" alt=''/>
-                 <img onClick={this.changeSrc.bind(this)} id='img4' src={this.state.image4} className="col-3 w-25 h-25 p-2 img-fluid" alt=''/>
-                 </div>
+		 	        <img src={this.state.src} id="big-img" className="img-fluid  shadow-lg " alt=''/>
+              <div className="row m-2 ">
+                 <img onClick={this.changeSrc.bind(this)} id='img1' src={this.state.image1} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
+                 <img onClick={this.changeSrc.bind(this)} id='img2' src={this.state.image2} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
+                 <img onClick={this.changeSrc.bind(this)} id='img3' src={this.state.image3} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
+                 <img onClick={this.changeSrc.bind(this)} id='img4' src={this.state.image4} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
+              </div>
 		         </div>
            {/* product datails */}
           <div className="col-md-12 col-lg-6">
@@ -68,12 +67,12 @@ export default class ProductPage extends Component{
               </div>
             {/* product description */}
 		 	      <p  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, laboriosam laborum.       Harum     repellat quidem, sapiente necessitatibus voluptatibus quibusdam alias quam tempore esse     iure     asperiores aperiam. Nam voluptate facere ducimus amet!</p>
-		 	    <br/>
+		 	        <br/>
               {/* product sku */}
               <p id='sku'>Product Sku: {this.state.sku}</p>
               {/* add to cart  */}
               <input className='mr-5' type='number' min="1" max={this.state.stock} placeholder='1'></input>
-		 	    <a href="" className="btn btn-primary">Add To Cart</a>
+		 	        <button  className="btn btn-primary">Add To Cart</button>
               {/* items in stock */}
               <p id='stock'>{this.state.stock} in stock</p>
               {/* add to favorite */}
@@ -86,7 +85,7 @@ export default class ProductPage extends Component{
                </div>
               </div>
               {/* accordion */}
-              <div id="accordion" className='mt-5'>
+              <div id="accordion" className='mt-5 mb-3'>
                 <div className="card">
                   <div className="card-header">
                     <a className="card-link" data-toggle="collapse" href="#collapseOne">
