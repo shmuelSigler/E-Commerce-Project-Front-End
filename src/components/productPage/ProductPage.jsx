@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {productsObj} from "../product/productsObj.js"
+import Product from '../product/Product'
 import './productPage.css';
 
 //3 ways to fix context this - issue
@@ -13,21 +14,26 @@ export default class ProductPage extends Component{
    constructor(props){
       super(props);
       const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
-       //console.log(product)
+      //  console.log(product)
       //console.log(props);
       this.state={
+         myObj: productsObj,
          title: product.title,
          src:product.src,
          image1:product.image1,
          image2:product.image2,
          image3:product.image3,
          image4:product.image4,
-         
+         filter:product.filter,
          price: product.price,
          previousPrice: product.previousPrice,
          rating: product.rating,
          stock: product.stock,
+         printingTime: product.printingTime,
          sku:product.sku,
+         related:product.related,
+         size: product.size,
+         note: product.note,
 
       }
    }
@@ -106,11 +112,12 @@ export default class ProductPage extends Component{
                  </div>
                  <div id="collapseTwo" className="collapse" data-parent="#accordion">
                    <div className="card-body">
-                     Material: PLA <br/>
-                     Color: Blue, Black <br/>
-                     Printing Time: 35 Hours <br/>
-                     Size: <br/>
-                     Note: does not come with marbles
+                     Material: {this.state.filter[0]} <br/>
+                     Color: {this.state.filter[1]} <br/>
+                     Printing Time: {this.state.printingTime} Hours <br/>
+                     Category: {this.state.filter[2]}<br/>
+                     Size: {this.state.size}<br/>
+                     Note: {this.state.note}
                    </div>
                  </div>
                </div>
@@ -131,13 +138,23 @@ export default class ProductPage extends Component{
           </div>
           <hr/>
           {/* you may also like */}
-          <div className="row mx-auto mt-5 related-product">
+          <div className=" mx-auto mt-5 related-product">
            <h2 className='font-weight-bold'>You may also like</h2>
-           <div>
-             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid" alt=''></img>
-             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid" alt=''></img>
-             <img src='images/product-imgs/product2.jpg' className="col-4 p-5 img-fluid" alt=''></img>
-           </div>
+           <div className="row p-5">
+                        { this.state.myObj.map((el) => {
+                           if( this.state.related.includes(el.title)){
+                            return (
+                                <Product 
+                               key={el.title} 
+                               title={el.title}
+                               description={el.description} src={el.src} price={el.price} rating={el.rating}/> 
+                            )
+                          }
+                            
+                         })
+                        }
+                    
+            </div>
           </div>
           
           

@@ -15,6 +15,7 @@ import Blog from './components/blog/Blog';
 import Disclaimers from './components/disclaimers/Disclaimers';
 import Login from './components/login/Login';
 import SignUp from './components/signUp/SignUp';
+import ScrollToTop from './components/scrollToTop/ScrollToTop';
 //css
 import './index.css';
 
@@ -23,6 +24,7 @@ import './index.css';
 const routing = (
   <div>
   <Router>
+  <ScrollToTop/>
      <Header/>    
      <div>
         <Switch>
@@ -31,7 +33,7 @@ const routing = (
           <Route path="/login" component={Login}/>
           <Route path="/signUp" component={SignUp}/>
           
-          <Route path="/productPage" component={ProductPage}/>    
+          {/* <Route path="/productPage" component={ProductPage}/>     */}
           <Route path="/product/:id" component={ProductPage}/>
           <Route path="/catalogPage" component={CatalogPage}/>
 
