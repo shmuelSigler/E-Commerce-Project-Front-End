@@ -13,7 +13,7 @@ export default class Product extends Component {
                 <figure className="">
                     <div className="image">
                         <Link to={"/product/" + this.props.title}>
-                            <img className="img-fluid " src={this.props.src}   alt={this.props.title} />
+                            <img className="img-fluid change-product" src={this.props.src}   alt={this.props.title} />
                         </Link>
                     </div>
                     

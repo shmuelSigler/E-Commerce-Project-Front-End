@@ -7,7 +7,7 @@ import {productsObj} from "../product/productsObj.js"
 // import ProductPage from '../productPage/ProductPage';
 import './catalogPage.css';
 import difference from '../../../node_modules/lodash/difference.js'
-
+// import uncheck from '../catalogPage/unCheck' //how to import module
 export default class CatalogPage extends Component {
     
   constructor(props){
@@ -25,15 +25,16 @@ export default class CatalogPage extends Component {
                   {star:'🌟🌟🌟', number: 3},
                   {star:'🌟🌟🌟🌟', number: 4},
                   {star:'🌟🌟🌟🌟🌟', number: 5}],
-          showing: '',
+          showing: '',  //for later on to show specific num of items
       }
     }
     
   }
 
-  sort(e){
+  sort(option){
+    console.log(option);
     let copyArr = [...this.state.myObj]
-    switch (e.target.value) {
+    switch (option) {
       case 'High to Low':
         copyArr.sort((a,b)=>b.price-a.price)
         break;
@@ -47,37 +48,50 @@ export default class CatalogPage extends Component {
         copyArr.sort((a,b)=>
         (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0)
         break;
-      default:copyArr.sort((a,b)=>b.price-a.price)
+      default:
         break;
     }
+    this.setState({ sort: option})
     this.setState({ myObj: copyArr })
   }
   
   filter(id,bool){
-    let copyArr = [...productsObj]    //always get the original array
+    
+    let copyArr = [...this.state.myObj]    //always get the original array -DEPRECATED COMMENT
     let arr=[...this.state.filterArr];  //update filterArr on every function call
-    // let str= this.state.showing;
+    // let copySort= this.state.sort;
     if(bool){
       arr.push(id);
-      // str+=id
     } 
     else{                         //filter out catagories 
       arr=arr.filter((el)=>{
         return el !==id;
       })
     }
-    copyArr=copyArr.filter((el)=>{         //filter out the products  
+    copyArr=productsObj.filter((el)=>{         //filter out the products  
       return difference(arr,el.filter).length === 0
     })
     
     this.setState({ myObj: copyArr })
     this.setState({ filterArr: arr }) 
+    // this.sort(this.state.sort) //WHY WHEN THIS LINE IS HERE, FILTER DONT WORK
+    
   }
     
-  show(e){
-    
+  resetFilter(){
+    this.setState({ myObj: productsObj })
+    this.setState({filterArr:[]})
+    const checkArr=document.querySelectorAll('.checkbox');
+    checkArr.forEach(el => {
+         if (el.checked) return el.checked=false;
+     })
+    // uncheck(); how to call module
   }
 
+  show(e){
+    //show specific num of items
+  }
+ 
 
   render() {
         // const checkbox={
@@ -104,7 +118,7 @@ export default class CatalogPage extends Component {
                 </select> 
 
                 <lable className="ml-3 mr-2">Sort By</lable> 
-                <select onChange={this.sort.bind(this)}>
+                <select onChange={ (e)=> this.sort.call( this, e.target.value) } >
                     <option>High to Low</option>
                     <option>Low to High</option>
                     <option>Top Rated</option>
@@ -119,6 +133,7 @@ export default class CatalogPage extends Component {
                     <hr/>
                     <div>
                       <p>Showing: <small>{this.state.filterArr.join()}</small></p>
+                      <button onClick={this.resetFilter.bind(this)}>Reset Filter</button>
                     </div>
                     {/* accordion */}
                     <div id="accordion" >

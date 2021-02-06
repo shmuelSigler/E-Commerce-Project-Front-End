@@ -17,6 +17,7 @@ export default class ProductPage extends Component{
       //  console.log(product)
       //console.log(props);
       this.state={
+        product:product,
          myObj: productsObj,
          title: product.title,
          src:product.src,
@@ -36,6 +37,7 @@ export default class ProductPage extends Component{
          note: product.note,
 
       }
+      
    }
 
    changeSrc(e){
@@ -147,7 +149,8 @@ export default class ProductPage extends Component{
                                 <Product 
                                key={el.title} 
                                title={el.title}
-                               description={el.description} src={el.src} price={el.price} rating={el.rating}/> 
+                               description={el.description} src={el.src} price={el.price} rating={el.rating}
+                               /> 
                             )
                           }
                             

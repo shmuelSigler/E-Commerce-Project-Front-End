@@ -18,8 +18,10 @@ import React from 'react'
 export default function Checkbox(props) {
     return (
         <div>
-            <input type="checkbox" id={props.idFor} onClick={(e) => props.filter(props.id,e.target.checked)}/> 
-                <label className="ml-1" htmlFor={props.idFor}> {props.print}</label>
+            <input type="checkbox" className="checkbox" id={props.idFor} onClick={(e) => props.filter(props.id,e.target.checked)}/> 
+            <label className="ml-1" htmlFor={props.idFor}> {props.print}</label>
         </div>
     )
 }
+
+//class=checkbox for function uncheck in unCheck.js
