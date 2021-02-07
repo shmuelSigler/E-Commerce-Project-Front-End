@@ -35,6 +35,7 @@ const routing = (
           
           {/* <Route path="/productPage" component={ProductPage}/>     */}
           <Route path="/product/:id" component={ProductPage}/>
+          <Route path="/shop" component={CatalogPage}/>         
           <Route path="/catalogPage" component={CatalogPage}/>
 
           <Route path="/about" component={About}/>

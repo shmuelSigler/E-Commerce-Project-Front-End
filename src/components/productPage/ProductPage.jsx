@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {productsObj} from "../product/productsObj.js"
 import Product from '../product/Product'
 import './productPage.css';
-
+// import queryString from 'query-string'
 //3 ways to fix context this - issue
         //1. (event) => this.setOrder(event)
         //2. constructor : this.setOrder = this.setOrder.bind(this)
@@ -14,12 +14,11 @@ export default class ProductPage extends Component{
    constructor(props){
       super(props);
       const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
-      //  console.log(product)
-      //console.log(props);
       this.state={
         product:product,
          myObj: productsObj,
          title: product.title,
+         productDescription: product.productDescription,
          src:product.src,
          image1:product.image1,
          image2:product.image2,
@@ -74,13 +73,13 @@ export default class ProductPage extends Component{
                   </div>
               </div>
             {/* product description */}
-		 	      <p  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, laboriosam laborum.       Harum     repellat quidem, sapiente necessitatibus voluptatibus quibusdam alias quam tempore esse     iure     asperiores aperiam. Nam voluptate facere ducimus amet!</p>
+		 	        <p>{this.state.productDescription}</p>
 		 	        <br/>
               {/* product sku */}
               <p id='sku'>Product Sku: {this.state.sku}</p>
               {/* add to cart  */}
               <input className='mr-5' type='number' min="1" max={this.state.stock} placeholder='1'></input>
-		 	        <button  className="btn btn-primary">Add To Cart</button>
+		 	        <button  className="addToCart btn btn-primary">Add To Cart</button>
               {/* items in stock */}
               <p id='stock'>{this.state.stock} in stock</p>
               {/* add to favorite */}
@@ -94,18 +93,19 @@ export default class ProductPage extends Component{
               </div>
               {/* accordion */}
               <div id="accordion" className='mt-5 mb-3'>
-                <div className="card">
+                {/* <div className="card">
                   <div className="card-header">
                     <a className="card-link" data-toggle="collapse" href="#collapseOne">
-                    Decription
+                    Description
                     </a>
                   </div>
                   <div id="collapseOne" className="collapse show" data-parent="#accordion">
                     <div className="card-body">
-                      Lorem ipsum..
-                    </div>
-                  </div>
-                </div>
+                    {/* {this.state.productDescription} */}
+                    {/* </div> */}
+                  {/* </div> */}
+                {/* </div> */}
+                 
                 <div className="card">
                  <div className="card-header">
                    <a className="collapsed card-link" data-toggle="collapse" href="#collapseTwo">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 // import productsObj from "./productsObj.js"
 import "./product.css"
 
@@ -12,9 +12,9 @@ export default class Product extends Component {
             <div className="singleProduct col-lg-4 col-md-6 ">
                 <figure className="">
                     <div className="image">
-                        <Link to={"/product/" + this.props.title}>
+                        <a href={"/product/" + this.props.title}>
                             <img className="img-fluid change-product" src={this.props.src}   alt={this.props.title} />
-                        </Link>
+                        </a>
                     </div>
                     
                     <figcaption>
@@ -23,7 +23,7 @@ export default class Product extends Component {
                         <span><b>${this.props.price}</b></span><br/>
                         <span>{this.props.description}</span>
                     </figcaption>
-                    <button  className="btn btn-primary">Add To Cart</button>
+                    <button  className="addToCart btn btn-primary">Add To Cart</button>
                 </figure>
             </div>
         )

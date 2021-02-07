@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
-
 // import ProductPage from "./components/productPage/ProductPage.jsx";
 // import CatalogPage from "./components/catalogPage/CatalogPage.jsx";
-
-//Home page
 
 
 export default class App extends Component{

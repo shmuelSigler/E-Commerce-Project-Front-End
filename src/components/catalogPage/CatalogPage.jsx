@@ -4,18 +4,35 @@ import Checkbox from '../checkbox/Checkbox'
 import Product from '../product/Product'
 
 import {productsObj} from "../product/productsObj.js"
-// import ProductPage from '../productPage/ProductPage';
-import './catalogPage.css';
+
 import difference from '../../../node_modules/lodash/difference.js'
-// import uncheck from '../catalogPage/unCheck' //how to import module
+// EXAMPLE: import uncheck from '../catalogPage/unCheck' //how to import module // uncheck(); how to call module
+import './catalogPage.css';
+import queryString from 'query-string'
+
 export default class CatalogPage extends Component {
     
   constructor(props){
     super(props)
+    // console.log(queryString.parse(props.location.search)); // return {q: "Impossible Table"}
+    this.search = (props.location.search)? queryString.parse(props.location.search).q : '';
+    
+    let productsObjs;
+    if (this.search)
+      productsObjs = productsObj.filter( product => {
+        //check if the phrase in the title or productDescription
+        if ( product.title.toLowerCase().includes(this.search.toLowerCase()) )
+          return product
+        else if( product.productDescription.toLowerCase().includes(this.search.toLowerCase()) )
+          return product
+      })
+    else
+      productsObjs = productsObj
+
     this.state = {
         sort: 'High to Low',
         filterArr: [],
-        myObj: productsObj,
+        myObj: productsObjs,
         checkbox:{
           material: ['PLA','PLA+'],
           color:['Black','Blue','White'],
@@ -74,7 +91,8 @@ export default class CatalogPage extends Component {
     
     this.setState({ myObj: copyArr })
     this.setState({ filterArr: arr }) 
-    // this.sort(this.state.sort) //WHY WHEN THIS LINE IS HERE, FILTER DONT WORK
+    setTimeout(()=> this.sort(this.state.sort),0)
+    //this.sort(this.state.sort) //WHY WHEN THIS LINE IS HERE, FILTER DONT WORK
     
   }
     
@@ -85,39 +103,28 @@ export default class CatalogPage extends Component {
     checkArr.forEach(el => {
          if (el.checked) return el.checked=false;
      })
-    // uncheck(); how to call module
+     setTimeout(()=> this.sort(this.state.sort),0)
   }
 
   show(e){
     //show specific num of items
   }
- 
+
 
   render() {
-        // const checkbox={
-        //     material: ['PLA','PLA+'],
-        //     color:['Black','Blue','White'],
-        //     theme:['Engineering','Game','Lithophane','Toy'],
-        //     rating:[{star:'🌟', number: 1},
-        //             {star:'🌟🌟', number: 2},
-        //             {star:'🌟🌟🌟', number: 3},
-        //             {star:'🌟🌟🌟🌟', number: 4},
-        //             {star:'🌟🌟🌟🌟🌟', number: 5}]
-        // }
-      
         return (
-
             <div className="container-fluid p-5">
+    
               <div><h1> 3D Catalog </h1></div>
               {/* select div- use class=d-flex with justify */}
               <div className="d-flex justify-content-end pr-5">
-              <lable className="mr-2">Show</lable> 
+              {/* <label className="mr-2">Show</label> 
                 <select onChange={this.show.bind(this)}>
                     <option>6</option>
                     <option>12</option>
-                </select> 
+                </select>  */}
 
-                <lable className="ml-3 mr-2">Sort By</lable> 
+                <label className="ml-3 mr-2">Sort By</label> 
                 <select onChange={ (e)=> this.sort.call( this, e.target.value) } >
                     <option>High to Low</option>
                     <option>Low to High</option>
@@ -133,7 +140,7 @@ export default class CatalogPage extends Component {
                     <hr/>
                     <div>
                       <p>Showing: <small>{this.state.filterArr.join()}</small></p>
-                      <button onClick={this.resetFilter.bind(this)}>Reset Filter</button>
+                      <button className="btn btn-primary my-3" onClick={this.resetFilter.bind(this)}>Show All</button>
                     </div>
                     {/* accordion */}
                     <div id="accordion" >

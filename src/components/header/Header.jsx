@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import './header.css';
 
 export default class Header extends Component{
+
+  constructor(props){
+    super(props)
+    this.callRef=React.createRef(); //refrenece to dom element
+    this.state={
+      query: '',
+    }
+    
+  }
+    
+  changeQuery(e){
+    this.setState( {query:this.callRef.current.value} )
+  }
+
   render(){
     return(
     <div >
@@ -37,9 +52,10 @@ export default class Header extends Component{
                 <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> */}
           </ul>
-          <form className="form-inline my-2 my-lg-0 mr-4">
-              <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <form className="form-inline my-2 my-lg-0 mr-4" action='/shop'>
+              <input ref={this.callRef} className="form-control mr-sm-2" type="search" placeholder="Search" onChange={this.changeQuery.bind(this)} name='q' pattern="[a-z A-Z]{1,}" title="one or more characters in the search phrase a-z, A-Z and no numbers" required="required"/>
+              <button className="serach btn btn-outline-success my-2 my-sm-0" type="submit"><span>Search</span></button>
+              
           </form>
       </div>
       <div className="details">
