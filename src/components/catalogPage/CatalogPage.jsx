@@ -16,8 +16,8 @@ export default class CatalogPage extends Component {
     super(props)
     // console.log(queryString.parse(props.location.search)); // return {q: "Impossible Table"}
     this.search = (props.location.search)? queryString.parse(props.location.search).q : '';
-    
     let productsObjs;
+    this.match ='v';
     if (this.search)
       productsObjs = productsObj.filter( product => {
         //check if the phrase in the title or productDescription
@@ -27,7 +27,7 @@ export default class CatalogPage extends Component {
           return product
       })
     else
-      productsObjs = productsObj
+      productsObjs = productsObj;
 
     this.state = {
         sort: 'High to Low',
@@ -42,14 +42,13 @@ export default class CatalogPage extends Component {
                   {star:'🌟🌟🌟', number: 3},
                   {star:'🌟🌟🌟🌟', number: 4},
                   {star:'🌟🌟🌟🌟🌟', number: 5}],
-          showing: '',  //for later on to show specific num of items
+        match:this.match,
       }
     }
     
   }
 
   sort(option){
-    console.log(option);
     let copyArr = [...this.state.myObj]
     switch (option) {
       case 'High to Low':
@@ -92,8 +91,6 @@ export default class CatalogPage extends Component {
     this.setState({ myObj: copyArr })
     this.setState({ filterArr: arr }) 
     setTimeout(()=> this.sort(this.state.sort),0)
-    //this.sort(this.state.sort) //WHY WHEN THIS LINE IS HERE, FILTER DONT WORK
-    
   }
     
   resetFilter(){
@@ -105,16 +102,13 @@ export default class CatalogPage extends Component {
      })
      setTimeout(()=> this.sort(this.state.sort),0)
   }
-
-  show(e){
-    //show specific num of items
-  }
-
+ 
 
   render() {
         return (
             <div className="container-fluid p-5">
-    
+            <p className="no-matching display-4 justify-content-center d-none">No Matching</p>
+             
               <div><h1> 3D Catalog </h1></div>
               {/* select div- use class=d-flex with justify */}
               <div className="d-flex justify-content-end pr-5">

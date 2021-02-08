@@ -8,7 +8,6 @@ export default class Product extends Component {
     render() {
         return (
         
-            
             <div className="singleProduct col-lg-4 col-md-6 ">
                 <figure className="">
                     <div className="image">

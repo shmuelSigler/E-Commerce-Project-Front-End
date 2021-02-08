@@ -14,6 +14,7 @@ export default class ProductPage extends Component{
    constructor(props){
       super(props);
       const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
+      
       this.state={
         product:product,
          myObj: productsObj,
@@ -38,7 +39,7 @@ export default class ProductPage extends Component{
       }
       
    }
-
+   
    changeSrc(e){
       this.setState({src:e.target.src})
    }
@@ -47,16 +48,38 @@ export default class ProductPage extends Component{
        return(
         <div  className="container-fluid p-5">
          
-          <div className="row">
+          <div className="row ">
            {/* images */}
              <div className="col-md-12 col-lg-6">
-		 	        <img src={this.state.src} id="big-img" className="img-fluid  shadow-lg " alt=''/>
+             
+            <div id="custCarousel" className="carousel slide carousel-fade m-2" data-ride="carousel" align="center">
+                {/* <!-- slides --> */}
+                <div className="carousel-inner shadow-lg ">
+                    <div className="carousel-item active"> <img className="img-fluid" src={this.state.image1} alt="img1"/> </div>
+                    <div className="carousel-item"> <img className="img-fluid" src={this.state.image2} alt="img2"/> </div>
+                    <div className="carousel-item"> <img className="img-fluid" src={this.state.image3} alt="img3"/> </div>
+                    <div className="carousel-item"> <img className="img-fluid" src={this.state.image4} alt="img4"/> </div>
+                </div> 
+                {/* <!-- Left right --> */}
+                 <a className="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span className="carousel-control-prev-icon text-danger "></span> </a> <a className="carousel-control-next" href="#custCarousel" data-slide="next"> <span className="carousel-control-next-icon "></span> </a>
+                 
+                  {/* <!-- Thumbnails --> */}
+                <ol className="carousel-indicators list-inline ">
+                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href=''> <img src={this.state.image1} className="img-fluid " alt='img1'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel" href=''> <img src={this.state.image2} className="img-fluid " alt='img2'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel" href=''> <img src={this.state.image3} className="img-fluid " alt='img3'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel" href=''> <img src={this.state.image4} className="img-fluid " alt='img4'/> </a> </li>
+                </ol>
+            </div>
+        
+		 	        {/* <img src={this.state.src} id="big-img" className="img-fluid  shadow-lg " alt=''/>
               <div className="row m-2 ">
                  <img onClick={this.changeSrc.bind(this)} id='img1' src={this.state.image1} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
                  <img onClick={this.changeSrc.bind(this)} id='img2' src={this.state.image2} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
                  <img onClick={this.changeSrc.bind(this)} id='img3' src={this.state.image3} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
                  <img onClick={this.changeSrc.bind(this)} id='img4' src={this.state.image4} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
-              </div>
+              </div> */}
+
 		         </div>
            {/* product datails */}
           <div className="col-md-12 col-lg-6">
@@ -146,7 +169,7 @@ export default class ProductPage extends Component{
                         { this.state.myObj.map((el) => {
                            if( this.state.related.includes(el.title)){
                             return (
-                                <Product 
+                                <Product
                                key={el.title} 
                                title={el.title}
                                description={el.description} src={el.src} price={el.price} rating={el.rating}
@@ -156,15 +179,12 @@ export default class ProductPage extends Component{
                             
                          })
                         }
-                    
+          
             </div>
           </div>
-          
-          
-
+     
         </div>    
          
        );
     }
 }
-
