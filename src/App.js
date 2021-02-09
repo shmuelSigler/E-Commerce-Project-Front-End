@@ -25,21 +25,30 @@ export default class App extends Component{
                 <div className="carousel slide" data-ride="carousel" id="carousel1">
                     <div className="carousel-inner" role="listbox">
                         <div className="carousel-item"> <img className="d-block img-fluid w-100" src="/images/product-imgs/Mini Crossbow3.jpg" alt="first slide"/>
-                            <div className="carousel-caption">
-                                <h3 >Mini Crossbow</h3>
-                                <p>finest engineering</p>
+                            <div className="carousel-caption ">
+                                <h3 className="display-4 ">Featured Product</h3>
+                                <p className="font-">finest engineering</p>
+                                <Link to={"/catalogPage/Featured"} >
+                                    <button type='button' className="btn mb-3 p-2 bg-primary text-white ">Shop Now</button>
+                                </Link>
                             </div>
                         </div>
                         <div className="carousel-item active"> <img className="d-block img-fluid w-100" src="/images/product-imgs/Jet Fighter4.jpg" data-holder-rendered="true" alt=''/>
                             <div className="carousel-caption">
-                                <h3>Jet Fighter</h3>
-                                <p>edge technology</p>
+                                <h3 className="display-4">New Products</h3>
+                                <p className="display-5">edge technology</p>
+                                <Link to={"/catalogPage/New"} >
+                                    <button type='button' className="btn mb-3 p-2 bg-primary text-white ">Shop Now</button>
+                                </Link>
                             </div>
                         </div>
                         <div className="carousel-item"> <img className="d-block img-fluid w-100" src="/images/product-imgs/Batmobile1.jpg" data-holder-rendered="true" alt=''/>
                             <div className="carousel-caption">
-                                <h3>Batmobile</h3>
-                                <p>best cars</p>
+                                <h3 className="display-4">On Sale</h3>
+                                <p>hurry up</p>
+                                <Link to={"/catalogPage/Sale"} >
+                                    <button type='button' className="btn mb-3 p-2 bg-primary text-white ">Shop Now</button>
+                                </Link>
                             </div>
                         </div>
                     </div> <a className="carousel-control-prev" href="#carousel1" role="button" data-slide="prev"> <span className="carousel-control-prev-icon" aria-hidden="true"></span> <span className="sr-only">Previous</span> </a> <a className="carousel-control-next" href="#carousel1" role="button" data-slide="next"> <span className="carousel-control-next-icon" aria-hidden="true"></span> <span className="sr-only">Next</span> </a>
@@ -51,10 +60,8 @@ export default class App extends Component{
 
 
 <div className="container my-5">
-
-<p className="font-weight-bold">Featured Product</p>
-
-<hr className="my-1"/>
+    <p className="font-weight-bold">Featured Product</p>
+    <hr className="my-1"/>
 
 {/* <!--Carousel Wrapper--> */}
 <div id="multi-item-example" className="carousel slide carousel-multi-item" data-ride="carousel">

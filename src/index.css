@@ -11,6 +11,7 @@ body {
   font-family: 'Chakra Petch', sans-serif; /* add global font*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
 }
 
 code {
@@ -20,7 +21,7 @@ code {
 
 
 .addToCart {
-  margin: 10px 0;
+  /* margin: 10px 0; */
   display: inline-block;
   background: #4285f4;
   color: #fff;

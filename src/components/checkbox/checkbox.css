@@ -1,0 +1,8 @@
+label{
+    transition: font-size 1s;
+}
+
+label:hover{
+    /* background-color:cadetblue; */
+    font-size: 105%;
+}

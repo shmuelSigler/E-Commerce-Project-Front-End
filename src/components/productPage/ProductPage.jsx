@@ -167,17 +167,15 @@ export default class ProductPage extends Component{
            <h2 className='font-weight-bold'>You may also like</h2>
            <div className="row p-5">
                         { this.state.myObj.map((el) => {
-                           if( this.state.related.includes(el.title)){
-                            return (
-                                <Product
-                               key={el.title} 
-                               title={el.title}
-                               description={el.description} src={el.src} price={el.price} rating={el.rating}
-                               /> 
-                            )
+                           return this.state.related.includes(el.title) &&
+                            <Product
+                             key={el.title} 
+                             title={el.title}
+                             description={el.description} src={el.src} price={el.price} rating={el.rating} 
+                             obj={el}
+                             /> 
                           }
-                            
-                         })
+                         )
                         }
           
             </div>

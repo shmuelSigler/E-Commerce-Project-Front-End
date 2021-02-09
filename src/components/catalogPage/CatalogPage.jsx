@@ -15,24 +15,28 @@ export default class CatalogPage extends Component {
   constructor(props){
     super(props)
     // console.log(queryString.parse(props.location.search)); // return {q: "Impossible Table"}
-    this.search = (props.location.search)? queryString.parse(props.location.search).q : '';
-    let productsObjs;
-    this.match ='v';
-    if (this.search)
-      productsObjs = productsObj.filter( product => {
-        //check if the phrase in the title or productDescription
-        if ( product.title.toLowerCase().includes(this.search.toLowerCase()) )
-          return product
-        else if( product.productDescription.toLowerCase().includes(this.search.toLowerCase()) )
-          return product
-      })
-    else
-      productsObjs = productsObj;
-
+    // this.search = (props.location.search)? queryString.parse(props.location.search).q : '';
+    // let productsObjs;
+    // this.match ='';
+    // if (this.search)
+    //   productsObjs = productsObj.filter( product => {
+    //     //check if the phrase in the title or productDescription
+    //     if ( product.title.toLowerCase().includes(this.search.toLowerCase()) )
+    //       return product
+    //     else if( product.productDescription.toLowerCase().includes(this.search.toLowerCase()) )
+    //       return product
+    //     else
+    //       this.match='No Matching'
+    //       return []
+    //   })
+    // else
+    //   productsObjs = productsObj;
+    
     this.state = {
         sort: 'High to Low',
+        homeReq: '',
         filterArr: [],
-        myObj: productsObjs,
+        myObj: productsObj, //was productObjs
         checkbox:{
           material: ['PLA','PLA+'],
           color:['Black','Blue','White'],
@@ -42,10 +46,29 @@ export default class CatalogPage extends Component {
                   {star:'🌟🌟🌟', number: 3},
                   {star:'🌟🌟🌟🌟', number: 4},
                   {star:'🌟🌟🌟🌟🌟', number: 5}],
-        match:this.match,
-      }
+          },
+        noMatch:'',
+        search: queryString.parse(props.location.search).q
+    } 
+  }
+
+  componentDidMount(){
+    if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
+    this.matchSearch()
+  }
+  
+  matchSearch(){
+    this.setState({noMatch: ''})
+    let productsObjs=[];
+    if(this.state.search){
+      productsObjs = productsObj.filter( product => {
+          //check if the phrase in the title or productDescription
+          return ( product.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
+          product.productDescription.toLowerCase().includes(this.state.search.toLowerCase()))
+        })
+      this.setState({myObj:productsObjs})
+      if(productsObjs.length===0) this.setState({noMatch:"No Matching"})
     }
-    
   }
 
   sort(option){
@@ -70,9 +93,9 @@ export default class CatalogPage extends Component {
     this.setState({ sort: option})
     this.setState({ myObj: copyArr })
   }
-  
+
   filter(id,bool){
-    
+    this.setState({noMatch: ''})
     let copyArr = [...this.state.myObj]    //always get the original array -DEPRECATED COMMENT
     let arr=[...this.state.filterArr];  //update filterArr on every function call
     // let copySort= this.state.sort;
@@ -90,7 +113,7 @@ export default class CatalogPage extends Component {
     
     this.setState({ myObj: copyArr })
     this.setState({ filterArr: arr }) 
-    setTimeout(()=> this.sort(this.state.sort),0)
+    setTimeout(()=> this.sort(this.state.sort),0) 
   }
     
   resetFilter(){
@@ -101,15 +124,17 @@ export default class CatalogPage extends Component {
          if (el.checked) return el.checked=false;
      })
      setTimeout(()=> this.sort(this.state.sort),0)
+    this.setState({noMatch:''})
   }
  
 
   render() {
         return (
             <div className="container-fluid p-5">
-            <p className="no-matching display-4 justify-content-center d-none">No Matching</p>
+            {this.state.noMatch && <p className="no-matching display-4 justify-content-center">{this.state.noMatch}</p>}
              
-              <div><h1> 3D Catalog </h1></div>
+            {!this.state.noMatch && <p className="no-matching display-4 justify-content-center">3D Catalog</p>}
+              {/* <div><h1> 3D Catalog </h1></div> */}
               {/* select div- use class=d-flex with justify */}
               <div className="d-flex justify-content-end pr-5">
               {/* <label className="mr-2">Show</label> 
@@ -118,7 +143,7 @@ export default class CatalogPage extends Component {
                     <option>12</option>
                 </select>  */}
 
-                <label className="ml-3 mr-2">Sort By</label> 
+                <label className="mr-2">Sort By</label> 
                 <select onChange={ (e)=> this.sort.call( this, e.target.value) } >
                     <option>High to Low</option>
                     <option>Low to High</option>
@@ -148,7 +173,7 @@ export default class CatalogPage extends Component {
                            <div className="card-body">
                            { this.state.checkbox.material.map((el)=>{
                                return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)}/>
-                           })
+                           }) 
                            }
                            </div>
                          </div>
@@ -211,7 +236,9 @@ export default class CatalogPage extends Component {
                               <Product 
                               key={el.title} 
                                title={el.title}
-                               description={el.description} src={el.src} price={el.price} rating={el.rating}/>
+                               description={el.description} src={el.src} price={el.price} rating={el.rating}
+                                 special={el.special} obj={el}
+                               />
                             )
                           })
                         }

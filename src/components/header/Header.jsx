@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import './header.css';
+import ThreeDRotationIcon from '@material-ui/icons/ThreeDRotation';
 
 export default class Header extends Component{
 
@@ -22,7 +23,8 @@ export default class Header extends Component{
     <div >
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
-      <img src="/images/logo.jpg" width="80" height="80" alt="" loading="lazy"/>
+      <ThreeDRotationIcon fontSize="large"/>
+      {/* <img src="/images/logo.jpg" width="80" height="80" alt="" loading="lazy"/> */}
       </a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
