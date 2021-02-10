@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {productsObj} from "../product/productsObj.js"
 import Product from '../product/Product'
+//react.js example components
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
+import InnerImageZoom from 'react-inner-image-zoom'
+
 import './productPage.css';
 // import queryString from 'query-string'
 //3 ways to fix context this - issue
@@ -55,17 +59,34 @@ export default class ProductPage extends Component{
             <div id="custCarousel" className="carousel slide carousel-fade m-2" data-ride="carousel" align="center">
                 {/* <!-- slides --> */}
                 <div className="carousel-inner shadow-lg ">
-                    <div className="carousel-item active"> <img className="img-fluid" src={this.state.image1} alt="img1"/> </div>
-                    <div className="carousel-item"> <img className="img-fluid" src={this.state.image2} alt="img2"/> </div>
-                    <div className="carousel-item"> <img className="img-fluid" src={this.state.image3} alt="img3"/> </div>
-                    <div className="carousel-item"> <img className="img-fluid" src={this.state.image4} alt="img4"/> </div>
+                    <div className="carousel-item active"> 
+                    <InnerImageZoom fadeDuration={0}  src={this.state.image1} zoomScale={0.3} alt="img1"/>
+                    {/* <img className="img-fluid" src={this.state.image1} alt="img1"/>  */}
+                    </div>
+                    <div className="carousel-item">
+                    <InnerImageZoom fadeDuration={0} src={this.state.image2} zoomScale={0.3} alt="img2"/>
+                     {/* <img className="img-fluid" src={this.state.image2} alt="img2"/>  */}
+                     </div>
+                    <div className="carousel-item">
+                    <InnerImageZoom fadeDuration={0} src={this.state.image3} zoomScale={0.3}  alt="img3"/> 
+                    {/* <img className="img-fluid" src={this.state.image3} alt="img3"/>  */}
+                    </div>
+                    <div className="carousel-item"> 
+                    <InnerImageZoom fadeDuration={0} src={this.state.image4} zoomScale={0.3}  alt="img4"/>
+                    {/* <img className="img-fluid" src={this.state.image4} alt="img4"/>  */}
+                    </div>
                 </div> 
                 {/* <!-- Left right --> */}
-                 <a className="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span className="carousel-control-prev-icon text-danger "></span> </a> <a className="carousel-control-next" href="#custCarousel" data-slide="next"> <span className="carousel-control-next-icon "></span> </a>
+                 <a className="carousel-control-prev w-10" href="#custCarousel" data-slide="prev"> 
+                  <span className="carousel-control-prev-icon mr-5"></span> 
+                 </a> 
+                 <a className="carousel-control-next" href="#custCarousel" data-slide="next"> 
+                  <span className="carousel-control-next-icon ml-5"></span> 
+                 </a>
                  
                   {/* <!-- Thumbnails --> */}
                 <ol className="carousel-indicators list-inline ">
-                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href=''> <img src={this.state.image1} className="img-fluid " alt='img1'/> </a> </li>
+                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href='#'> <img src={this.state.image1} className="img-fluid " alt='img1'/> </a> </li>
                     <li className="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel" href=''> <img src={this.state.image2} className="img-fluid " alt='img2'/> </a> </li>
                     <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel" href=''> <img src={this.state.image3} className="img-fluid " alt='img3'/> </a> </li>
                     <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel" href=''> <img src={this.state.image4} className="img-fluid " alt='img4'/> </a> </li>

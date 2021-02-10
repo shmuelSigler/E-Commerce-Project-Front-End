@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './header.css';
+//MATERIAL UI
 import ThreeDRotationIcon from '@material-ui/icons/ThreeDRotation';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Badge } from '@material-ui/core';
+
+import './header.css';
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}))(Badge);
 
 export default class Header extends Component{
 
@@ -17,6 +32,8 @@ export default class Header extends Component{
   changeQuery(e){
     this.setState( {query:this.callRef.current.value} )
   }
+
+  
 
   render(){
     return(
@@ -64,9 +81,14 @@ export default class Header extends Component{
           <p>
             <Link  className="mr-4" to='/login' >Log In</Link>
             <Link  to='/signUp' >Sign Up</Link>
-            
            </p>
-          <i className="fas fa-cart-plus fa-2x  "></i>
+           <Link to={"/cart"}>
+              <IconButton aria-label="cart">
+                <StyledBadge badgeContent={1} color="secondary">
+                  <ShoppingCartIcon />
+                </StyledBadge>
+              </IconButton>
+          </Link>
       </div>
       </nav> 
     </div>
@@ -75,7 +97,7 @@ export default class Header extends Component{
  }
 
 
-
+{/* <i className="fas fa-cart-plus fa-2x  "></i> */}
 
 
 // function Header() {

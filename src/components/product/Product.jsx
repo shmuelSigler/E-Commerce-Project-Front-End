@@ -8,12 +8,13 @@ import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 //ZOOM API FROM MATERIAL UI
 import Zoom from '@material-ui/core/Zoom';
-//QUICK vIEW
+//Material UI components -QUICK VIEW
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+//react.js example components
+import {Animated} from "react-animated-css";
 //! IN THE Popover DOCUMANTION (MATERIAL-UI) THERE IS A FUNCTION AND NOT CLASS SO I CONVERTED IT FROM CLASS TO FUNCTION
 
 const useStyles = makeStyles((theme) => ({      // useStyles for the padding inside the popup
@@ -42,8 +43,9 @@ export default function Product(props)  {
     
      
         return (
-        
+          
             <div className="singleProduct col-lg-4 col-md-6 ">
+              <Animated animationIn="pulse" animationOut="rollOut" animationInDuration={1000} animationOutDuration= {800} isVisible={true}>
                 <figure className="">
                   <div className="image">
                    <Zoom in={true}>
@@ -70,7 +72,8 @@ export default function Product(props)  {
                    
          {/* QUICK VIEW & ADD TO CART BUTTUNS */}
                 <div className='d-flex justify-content-center mt-3'>
-                <button  className="addToCart btn btn-primary mr-5">add to cart</button>
+                {/* ADD TO CART BUTTON */}
+                <button onClick={() => props.addToCart} className="addToCart btn btn-primary mr-5">add to cart</button>
                     <Button  aria-describedby={id} variant="contained" color="primary" onClick={handleClick}
                     style={{ backgroundColor: '#4285f4' ,
                             fontSize: '16px',
@@ -101,19 +104,23 @@ export default function Product(props)  {
                          <div>
                             <h5 className='font-weight-bold'>{props.obj.title}</h5>
                             <hr className="w-10"/>
-                            was: <span className='line-through mr-4'>${props.obj.previousPrice}</span>now: <span className='font-weight-bold '>
-                            ${props.obj.price}</span>
-                            <p>
+                            <span className='line-through mr-4'>was: ${props.obj.previousPrice}</span>
+                            <span className='font-weight-bold '>
+                            now: ${props.obj.price}</span>
+                            <div>
                                 <b>{props.obj.productDescription}<br/><br/>
                                 Product Sku: {props.obj.sku}<br/>
                                 {props.obj.stock} in stock<br/><br/>
-                                Material: {props.obj.filter[0]}<br/>
-                                Color: {props.obj.filter[1]} <br/>
-                                Printing Time: {props.obj.printingTime} Hours <br/>
-                                Category: {props.obj.filter[2]}<br/>
-                                Size: {props.obj.size}<br/>
-                                Note: {props.obj.note}</b>
-                            </p>
+                                <ul>
+                                  <li>Material: {props.obj.filter[0]}</li>
+                                  <li>Color: {props.obj.filter[1]} </li>
+                                  <li>Printing Time: {props.obj.printingTime} Hours </li>
+                                  <li>Category: {props.obj.filter[2]}</li>
+                                  <li>Size: {props.obj.size}</li>
+                                  <li>Note: {props.obj.note}</li>
+                                </ul>
+                                </b>
+                            </div>
                             
                          </div>
                                     
@@ -122,7 +129,9 @@ export default function Product(props)  {
                 </div>
 
                 </figure>
+                </Animated>
             </div>
+            
         );
     
 }

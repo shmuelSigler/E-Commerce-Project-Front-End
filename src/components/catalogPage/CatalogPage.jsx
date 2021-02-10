@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
+import {productsObj} from "../product/productsObj.js"
 // import {Route, Link} from 'react-router-dom';
 import Checkbox from '../checkbox/Checkbox'
 import Product from '../product/Product'
 
-import {productsObj} from "../product/productsObj.js"
-
+//loadsh
 import difference from '../../../node_modules/lodash/difference.js'
 // EXAMPLE: import uncheck from '../catalogPage/unCheck' //how to import module // uncheck(); how to call module
-import './catalogPage.css';
+
 import queryString from 'query-string'
+//react.js example components
+import {Animated} from "react-animated-css";
+
+import './catalogPage.css';
 
 export default class CatalogPage extends Component {
     
@@ -131,9 +135,11 @@ export default class CatalogPage extends Component {
   render() {
         return (
             <div className="container-fluid p-5">
-            {this.state.noMatch && <p className="no-matching display-4 justify-content-center">{this.state.noMatch}</p>}
+            {this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
+            <p className="no-matching display-4 justify-content-center">{this.state.noMatch}</p></Animated>}
              
-            {!this.state.noMatch && <p className="no-matching display-4 justify-content-center">3D Catalog</p>}
+            {!this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
+            <p className="no-matching display-4 justify-content-center">3D Catalog</p></Animated>}
               {/* <div><h1> 3D Catalog </h1></div> */}
               {/* select div- use class=d-flex with justify */}
               <div className="d-flex justify-content-end pr-5">
@@ -161,6 +167,7 @@ export default class CatalogPage extends Component {
                       <p>Showing: <small>{this.state.filterArr.join()}</small></p>
                       <button className="btn btn-primary my-3" onClick={this.resetFilter.bind(this)}>Show All</button>
                     </div>
+                    
                     {/* accordion */}
                     <div id="accordion" >
                        <div className="card ">
@@ -237,7 +244,7 @@ export default class CatalogPage extends Component {
                               key={el.title} 
                                title={el.title}
                                description={el.description} src={el.src} price={el.price} rating={el.rating}
-                                 special={el.special} obj={el}
+                                 special={el.special} obj={el} addToCart={this.props.addToCart}
                                />
                             )
                           })

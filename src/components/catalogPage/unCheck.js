@@ -1,3 +1,5 @@
+
+//! DEPRECATED
 function uncheck() {
      const checkArr=document.querySelectorAll('.checkbox');
     //  console.log(checkArr);
