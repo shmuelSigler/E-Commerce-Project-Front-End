@@ -1,0 +1,47 @@
+/* 
+
+.main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%
+}
+
+.col2,
+.coll {
+    padding: 0 1vh;
+    
+}
+
+.priceAndX{
+    text-align: center;
+    padding-top: 50px;
+}
+
+
+.close {
+    
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.incrementDecrement {
+    width: 10px;
+    
+    text-align: center;
+    padding-top: 50px;
+  }
+
+  input.number {
+    text-align: center;
+    border: none;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-weight: bolder;
+  
+  }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+     
+      margin: 0;
+  } */

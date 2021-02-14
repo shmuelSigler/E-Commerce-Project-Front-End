@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import {productsObj} from "../product/productsObj.js"
 // import {Route, Link} from 'react-router-dom';
 import Checkbox from '../checkbox/Checkbox'
@@ -38,7 +39,6 @@ export default class CatalogPage extends Component {
     
     this.state = {
         sort: 'High to Low',
-        homeReq: '',
         filterArr: [],
         myObj: productsObj, //was productObjs
         checkbox:{
@@ -52,13 +52,16 @@ export default class CatalogPage extends Component {
                   {star:'🌟🌟🌟🌟🌟', number: 5}],
           },
         noMatch:'',
-        search: queryString.parse(props.location.search).q
+        search: queryString.parse(props.location.search).q,
+        test: this.props.num,
+        test2:this.props.test
     } 
   }
 
+  
   componentDidMount(){
     if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
-    this.matchSearch()
+    this.matchSearch()  // check if came from search input in header
   }
   
   matchSearch(){
@@ -126,20 +129,21 @@ export default class CatalogPage extends Component {
     const checkArr=document.querySelectorAll('.checkbox');
     checkArr.forEach(el => {
          if (el.checked) return el.checked=false;
-     })
-     setTimeout(()=> this.sort(this.state.sort),0)
+    })
+    setTimeout(()=> this.sort(this.state.sort),0)
     this.setState({noMatch:''})
   }
- 
+
+
 
   render() {
         return (
             <div className="container-fluid p-5">
             {this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
             <p className="no-matching display-4 justify-content-center">{this.state.noMatch}</p></Animated>}
-             
-            {!this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
-            <p className="no-matching display-4 justify-content-center">3D Catalog</p></Animated>}
+            <p className="no-matching display-4 justify-content-center">3D Catalog</p>
+            {/* {!this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
+            <p className="no-matching display-4 justify-content-center">3D Catalog</p></Animated>} */}
               {/* <div><h1> 3D Catalog </h1></div> */}
               {/* select div- use class=d-flex with justify */}
               <div className="d-flex justify-content-end pr-5">
@@ -165,7 +169,11 @@ export default class CatalogPage extends Component {
                     <hr/>
                     <div>
                       <p>Showing: <small>{this.state.filterArr.join()}</small></p>
-                      <button className="btn btn-primary my-3" onClick={this.resetFilter.bind(this)}>Show All</button>
+                      <Link to="/catalogPage">
+                        <button className="btn btn-primary my-3" onClick={this.resetFilter.bind(this)}>
+                          Show All
+                        </button>
+                      </Link>
                     </div>
                     
                     {/* accordion */}

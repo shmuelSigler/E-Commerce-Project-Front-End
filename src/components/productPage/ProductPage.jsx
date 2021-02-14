@@ -18,7 +18,7 @@ export default class ProductPage extends Component{
    constructor(props){
       super(props);
       const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
-      
+      this.callRef=React.createRef();
       this.state={
         product:product,
          myObj: productsObj,
@@ -39,13 +39,17 @@ export default class ProductPage extends Component{
          related:product.related,
          size: product.size,
          note: product.note,
-
+         numOfItems: 1,
       }
       
    }
    
    changeSrc(e){
       this.setState({src:e.target.src})
+   }
+
+   updateNumOfItems(e){
+     this.setState({numOfItems:parseInt(this.callRef.current.value)})
    }
 
     render(){
@@ -122,8 +126,8 @@ export default class ProductPage extends Component{
               {/* product sku */}
               <p id='sku'>Product Sku: {this.state.sku}</p>
               {/* add to cart  */}
-              <input className='mr-5' type='number' min="1" max={this.state.stock} placeholder='1'></input>
-		 	        <button  className="addToCart btn btn-primary">Add To Cart</button>
+              <input ref={this.callRef} onChange={this.updateNumOfItems.bind(this)} className='mr-5' type='number' min="1" max={this.state.stock} placeholder='1'></input>
+		 	        <button onClick={() => this.props.addToCart(this.state.product,this.state.numOfItems)}  className="addToCart btn btn-primary">Add To Cart</button>
               {/* items in stock */}
               <p id='stock'>{this.state.stock} in stock</p>
               {/* add to favorite */}
@@ -193,7 +197,7 @@ export default class ProductPage extends Component{
                              key={el.title} 
                              title={el.title}
                              description={el.description} src={el.src} price={el.price} rating={el.rating} 
-                             obj={el}
+                             obj={el} addToCart={this.props.addToCart}
                              /> 
                           }
                          )

@@ -2,7 +2,7 @@
     min-height: 100vh;
     vertical-align: middle;
     display: flex;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: bold
 }
 
@@ -12,7 +12,7 @@
 
 .cardd {
     margin: auto;
-    max-width: 950px;
+    max-width: 1200px;
     width: 90%;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 1rem;
@@ -79,24 +79,31 @@
 
 .col2,
 .coll {
-    padding: 0 1vh
+    padding: 0 1vh;
+    
 }
 
-.a {
-    padding: 0 1vh
+.priceAndX{
+    text-align: center;
+    /* padding-top: 40px; */
 }
+/* .a {
+    padding: 0 1vh;
+    color: black;
+} */
 
 .close {
-    margin-left: auto;
-    font-size: 0.7rem
+    /* margin-left: auto; */
+    font-size: 1rem;
+    cursor: pointer;
 }
 
-.img {
+/* .img {
     width: 3.5rem
-}
+} */
 
 .back-to-shop {
-    margin-top: 4.5rem
+    margin-top: 3.5rem
 }
 
 .h5 {
@@ -157,14 +164,15 @@ input#code:focus::-webkit-input-placeholder {
 .butn:hover {
     color: white
 }
-
+/* 
 .a {
     color: black
-}
+} */
 
 .a:hover {
     color: black;
-    text-decoration: none
+    text-decoration: none;
+    cursor:pointer;
 }
 
 #code {
@@ -173,3 +181,107 @@ input#code:focus::-webkit-input-placeholder {
     background-position-x: 95%;
     background-position-y: center
 }
+
+
+/* increment&decrement */
+.incrementDecrement {
+    /* width: 10px; */
+    /* margin: 0 auto; */
+    /* text-align: center; */
+    /* padding-top: 25px; */
+  }
+  
+  /* .value-button {
+    display: inline-block;
+    border: 1px solid #ddd;
+    margin: 0px;
+    width: 40px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 11px 0;
+    background: #eee;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .value-button:hover {
+    cursor: pointer;
+  } */
+  
+  /* .incrementDecrement #decrease {
+    margin-right: -4px;
+    border-radius: 8px 0 0 8px;
+  }
+  
+  .incrementDecrement #increase {
+    margin-left: -4px;
+    border-radius: 0 8px 8px 0;
+  } */
+  
+  /* .incrementDecrement #input-wrap {
+    margin: 0px;
+    padding: 0px;
+  }
+   */
+  input.number {
+    text-align: center;
+    border: none;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-weight: bolder;
+    font-size: 2rem;
+    margin: 0px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  /* input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  } */
+
+  /* { (this.state.arrayOfOccurrences.length !==0)? this.state.arrayOfUniqueObjects.map((el,i)=> {return (<div key={el.title}  className="row m-0 border-top border-bottom">
+                            
+  <div className="col-2 col2">
+      <Link to={"/product/"+ el.title}>
+           <img className="img-fluid img shadow" src={el.thumbnail} alt="el.title"/>
+      </Link>
+  </div>
+ 
+  <div className="col-7 coll">
+      <div className=" m-0 text-muted">{el.title}</div>
+      <div className=" m-0">
+          <ul className="pl-4">
+              <li>sku: {el.sku}</li>
+              <li>price: ${el.price}</li>
+              <li>
+                  quantity: {this.state.arrayOfOccurrences[i] <= el.stock ? this.state.arrayOfOccurrences[i] : <span><del>{this.state.arrayOfOccurrences[i]}</del>, &nbsp;{el.stock }</span>     }
+              </li>
+              { this.state.arrayOfOccurrences[i] > el.stock &&
+               <li className="text-danger">We are sorry, the quantity exceed beyond the current stock.<br/>
+               The quantity is adjusted.</li>
+               }
+          </ul>
+          
+      </div>
+  </div>
+  <div className="col-1 coll"> 
+      <div className="incrementDecrement">
+        
+        <input ref={this.callRef} type="number" id={el.title} 
+        placeholder={this.state.arrayOfOccurrences[i] <= el.stock ? this.state.arrayOfOccurrences[i] : el.stock} 
+        min="0" max={el.stock} inputMode="numeric" className="number"
+        onChange={this.inputChangedHandler.bind(this)} />
+        
+      </div>
+  </div>
+  <div className="col-2 coll priceAndX">
+      ${el.price*this.state.arrayOfOccurrences[i]} <span className="close">&#10005;</span>
+  </div>
+</div>) }): null} */

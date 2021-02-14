@@ -93,7 +93,7 @@ export default class Home extends Component {
                        </div>
                      </Zoom>
                     <Link to={"/product/"+el.title}>
-                    <img  className="img-fluid " src={el.thumbnail} alt="img1"></img>
+                        <img  className="img-fluid " src={el.thumbnail} alt="img1"></img>
                     </Link>
                     </div>
                     <h5><b>{el.title}</b></h5>
@@ -125,7 +125,7 @@ export default class Home extends Component {
                        </div>
                      </Zoom>
                     <Link to={"/product/"+el.title}>
-                    <img  className="img-fluid" src={el.thumbnail} alt="img1"></img>
+                        <img  className="img-fluid" src={el.thumbnail} alt="img1"></img>
                     </Link>
                     </div>
                     <h5><b>{el.title}</b></h5>
