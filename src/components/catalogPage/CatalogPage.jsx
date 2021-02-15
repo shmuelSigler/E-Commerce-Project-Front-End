@@ -53,12 +53,9 @@ export default class CatalogPage extends Component {
           },
         noMatch:'',
         search: queryString.parse(props.location.search).q,
-        test: this.props.num,
-        test2:this.props.test
     } 
   }
 
-  
   componentDidMount(){
     if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
     this.matchSearch()  // check if came from search input in header
@@ -117,9 +114,8 @@ export default class CatalogPage extends Component {
     copyArr=productsObj.filter((el)=>{         //filter out the products  
       return difference(arr,el.filter).length === 0
     })
-    
-    this.setState({ myObj: copyArr })
-    this.setState({ filterArr: arr }) 
+
+    this.setState({ myObj: copyArr, filterArr: arr })
     setTimeout(()=> this.sort(this.state.sort),0) 
   }
     

@@ -25,14 +25,14 @@ export default class Header extends Component{
     this.callRef=React.createRef(); //refrenece to dom element
     this.state={
       query: '',
-      cartBadge:0,
+      numOfItems:this.props.numOfItems,
     }
     
   }
     
-  static getDerivedStateFromProps(props, state) {
-    return {cartBadge: props.numOfItems };
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   return {cartBadge: props.numOfItems };
+  // }
 
   changeQuery(e){
     this.setState( {query:this.callRef.current.value} )
@@ -89,7 +89,7 @@ export default class Header extends Component{
            </p>
            <Link to={"/cart"}>
               <IconButton aria-label="cart">
-                <StyledBadge badgeContent={this.state.cartBadge} color="secondary">
+                <StyledBadge badgeContent={Number(localStorage.getItem("numOfItems"))} color="secondary">
                   <ShoppingCartIcon />
                 </StyledBadge>
               </IconButton>

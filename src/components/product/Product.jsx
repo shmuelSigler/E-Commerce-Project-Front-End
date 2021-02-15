@@ -38,10 +38,7 @@ export default function Product(props)  {
       setAnchorEl(null);
     };
   
-    function alert(){
-      //?MAYBE DIABLE BUTTON ANS SHOW MESSAGE THAT ITEM WAS ALREADY BEEN ADDED
-      // document.getElementById("addToCart").disabled = true
-    }
+
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -78,7 +75,7 @@ export default function Product(props)  {
          {/* QUICK VIEW & ADD TO CART BUTTUNS */}
                 <div className='d-flex justify-content-center mt-3'>
                 {/* ADD TO CART BUTTON */}
-                  <button id="addToCart" onClick={() => {props.addToCart(props.obj);alert()}} className="addToCart btn btn-primary mr-5">
+                  <button id="addToCart" onClick={(e) => {e.preventDefault();props.addToCart(props.obj)}} className="addToCart btn btn-primary mr-5">
                     add to cart
                   </button>
                   <Button  aria-describedby={id} variant="contained" color="primary" onClick={handleClick}

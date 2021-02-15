@@ -69,10 +69,7 @@ import './index.css';
 //   </div>
     
 // )
-// localStorage.setItem("myCart",[]);
 
-
-// localStorage.setItem("numOfItems",0);
 
 ReactDOM.render(
   <div>
