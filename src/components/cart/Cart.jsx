@@ -9,7 +9,6 @@ import './cart.css'
 export default class Cart extends Component {
     constructor(props){
         super(props)
-        // this.callRef=React.createRef()
         this.state={
             myCart: this.props.myCart,
             numOfItems: this.props.numOfItems,
@@ -18,8 +17,8 @@ export default class Cart extends Component {
             arrayOfOccurrences: this.props.arrayOfOccurrences,
             arrayOfUniqueObjects: this.props.arrayOfUniqueObjects,
             shipmentPrice: 0,
+            shipmentMethod:"Self-Pickup- $0.00",
             totalPrice: 0,
-            // deliveryFlag:false,
         }
     }
     componentDidMount(){
@@ -86,9 +85,10 @@ export default class Cart extends Component {
         totalPrice = matches+this.state.arrayOfUniqueObjects.reduce(
             (acc,el,i)=> {return acc+el.price*this.state.arrayOfOccurrences[i]}
             ,0)
-        this.setState({shipmentPrice: matches,totalPrice: totalPrice})
-        
-        // this.setState({deliveryFlag : true})
+        this.setState({shipmentPrice: matches,
+                      totalPrice: totalPrice,
+                      shipmentMethod:option})
+
     }
 
     
@@ -151,7 +151,7 @@ export default class Cart extends Component {
                                     <option className="text-muted"> $0.00</option>}
                                 </select>
                                 <p>GIVE CODE</p> 
-                                <input id="code" placeholder="Enter your code"/>
+                                <input id="code" placeholder="Enter your code" />
                             </form>
                             <div className="row m-0" style={{borderTop: "1px solid rgba(0,0,0,.1); padding: 2vh 0"}}>
                             {/* TOTAL PRICE */}
@@ -186,7 +186,8 @@ export default class Cart extends Component {
                                         state:{ totalPrice: this.state.totalPrice,
                                             arrayOfOccurrences: this.state.arrayOfOccurrences,
                                             arrayOfUniqueObjects: this.state.arrayOfUniqueObjects,
-
+                                            shipmentMethod: this.state.shipmentMethod,
+                                            shipmentPrice: this.state.shipmentPrice
                                     }}}>
                                         <button type="button" className="btn btn-dark" >Proceed to checkout</button>
                                     </Link>
@@ -203,3 +204,4 @@ export default class Cart extends Component {
     }
 }
 
+//! this is to allow scrolling because of MODAL (add to Proceed to checkout button)- onClick={()=>setTimeout(()=>window.location.reload(),0)} 

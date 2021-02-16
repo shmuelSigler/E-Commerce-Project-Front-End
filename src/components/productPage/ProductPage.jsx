@@ -44,6 +44,11 @@ export default class ProductPage extends Component{
       
    }
    
+   rating(){
+     console.log('yes');
+    console.log(document.starRating.star1);
+   }
+
    changeSrc(e){
       this.setState({src:e.target.src})
    }
@@ -116,7 +121,18 @@ export default class ProductPage extends Component{
                <div className="row">
                   <div className="col-md-12">
                       <div className="stars">
-                          <form action=""> <input className="star star-5" id="star-5" type="radio" name="star" /> <label        className="star star-5" htmlFor="star-5"></label> <input className="star star-4" id="star-4" type="radio"           name="star" /> <label className="star star-4" htmlFor="star-4"></label> <input className="star star-3"          id="star-3" type="radio" name="star" /> <label className="star star-3" htmlFor="star-3"></label> <input        className="star star-2" id="star-2" type="radio" name="star" /> <label className="star star-2"        htmlFor="star-2"></label> <input className="star star-1" id="star-1" type="radio" name="star" /> <label          className="star star-1" htmlFor="star-1"></label> </form>
+                          <form name="starRating" onSubmit={this.rating.bind(this)}> 
+                          <input className="star star-5" id="star-5" type="radio" name="star1" /> 
+                          <label className="star star-5" htmlFor="star-5"></label> 
+                          <input className="star star-4" id="star-4" type="radio" name="star2" /> 
+                          <label className="star star-4" htmlFor="star-4"></label> 
+                          <input className="star star-3" id="star-3" type="radio" name="star3" /> 
+                          <label className="star star-3" htmlFor="star-3"></label> 
+                          <input className="star star-2" id="star-2" type="radio" name="star4" /> 
+                          <label className="star star-2" htmlFor="star-2"></label> 
+                          <input className="star star-1" id="star-1" type="radio" name="star5" /> 
+                          <label className="star star-1" htmlFor="star-1"></label> 
+                          </form>
                       </div>
                   </div>
               </div>

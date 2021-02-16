@@ -1,0 +1,25 @@
+
+.card-receipt {
+    border: none
+}
+
+.logo-receipt {
+    background-color: #eee6e650
+}
+
+.totals tr td {
+    font-size: 13px
+}
+
+.footer-receipt {
+    background-color: #eeeeeea8
+}
+
+.footer-receipt span {
+    font-size: 12px
+}
+
+.product-qty span {
+    font-size: 12px;
+    color: #999595
+}

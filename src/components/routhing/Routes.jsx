@@ -15,6 +15,8 @@ import Login from '../login/Login';
 import SignUp from '../signUp/SignUp';
 import Cart from  '../cart/Cart';
 import Checkout from "../checkout/Checkout"
+import Receipt from '../receipt/Receipt'
+
 import ScrollToTop from '../scrollToTop/ScrollToTop';
 
 
@@ -48,7 +50,7 @@ export default class Routes extends Component {
     }
 
     componentDidMount(){
-        localStorage.setItem('filterArr',[])
+        // localStorage.setItem('filterArr',[])
         let myCart = JSON.parse(localStorage.getItem("myCart"));
         if (! myCart){
             myCart=[]
@@ -172,6 +174,7 @@ export default class Routes extends Component {
                         // arrayOfOccurrences={this.state.arrayOfOccurrences}
                         // arrayOfUniqueObjects={this.state.arrayOfUniqueObjects}
                     />
+                    <Route path="/receipt" component={Receipt} />
                     <Route path="/login" component={Login}/>
                     <Route path="/signUp" component={SignUp}/>
                     {/* <Route path="/productPage" component={ProductPage}/>     */}

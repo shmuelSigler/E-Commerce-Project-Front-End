@@ -94,8 +94,8 @@ export default class CatalogPage extends Component {
       default:
         break;
     }
-    this.setState({ sort: option})
-    this.setState({ myObj: copyArr })
+    this.setState({ sort: option,  myObj: copyArr})
+    
   }
 
   filter(id,bool){
@@ -120,14 +120,13 @@ export default class CatalogPage extends Component {
   }
     
   resetFilter(){
-    this.setState({ myObj: productsObj })
-    this.setState({filterArr:[]})
+    // this.setState({ myObj: productsObj,filterArr:[] })
     const checkArr=document.querySelectorAll('.checkbox');
     checkArr.forEach(el => {
          if (el.checked) return el.checked=false;
     })
     setTimeout(()=> this.sort(this.state.sort),0)
-    this.setState({noMatch:''})
+    this.setState({noMatch:'', myObj: productsObj, filterArr:[]})
   }
 
 
@@ -151,7 +150,7 @@ export default class CatalogPage extends Component {
 
                 <label className="mr-2">Sort By</label> 
                 <select onChange={ (e)=> this.sort.call( this, e.target.value) } >
-                    <option>High to Low</option>
+                    <option >High to Low</option>
                     <option>Low to High</option>
                     <option>Top Rated</option>
                     <option>Alphabetical order</option>

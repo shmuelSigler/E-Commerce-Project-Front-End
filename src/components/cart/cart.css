@@ -6,6 +6,13 @@
     font-weight: bold
 }
 
+/* very importatnt - allow scrolling while and after using modal */
+body.modal-open {
+    width: 100vw;
+    overflow-y: scroll !important;  
+}
+
+
 .title {
     margin-bottom: 5vh
 }
@@ -184,12 +191,12 @@ input#code:focus::-webkit-input-placeholder {
 
 
 /* increment&decrement */
-.incrementDecrement {
-    /* width: 10px; */
-    /* margin: 0 auto; */
-    /* text-align: center; */
-    /* padding-top: 25px; */
-  }
+/* .incrementDecrement {
+    width: 10px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 25px;
+  } */
   
   /* .value-button {
     display: inline-block;
