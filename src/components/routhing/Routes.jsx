@@ -154,7 +154,10 @@ export default class Routes extends Component {
         return (
             <Router>
             <ScrollToTop/>
-               <Header numOfItems={this.state.numOfItems} />    
+               <Header numOfItems={this.state.numOfItems} 
+               arrayOfOccurrences={this.state.arrayOfOccurrences}
+               arrayOfUniqueObjects={this.state.arrayOfUniqueObjects}
+               />    
                <div>
                   <Switch>
                     <Route exact path='/' component={Home}/>
@@ -164,8 +167,6 @@ export default class Routes extends Component {
                         numOfItems={this.state.numOfItems} 
                         arrayOfOccurrences={this.state.arrayOfOccurrences}
                         arrayOfUniqueObjects={this.state.arrayOfUniqueObjects}
-                        // currentProduct={this.state.currentProduct} 
-                        // numOfCurrentProduct={this.state.numOfCurrentProduct} 
                         addToCart={this.addToCart} 
                         removeFromCart={this.removeFromCart}
                         eraseProductFromCart={this.eraseProductFromCart}

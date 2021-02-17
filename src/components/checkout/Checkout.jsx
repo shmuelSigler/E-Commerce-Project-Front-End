@@ -43,6 +43,12 @@ export default class Checkout extends Component {
         return false; // return false to fail submit, for redirecting to Receipt component
     }
 
+    componentWillUnmount(){
+        localStorage.removeItem("myCart");
+        localStorage.removeItem("numOfItems");
+        window.location.reload();
+    }
+
     render() {
         return ( 
       <div>
@@ -110,7 +116,7 @@ export default class Checkout extends Component {
                         <div className="col-50">
                             {/* label-input */}
                             <label  className="label-checkout" htmlFor="tel"><i className="fas fa-phone-alt"></i>Telephone*</label>
-                            <input required className="input-checkout" type="tel" id="tel" name="tel" placeholder="05x-xxxxxxx" maxlength="10"
+                            <input required className="input-checkout" type="tel" id="tel" name="tel" placeholder="05x-xxxxxxx" maxLength="10"
                             pattern="^\d{1,10}" title="only numbers"
                             />
                         </div>
@@ -118,7 +124,7 @@ export default class Checkout extends Component {
                             {/* label-input */}
                             <label className="label-checkout"  htmlFor="zip">Zip</label>
                             <input  className="input-checkout" type="tel" id="zip" name="zip" placeholder="2222505"
-                            pattern="^\d{7}" title="only 7 digit numbers" maxlength="7"
+                            pattern="^\d{7}" title="only 7 digit numbers" maxLength="7"
                             />
                         </div>
                         </div>
@@ -136,7 +142,7 @@ export default class Checkout extends Component {
                         />
                         {/* label-input */}
                         <label className="label-checkout" htmlFor="ccnum">Credit card number*</label>
-                        <input required className="input-checkout" type="tel" id="ccnum" name="cardnumber" maxlength="16" placeholder="1111-2222-3333-4444" 
+                        <input required className="input-checkout" type="tel" id="ccnum" name="cardnumber" maxLength="16" placeholder="1111-2222-3333-4444" 
                         pattern="\d{16}" title="only 16 digit number"
                         />
                         {/* label-input */}
@@ -171,7 +177,7 @@ export default class Checkout extends Component {
                         <div className="col-50">
                             {/* label-input */}
                             <label className="label-checkout" htmlFor="cvv">CVV*</label>
-                            <input required className="input-checkout" type="text" id="cvv" name="cvv" maxlength="3" placeholder="xxx" pattern="\d{3}" title="only 3 digit number" size="3"/>
+                            <input required className="input-checkout" type="text" id="cvv" name="cvv" maxLength="3" placeholder="xxx" pattern="\d{3}" title="only 3 digit number" size="3"/>
                         </div>
                         </div>
                         <PayPalScriptProvider options={{ "client-id": "sb" }}>

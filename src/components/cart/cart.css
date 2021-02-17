@@ -7,10 +7,10 @@
 }
 
 /* very importatnt - allow scrolling while and after using modal */
-body.modal-open {
+/* body.modal-open {
     width: 100vw;
     overflow-y: scroll !important;  
-}
+} */
 
 
 .title {

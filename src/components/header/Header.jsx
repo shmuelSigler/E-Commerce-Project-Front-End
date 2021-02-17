@@ -6,6 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Badge } from '@material-ui/core';
+// import { Popover } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
+// import Typography from '@material-ui/core/Typography';
+// import Button from '@material-ui/core/Button';
+// import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import './header.css';
 
@@ -18,6 +23,7 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
+
 export default class Header extends Component{
 
   constructor(props){
@@ -26,8 +32,21 @@ export default class Header extends Component{
     this.state={
       query: '',
       numOfItems:this.props.numOfItems,
+      // anchorEl: null,
     }
-    
+    // this.classes = makeStyles((theme) => ({
+    //   popover: {
+    //     pointerEvents: 'none',
+    //   },
+    //   paper: {
+    //     padding: theme.spacing(1),
+    //   },
+    //   typography: {
+    //     padding: theme.spacing(2),
+        
+    //   },
+    // }));
+    // this.open = Boolean(this.state.anchorEl);
   }
     
   // static getDerivedStateFromProps(props, state) {
@@ -38,9 +57,28 @@ export default class Header extends Component{
     this.setState( {query:this.callRef.current.value} )
   }
 
-  
+  // handlePopoverOpen  = (event) => {
+    
+  //   this.setState({anchorEl: event.currentTarget});
+  // };
+
+  // handlePopoverClose  = () => {
+  //   this.setState({anchorEl: null});
+  // };
+  //  handleClick = (event) => {
+  //   this.setState({anchorEl: event.currentTarget});
+  // };
+
+  // handleClose = () => {
+  //   this.setState({anchorEl: null});
+  // };
+
 
   render(){
+    
+    // const open = Boolean(this.state.anchorEl);
+    // const id = open ? 'simple-popover' : undefined;
+    // console.log(open);
     return(
     <div >
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -76,70 +114,99 @@ export default class Header extends Component{
                 <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> */}
           </ul>
-          <form className="form-inline my-2 my-lg-0 mr-4" action='/shop'>
+          <form className="form-inline  my-lg-0 mr-4" action='/shop'>
               <input ref={this.callRef} className="form-control mr-sm-2" type="search" placeholder="Search" onChange={this.changeQuery.bind(this)} name='q' pattern="[a-z A-Z]{1,}" title="one or more characters in the search phrase a-z, A-Z and no numbers" required="required"/>
               <button className="serach btn btn-outline-success my-2 my-sm-0" type="submit"><span>Search</span></button>
               
           </form>
       </div>
-      <div className="details">
-          <p>
-            <Link  className="mr-4" to='/login' >Log In</Link>
-            <Link  to='/signUp' >Sign Up</Link>
-           </p>
-           <Link to={"/cart"}>
-              <IconButton aria-label="cart">
-                <StyledBadge badgeContent={Number(localStorage.getItem("numOfItems"))} color="secondary">
-                  <ShoppingCartIcon />
-                </StyledBadge>
-              </IconButton>
-          </Link>
+      <div className="details ">
+          <div>
+            {/* <Link className="mr-4" to='/login'>Log In</Link> */}
+            <Link to='/login' >Sign Up/Log In</Link>
+          </div>
+          <div className="row d-flex align-items-center">
+            <div className="col-4 d-inline ">
+              <Link to={"/cart"}>
+                  <IconButton aria-label="cart">
+                    <StyledBadge badgeContent={Number(localStorage.getItem("numOfItems"))} color="secondary">
+                        <ShoppingCartIcon />
+                    </StyledBadge>
+                  </IconButton>
+              </Link>
+            </div>
+          <div className=" col-8 ">  
+            <ul className="nav ">
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 
+                Items in Cart
+                </a>
+                <ul className="dropdown-menu dropdown-menu-right dropdown-cart" role="menu">
+                    { this.props.arrayOfUniqueObjects.length !==0?
+                      this.props.arrayOfUniqueObjects.map((el,i)=>{ 
+                      return <Link to={"/product/" + el.title} key={el.title}><b><li  >
+                        <span className="item">
+                          <span className="item-left">
+                              <img className="shadow" src={el.thumbnail} alt={el.title} width="40"/>
+                              <span className="item-info">
+                                  <span>{el.title}</span>
+                                  <span>price: {el.price}$ <small>X{this.props.arrayOfOccurrences[i]}</small></span>
+                              </span>
+                          </span>
+                      </span>
+                    </li></b></Link>
+                    })
+                    : <span>There are no items in cart</span>}
+                    <hr/>
+                    <li>Subtotal: ${this.props.arrayOfUniqueObjects.reduce(
+                                    (acc,el,i)=> {return acc+el.price*this.props.arrayOfOccurrences[i]}
+                                    ,0)}
+                    </li>
+                   
+                    <li className="d-flex justify-content-center mt-1"><Link className="text-center" to={"/cart"}>View Cart</Link></li>
+                            
+                </ul>
+              </li>
+      </ul>
+    </div>
+</div>
+          {/* popover */}
+          {/* <div className="d-inline ml-2"> */}
+          {/* <Typography
+        aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true"
+        onMouseEnter={this.handlePopoverOpen}
+        onMouseLeave={()=>this.handlePopoverClose}
+      >
+        Hover
+      </Typography>
+      <Popover
+        id="mouse-over-popover"
+        className={this.classes.popover}
+        classes={{
+          paper: this.classes.paper,
+        }}
+        open={open}
+        anchorEl={this.state.anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={this.handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography>I use Popover.</Typography>
+      </Popover> */}
+        
+          {/* </div> */}
+
       </div>
       </nav> 
     </div>
     );
   }
  }
-
-
-{/* <i className="fas fa-cart-plus fa-2x  "></i> */}
-
-
-// function Header() {
-//     return (
-//       <header>
-//         <h1>My WEbsite</h1>
-//       </header>
-//     );
-//   }
-
-//     <nav class="navbar navbar-expand-md bg-dark navbar-dark ">
-        
-    //     <a class="navbar-brand" href="#">Logo</a>
-    //     <i  class="fas fa-cart-plus fa-2x text-white mg-2"></i>
-        
-        
-        // <div class="text-left">
-        //     <form class="form-inline text-left" action="/action_page.php">
-        //         <input class="form-control mr-sm-2 " type="text" placeholder="Search"/>
-        //         <button class="btn btn-success" type="submit">Search</button>
-        //     </form>
-        // </div>
-        
-    //     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    //       <span class="navbar-toggler-icon"></span>
-    //     </button>
-    //     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-    //       <ul class="navbar-nav ">
-    //         <li class="nav-item">
-    //           <a class="nav-link" href="#">Link</a>
-    //         </li>
-    //         <li class="nav-item">
-    //           <a class="nav-link" href="#">Link</a>
-    //         </li>
-    //         <li class="nav-item">
-    //           <a class="nav-link" href="#">Link</a>
-    //         </li>
-    //       </ul>
-    //     </div>
-    //   </nav>

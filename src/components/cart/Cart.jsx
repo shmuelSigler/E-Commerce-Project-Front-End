@@ -91,12 +91,15 @@ export default class Cart extends Component {
 
     }
 
+    componentWillUnmount(){
+        document.body.classList.remove('modal-open');   //this class prevent scrolling
+    }
     
 
     render() {
         return (
             
-            <div className="body">
+            <div className="body p-5">
                 <div className="card cardd">
                     <div className="row m-0">
                         <div className="col-md-8 cart">

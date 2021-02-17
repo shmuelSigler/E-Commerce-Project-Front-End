@@ -17,10 +17,10 @@ export default class Receipt extends Component {
         
         return (
             <div>
-                <div className="container p-5 mt-3 mb-5">
-    <div className="row d-flex justify-content-center">
-        <div className="col-md-8">
-            <div className="card card-receipt">
+                <div className="container p-5 mt-3 mb-5 ">
+    <div className="row d-flex justify-content-center ">
+        <div className="col-md-8 ">
+            <div className="card card-receipt shadow-lg">
                 <div className=" text-left logo-receipt p-2 px-5"> 
                     <ThreeDRotationIcon fontSize="large"/> 
                     <div className="float-right">
