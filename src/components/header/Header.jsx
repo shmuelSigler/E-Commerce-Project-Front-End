@@ -163,7 +163,7 @@ export default class Header extends Component{
                                     ,0)}
                     </li>
                    
-                    <li className="d-flex justify-content-center mt-1"><Link className="text-center" to={"/cart"}>View Cart</Link></li>
+                    <li className="btn d-flex justify-content-center mt-1"><Link className="text-center" to={"/cart"}>View Cart</Link></li>
                             
                 </ul>
               </li>

@@ -9,6 +9,7 @@ export default class Receipt extends Component {
    
     // componentDidMount(){
     //     console.log(this.props.location.state)
+        
     // }
 
     render() {
@@ -141,7 +142,7 @@ export default class Receipt extends Component {
                 </div>
                 <div className="d-flex justify-content-between footer-receipt p-3"> 
                     <span>Need Help? visit our 
-                        <a href="#"> help center</a>
+                        <Link to="/contacts"> help center</Link>
                     </span>
                     {/* <span>12 June, 2020</span> */}
                 </div>

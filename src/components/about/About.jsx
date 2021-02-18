@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Player } from 'video-react';
-import '../../../node_modules/video-react/dist/video-react.css';
+
 
 import './about.css'
+import '../../../node_modules/video-react/dist/video-react.css';
 
 export default class About extends Component {
     render() {
@@ -39,10 +40,21 @@ export default class About extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="video m-4 d-flex justify-content-center">
-                        <Player>
-                            <source src="batmobile.mp4" />
-                        </Player>
+                <div className=" about-video p-5">
+                    <h3> Example videos: printing lithophane picture and a 3d model</h3>
+                    <div className="row ">
+                        <div className="col-lg-6 col-md video m-4  ml-5 d-flex justify-content-center">
+                                <Player >
+                                    <source src="family.mp4" />
+                                </Player>
+                                
+                        </div>
+                        <div className="col-lg-6 col-md video m-4 ml-5 d-flex justify-content-center">
+                                <Player>
+                                    <source src="batmobile.mp4" />
+                                </Player>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

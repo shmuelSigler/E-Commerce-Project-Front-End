@@ -72,7 +72,7 @@ export default class Routes extends Component {
     countTheOccurrenceOfEachObject(copyArr,totalNum){
         // let arrayOfObjs=[...this.state.myCart]
         let result = {};
-        let fixMyCart = []
+        let fixMyCart = []              //fix cart to remove duplicates
         copyArr.forEach(function(item) {            
             var objStr = JSON.stringify(item);
             result[objStr] = result[objStr] ? ++result[objStr] : 1;

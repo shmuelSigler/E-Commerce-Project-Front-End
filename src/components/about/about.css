@@ -1,5 +1,5 @@
 .about {
-
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
     background: #ffffff;
     padding: 0;
     margin: 0
@@ -100,4 +100,9 @@
 .video{
     max-height: 200px;
     max-width: 300px;
+}
+
+.about-video{
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    background-color: rgba(170, 170, 196, 0.315);
 }

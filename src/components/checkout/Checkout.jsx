@@ -98,13 +98,13 @@ export default class Checkout extends Component {
                         />
                         {/* label-input */}
                         <label  className="label-checkout" htmlFor="strNum"><i className="fa fa-address-card-o"></i> Street Number*</label>
-                        <input required className="input-checkout" type="tel" id="strNum" name="str num" placeholder=" 29"
+                        <input required className="input-checkout" type="tel" id="strNum" name="str num" placeholder=" 29" maxLength="6"
                         pattern="^\d{1,8}" title="only numbers"
                         />
                         {/* label-input */}
                         <label  className="label-checkout" htmlFor="apt"><i className="fa fa-address-card-o"></i> Apartment* </label>
                         <input required className="input-checkout" type="tel" id="apt" name="apt" placeholder="14"
-                        pattern="^\d{1,8}" title="only numbers"
+                        pattern="^\d{1,8}" title="only numbers" maxLength="6"
                         />
                         {/* label-input */}
                         <label  className="label-checkout" htmlFor="city"><i className="fa fa-institution"></i> City*</label>
