@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import productsObj from "./productsObj.js"
+
 import "./product.css"
 //ICONS
 import FiberNewOutlinedIcon from '@material-ui/icons/FiberNew';
@@ -14,7 +14,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 //react.js example components
-import {Animated} from "react-animated-css";
+// import {Animated} from "react-animated-css";
 //! IN THE Popover DOCUMANTION (MATERIAL-UI) THERE IS A FUNCTION AND NOT CLASS SO I CONVERTED IT FROM CLASS TO FUNCTION
 
 const useStyles = makeStyles((theme) => ({      // useStyles for the padding inside the popup
@@ -75,7 +75,7 @@ export default function Product(props)  {
          {/* QUICK VIEW & ADD TO CART BUTTUNS */}
                 <div className='d-flex justify-content-center mt-3'>
                 {/* ADD TO CART BUTTON */}
-                  <button id="addToCart" onClick={(e) => {e.preventDefault();props.addToCart(props.obj)}} className="addToCart btn btn-primary mr-5">
+                  <button id="addToCart" onClick={() => {props.addToCart(props.obj)}} className="addToCart btn btn-primary mr-5">
                     add to cart
                   </button>
                   <Button  aria-describedby={id} variant="contained" color="primary" onClick={handleClick}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButton } from "react-paypal-button-v2";
 import { Redirect } from 'react-router'
 
 import './checkout.css'
@@ -38,15 +38,18 @@ export default class Checkout extends Component {
     validation(){
         // console.log(document.feedback);
         const orderNo = Math.round(Math.random()*100000000)
+        
         this.setState({orderNo: orderNo,allOk:true})
         
         return false; // return false to fail submit, for redirecting to Receipt component
     }
 
     componentWillUnmount(){
-        localStorage.removeItem("myCart");
-        localStorage.removeItem("numOfItems");
-        window.location.reload();
+        if(this.state.allOk){
+            localStorage.removeItem("myCart");
+            localStorage.removeItem("numOfItems");
+            window.location.reload(); //refresh to update cart badge
+        } 
     }
 
     render() {
@@ -180,9 +183,24 @@ export default class Checkout extends Component {
                             <input required className="input-checkout" type="text" id="cvv" name="cvv" maxLength="3" placeholder="xxx" pattern="\d{3}" title="only 3 digit number" size="3"/>
                         </div>
                         </div>
-                        <PayPalScriptProvider options={{ "client-id": "sb" }}>
-                            <PayPalButtons style={{ layout: "horizontal" }}  />
-                        </PayPalScriptProvider>
+                        <PayPalButton
+                            amount={this.state.totalPrice}
+                            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                            onSuccess={(details, data) => {
+                            alert("Transaction completed by " + details.payer.name.given_name);
+
+                            // OPTIONAL: Call your server to save the transaction
+                            return fetch("/paypal-transaction-complete", {
+                                method: "post",
+                                body: JSON.stringify({
+                                    orderId: data.orderID
+                                })
+                            });
+                            }}
+                            options={{
+                            clientId: "AUJEnNXc_gujM7nYHchzWAIZ-ks3ps971vKrLdQ6mb6xKDRk4Gr9E8tsDMTZrotNJDasXeiRTNbvXPsx"
+                            }}
+                        />
                     </div>
 
                     </div>

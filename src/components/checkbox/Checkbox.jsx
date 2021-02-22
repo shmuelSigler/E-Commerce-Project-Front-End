@@ -15,15 +15,16 @@
 // onclick={this.filter.bind(this)}
 
 import React from 'react'
-import {productsObj} from "../product/productsObj.js"
 import './checkbox.css'
 export default function Checkbox(props) {
+    
     return (
         <div className="my-2">
-            <input type="checkbox" className="checkbox" id={props.idFor} onClick={(e) => props.filter(props.id,e.target.checked)}/> 
+            <input type="checkbox" className="checkbox" id={props.idFor} 
+                onClick={(e) => props.filter(props.id,e.target.checked)}/> 
             <label className="ml-1" htmlFor={props.idFor}> {props.print} 
                 <small>
-                &nbsp;({productsObj.filter(function(el){
+                &nbsp;({props.products.filter(function(el){
                     return el.filter.includes(props.id)
                 }).length}) 
                 </small>

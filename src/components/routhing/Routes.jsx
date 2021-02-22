@@ -19,13 +19,6 @@ import Receipt from '../receipt/Receipt'
 
 import ScrollToTop from '../scrollToTop/ScrollToTop';
 
-
-// import countBy from '../../../node_modules/lodash/countBy.js'
-// import keys from '../../../node_modules/lodash/keys.js'
-// import values from '../../../node_modules/lodash/values.js'
-
-// import {productsObj} from "../product/productsObj.js"
-
 // let myCart = JSON.parse(localStorage.getItem("myCart"));
 // if (! myCart){
 //     myCart=[]
@@ -152,6 +145,7 @@ export default class Routes extends Component {
     render() {
         
         return (
+            <React.Fragment> 
             <Router>
             <ScrollToTop/>
                <Header numOfItems={this.state.numOfItems} 
@@ -204,6 +198,7 @@ export default class Routes extends Component {
                </div>
                <Footer/>
             </Router>
+            </React.Fragment>
         )
     }
 }

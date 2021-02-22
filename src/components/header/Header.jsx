@@ -144,17 +144,19 @@ export default class Header extends Component{
                 <ul className="dropdown-menu dropdown-menu-right dropdown-cart" role="menu">
                     { this.props.arrayOfUniqueObjects.length !==0?
                       this.props.arrayOfUniqueObjects.map((el,i)=>{ 
-                      return <Link to={"/product/" + el.title} key={el.title}><b><li  >
-                        <span className="item">
-                          <span className="item-left">
-                              <img className="shadow" src={el.thumbnail} alt={el.title} width="40"/>
-                              <span className="item-info">
-                                  <span>{el.title}</span>
-                                  <span>price: {el.price}$ <small>X{this.props.arrayOfOccurrences[i]}</small></span>
-                              </span>
+                      return <Link to={"/product/" + el.title} key={el.title}>
+                        <b><li>
+                          <span className="item">
+                            <span className="item-left">
+                                <img className="shadow" src={el.thumbnail} alt={el.title} width="40"/>
+                                <span className="item-info">
+                                    <span>{el.title}</span>
+                                    <span>price: {el.price}$ <small>X{this.props.arrayOfOccurrences[i]}</small></span>
+                                </span>
+                            </span>
                           </span>
-                      </span>
-                    </li></b></Link>
+                        </li></b>
+                    </Link>
                     })
                     : <span>There are no items in cart</span>}
                     <hr/>
@@ -163,7 +165,9 @@ export default class Header extends Component{
                                     ,0)}
                     </li>
                    
-                    <li className="btn d-flex justify-content-center mt-1"><Link className="text-center" to={"/cart"}>View Cart</Link></li>
+                    <li className="btn d-flex justify-content-center mt-1">
+                      <Link className="text-center" to={"/cart"}>View Cart</Link>
+                    </li>
                             
                 </ul>
               </li>

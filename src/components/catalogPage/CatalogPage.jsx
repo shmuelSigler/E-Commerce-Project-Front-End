@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import {productsObj} from "../product/productsObj.js"
+// import {productsObj} from "../product/productsObj.js"
+import axios from 'axios'
 // import {Route, Link} from 'react-router-dom';
 import Checkbox from '../checkbox/Checkbox'
 import Product from '../product/Product'
@@ -38,9 +39,10 @@ export default class CatalogPage extends Component {
     //   productsObjs = productsObj;
     
     this.state = {
+      products:[],
         sort: 'High to Low',
         filterArr: [],
-        myObj: productsObj, //was productObjs
+        myObj: [], 
         checkbox:{
           material: ['PLA','PLA+'],
           color:['Black','Blue','White'],
@@ -52,20 +54,32 @@ export default class CatalogPage extends Component {
                   {star:'🌟🌟🌟🌟🌟', number: 5}],
           },
         noMatch:'',
-        search: queryString.parse(props.location.search).q,
+        search: queryString.parse(props.location.search).q,   // return {q: "Impossible Table"}
     } 
   }
 
   componentDidMount(){
-    if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
-    this.matchSearch()  // check if came from search input in header
+    this.fetch()
   }
-  
+
+  fetch(){
+    axios.get('http://localhost:3000/products')
+        .then((response)=> {
+          this.setState({products:response.data, myObj:response.data})
+          if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
+          this.matchSearch()    // check if came from search input in header
+        })
+        .catch((error)=> {
+          console.log(error);
+        })
+
+  }
+
   matchSearch(){
     this.setState({noMatch: ''})
     let productsObjs=[];
     if(this.state.search){
-      productsObjs = productsObj.filter( product => {
+      productsObjs = this.state.products.filter( product => {
           //check if the phrase in the title or productDescription
           return ( product.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
           product.productDescription.toLowerCase().includes(this.state.search.toLowerCase()))
@@ -100,9 +114,9 @@ export default class CatalogPage extends Component {
 
   filter(id,bool){
     this.setState({noMatch: ''})
-    let copyArr = [...this.state.myObj]    //always get the original array -DEPRECATED COMMENT
+    let copyArr = [...this.state.myObj]    
     let arr=[...this.state.filterArr];  //update filterArr on every function call
-    // let copySort= this.state.sort;
+    
     if(bool){
       arr.push(id);
     } 
@@ -111,7 +125,7 @@ export default class CatalogPage extends Component {
         return el !==id;
       })
     }
-    copyArr=productsObj.filter((el)=>{         //filter out the products  
+    copyArr=this.state.products.filter((el)=>{         //filter out the products  
       return difference(arr,el.filter).length === 0
     })
 
@@ -120,18 +134,18 @@ export default class CatalogPage extends Component {
   }
     
   resetFilter(){
-    // this.setState({ myObj: productsObj,filterArr:[] })
     const checkArr=document.querySelectorAll('.checkbox');
     checkArr.forEach(el => {
          if (el.checked) return el.checked=false;
     })
     setTimeout(()=> this.sort(this.state.sort),0)
-    this.setState({noMatch:'', myObj: productsObj, filterArr:[]})
+    this.setState({noMatch:'', myObj: this.state.products, filterArr:[]})
   }
 
 
 
   render() {
+    
         return (
             <div className="container-fluid p-5">
             {this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
@@ -182,7 +196,8 @@ export default class CatalogPage extends Component {
                          <div id="collapseOne" className="collapse show bg-light" data-parent="#accordion">
                            <div className="card-body">
                            { this.state.checkbox.material.map((el)=>{
-                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)}/>
+                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)
+                              } products={this.state.products}/>
                            }) 
                            }
                            </div>
@@ -197,7 +212,7 @@ export default class CatalogPage extends Component {
                         <div id="collapseTwo" className="collapse bg-light" data-parent="#accordion">
                           <div className="card-body">
                           { this.state.checkbox.color.map((el)=>{
-                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)}/>
+                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)} products={this.state.products}/>
                            })
                            }
                           </div>
@@ -212,7 +227,7 @@ export default class CatalogPage extends Component {
                       <div id="collapseThree" className="collapse bg-light" data-parent="#accordion">
                         <div className="card-body">
                         { this.state.checkbox.theme.map((el)=>{
-                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)}/>
+                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)} products={this.state.products}/>
                            })
                            }
                         </div>
@@ -229,7 +244,7 @@ export default class CatalogPage extends Component {
                         <div className="card-body">
                         { this.state.checkbox.rating.map((el)=>{
                                return <Checkbox key={el.number} idFor={el.number} print={el.star} id={el.number}
-                                 filter={this.filter.bind(this)}
+                                 filter={this.filter.bind(this)} products={this.state.products}
                                />
                            })
                            }

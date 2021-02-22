@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
-import {productsObj} from "../product/productsObj"
-// import Product from '../src/components/product/Product'
+
+import axios from 'axios';
+
 //react.js examples
 import {Animated} from "react-animated-css";
 import Carousel from 'react-elastic-carousel'
@@ -13,11 +14,31 @@ import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Zoom from '@material-ui/core/Zoom';
 
 import "./home.css"
-// import ProductPage from "./components/productPage/ProductPage.jsx";
-// import CatalogPage from "./components/catalogPage/CatalogPage.jsx";
-
 
 export default class Home extends Component {
+
+    constructor(){
+        super();
+        this.state={
+            loading:false,
+            productsObj: [],
+        }
+    }
+
+    componentDidMount(){
+        this.fetch()
+      }
+    
+      fetch(){
+        axios.get('http://localhost:3000/products')
+            .then((response)=> {
+              this.setState({productsObj:response.data, loading:true})
+            })
+            .catch((error)=> {
+              console.log(error);
+            })
+      }
+
     render(){
         return(
            <div>
@@ -77,8 +98,8 @@ export default class Home extends Component {
       <div className="container my-5 ">
           <p className="font-weight-bold">Featured Product</p>
           <hr className="my-2"/>
-          <Carousel itemsToShow={3} focusOnSelect={true}>
-          { productsObj.map((el)=>{
+          { this.state.loading? <Carousel itemsToShow={3} focusOnSelect={true}>
+          { this.state.productsObj.map((el)=>{
                 return el.special==='Featured' && 
                   <div key={el.title} className="singleProduct mr-5">
                   <div className="image">
@@ -103,14 +124,14 @@ export default class Home extends Component {
                   </div>                 
           })
           }
-          </Carousel>
+          </Carousel> :(<div>Loading...</div>)}
       </div>
   {/* New */}
   <div className="container my-5 ">
           <p className="font-weight-bold">New Product</p>
           <hr className="my-2"/>
-          <Carousel itemsToShow={3}>
-          { productsObj.map((el)=>{
+          {this.state.loading? <Carousel itemsToShow={3}>
+          { this.state.productsObj.map((el)=>{
                 return el.special==='New' && 
                   <div key={el.title} className="singleProduct mr-5">
                   <div className="image">
@@ -135,14 +156,14 @@ export default class Home extends Component {
                   </div>                 
           })
           }
-          </Carousel>
+          </Carousel> : (<div>Loading...</div>)}
       </div>
   {/* Sale */}
   <div className="container my-5 ">
           <p className="font-weight-bold">On Sale</p>
           <hr className="my-2"/>
-          <Carousel itemsToShow={3}>
-          { productsObj.map((el)=>{
+          {this.state.loading? <Carousel itemsToShow={3}>
+          { this.state.productsObj.map((el)=>{
                 return el.special==='Sale' && 
                   <div key={el.title} className="singleProduct mr-5">
                   <div className="image">
@@ -167,7 +188,7 @@ export default class Home extends Component {
                   </div>                 
           })
           }
-          </Carousel>
+          </Carousel> : (<div>Loading...</div>)}
       </div>
   
            </div>

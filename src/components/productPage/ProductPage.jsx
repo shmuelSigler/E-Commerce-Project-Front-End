@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {productsObj} from "../product/productsObj.js"
+// import {productsObj} from "../product/productsObj.js"
+import axios from 'axios'
 import Product from '../product/Product'
 //react.js example components
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
@@ -12,38 +13,56 @@ import './productPage.css';
         //2. constructor : this.setOrder = this.setOrder.bind(this)
         //3. inline: this.setOrder.bind(this)
 
-//use img.src to change images
+
 export default class ProductPage extends Component{
    
    constructor(props){
-      super(props);
-      const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
+      super(props)
+      // const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
       this.callRef=React.createRef();
       this.state={
-        product:product,
-         myObj: productsObj,
-         title: product.title,
-         productDescription: product.productDescription,
-         src:product.src,
-         image1:product.image1,
-         image2:product.image2,
-         image3:product.image3,
-         image4:product.image4,
-         filter:product.filter,
-         price: product.price,
-         previousPrice: product.previousPrice,
-         rating: product.rating,
-         stock: product.stock,
-         printingTime: product.printingTime,
-         sku:product.sku,
-         related:product.related,
-         size: product.size,
-         note: product.note,
-         numOfItems: 1,
+        loading: false,
+        numOfItems: 1,
       }
       
    }
-   
+
+   componentDidMount(){
+    this.fetch()
+  }
+
+  fetch(){
+    axios.get('http://localhost:3000/products')
+        .then((response)=> {
+          const [product] = response.data.filter((product) => (product.title ===  this.props.match.params.id))
+          this.setState({
+              product:product, 
+              myObj:response.data,
+              title: product.title,
+              productDescription: product.productDescription,
+              src:product.src,
+              image1:product.image1,
+              image2:product.image2,
+              image3:product.image3,
+              image4:product.image4,
+              filter:product.filter,
+              price: product.price,
+              previousPrice: product.previousPrice,
+              rating: product.rating,
+              stock: product.stock,
+              printingTime: product.printingTime,
+              sku:product.sku,
+              related:product.related,
+              size: product.size,
+              note: product.note,
+              loading:true,
+          
+        })})
+        .catch((error)=> {
+          console.log(error);
+        })
+}
+
    rating(){
      console.log('yes');
     console.log(document.starRating.star1);
@@ -58,7 +77,8 @@ export default class ProductPage extends Component{
    }
 
     render(){
-       return(
+      
+       return(this.state.loading) ? (
         <div  className="container-fluid p-5">
          
           <div className="row ">
@@ -224,6 +244,6 @@ export default class ProductPage extends Component{
      
         </div>    
          
-       );
+       ) : (<div>Loading...</div>);
     }
 }
