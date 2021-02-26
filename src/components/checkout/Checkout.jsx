@@ -4,6 +4,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { Redirect } from 'react-router'
 
 import './checkout.css'
+const APIKey = process.env.REACT_APP_PAYPAL_APIKEY;    //paypal key
 
 export default class Checkout extends Component {
     constructor(props){
@@ -19,6 +20,7 @@ export default class Checkout extends Component {
     }
    
     componentDidMount(){
+        //the below this.props.location.state came from cart <Link/>
         const { totalPrice } = this.props.location.state;
         const arrayOfUniqueObjects = [...this.props.location.state.arrayOfUniqueObjects];
         const arrayOfOccurrences = [...this.props.location.state.arrayOfOccurrences];
@@ -39,7 +41,7 @@ export default class Checkout extends Component {
         // console.log(document.feedback);
         const orderNo = Math.round(Math.random()*100000000)
         
-        this.setState({orderNo: orderNo,allOk:true})
+        this.setState({orderNo: orderNo, allOk:true})
         
         return false; // return false to fail submit, for redirecting to Receipt component
     }
@@ -198,7 +200,7 @@ export default class Checkout extends Component {
                             });
                             }}
                             options={{
-                            clientId: "AUJEnNXc_gujM7nYHchzWAIZ-ks3ps971vKrLdQ6mb6xKDRk4Gr9E8tsDMTZrotNJDasXeiRTNbvXPsx"
+                            clientId: APIKey
                             }}
                         />
                     </div>

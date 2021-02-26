@@ -92,6 +92,7 @@ export default class Cart extends Component {
     }
 
     componentWillUnmount(){
+        document.body.removeAttribute('style'); //to remove style that add padding-right from nowhere WTF
         document.body.classList.remove('modal-open');   //this class prevent scrolling
     }
     
@@ -180,10 +181,15 @@ export default class Cart extends Component {
                                   Choose to make an account or proceed as anonymous user
                                   </div>
                                   <div className="modal-footer">
-                                    <Link to="/login">
-                                        <button type="button" className="btn btn-secondary" >Login/SignUp</button>
+                                    <Link to={{
+                                        pathname:"/login",
+                                        state:{ cameFromCart: true,
+                                    }}}>
+                                        <button type="button" className="btn btn-secondary" >Login</button>
                                     </Link>
-                                    
+                                    <Link to="/signUp">
+                                        <button type="button" className="btn btn-secondary" >SignUp</button>
+                                    </Link>
                                     <Link to={{
                                         pathname:"/checkout",
                                         state:{ totalPrice: this.state.totalPrice,

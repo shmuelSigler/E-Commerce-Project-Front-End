@@ -32,6 +32,7 @@ export default class Header extends Component{
     this.state={
       query: '',
       numOfItems:this.props.numOfItems,
+      name: '',
       // anchorEl: null,
     }
     // this.classes = makeStyles((theme) => ({
@@ -52,11 +53,29 @@ export default class Header extends Component{
   // static getDerivedStateFromProps(props, state) {
   //   return {cartBadge: props.numOfItems };
   // }
+  componentDidMount(){
+    // localStorage.setItem('filterArr',[])
 
+    let {name} = JSON.parse(localStorage.getItem("user"))? JSON.parse(localStorage.getItem("user")): "" ;
+    if (name){
+        this.setState({name:name})
+    }
+}
   changeQuery(e){
     this.setState( {query:this.callRef.current.value} )
   }
 
+  logOut(){
+    localStorage.removeItem("user")
+  //   logOutBtn=()=>{
+  //     auth.signOut().then(() => {
+  //         this.props.history.push("/");
+  //       }).catch((error) => {
+  //             alert(error," try again");
+  //       });
+  // }
+
+  }
   // handlePopoverOpen  = (event) => {
     
   //   this.setState({anchorEl: event.currentTarget});
@@ -122,8 +141,11 @@ export default class Header extends Component{
       </div>
       <div className="details ">
           <div>
-            {/* <Link className="mr-4" to='/login'>Log In</Link> */}
-            <Link to='/login' >Sign Up/Log In</Link>
+            {this.state.name?<span>Hello,{this.state.name} <small><a href="/" onClick={this.logOut.bind(this)}>Log Out</a></small></span>
+             :<div>
+                <Link to='/login' >Log In</Link>
+                <Link className="ml-4" to='/signUp'>Sign Up</Link>
+             </div>}
           </div>
           <div className="row d-flex align-items-center">
             <div className="col-4 d-inline ">
@@ -174,39 +196,6 @@ export default class Header extends Component{
       </ul>
     </div>
 </div>
-          {/* popover */}
-          {/* <div className="d-inline ml-2"> */}
-          {/* <Typography
-        aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true"
-        onMouseEnter={this.handlePopoverOpen}
-        onMouseLeave={()=>this.handlePopoverClose}
-      >
-        Hover
-      </Typography>
-      <Popover
-        id="mouse-over-popover"
-        className={this.classes.popover}
-        classes={{
-          paper: this.classes.paper,
-        }}
-        open={open}
-        anchorEl={this.state.anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={this.handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Typography>I use Popover.</Typography>
-      </Popover> */}
-        
-          {/* </div> */}
 
       </div>
       </nav> 

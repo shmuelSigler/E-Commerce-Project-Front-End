@@ -16,9 +16,11 @@ import SignUp from '../signUp/SignUp';
 import Cart from  '../cart/Cart';
 import Checkout from "../checkout/Checkout"
 import Receipt from '../receipt/Receipt'
-
 import ScrollToTop from '../scrollToTop/ScrollToTop';
-
+import Welcome from "../welcome/Welcome"
+import ProtectedRoute from '../protectedRoute/ProtectedRoute'
+import PasswordReset from "../passwordReset/PasswordReset";
+import {auth} from '../../firebase'
 // let myCart = JSON.parse(localStorage.getItem("myCart"));
 // if (! myCart){
 //     myCart=[]
@@ -28,7 +30,7 @@ import ScrollToTop from '../scrollToTop/ScrollToTop';
 // if (!numOfItems) {
 //     numOfItems= 0;
 // }
-
+console.log(auth);
 
 export default class Routes extends Component {
     constructor(props){
@@ -154,7 +156,9 @@ export default class Routes extends Component {
                />    
                <div>
                   <Switch>
+                  {/* Route only load the component when specific path is in the url */}
                     <Route exact path='/' component={Home}/>
+                    <ProtectedRoute exact path="/welcome" component={Welcome} />
 
                     <Route path="/cart"  component={(props)=>  
                         <Cart {...props} myCart={this.state.myCart} 
@@ -172,6 +176,7 @@ export default class Routes extends Component {
                     <Route path="/receipt" component={Receipt} />
                     <Route path="/login" component={Login}/>
                     <Route path="/signUp" component={SignUp}/>
+                    <Route path="/passwordReset" component={PasswordReset}/>
                     {/* <Route path="/productPage" component={ProductPage}/>     */}
                     {/* key meant for re-render Product when choosing from You may also like */}
                     <Route path="/product/:id" component={(props) => <ProductPage {...props} 

@@ -1,5 +1,18 @@
 {
-  
+  "users":[
+    {
+      "name":"shmolik",
+      "email":"yakovsig@gmail.com",
+      "password":"123abc"
+    },
+    {
+      "name":"natanel",
+      "email":"natanel@gmail.com",
+      "password":"456def"
+    }
+
+  ],
+
   "products":[
     {
       "src":"/images/catalog-page/Marble Machine.jpg",
