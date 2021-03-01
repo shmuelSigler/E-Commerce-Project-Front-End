@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import ShopContext from '../context/shopContext'
 // import {productsObj} from "../product/productsObj.js"
-import axios from 'axios'
+// import axios from 'axios'
 import Product from '../product/Product'
 //react.js example components
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
@@ -15,56 +16,115 @@ import './productPage.css';
 
 
 export default class ProductPage extends Component{
-   
-   constructor(props){
-      super(props)
+  static contextType = ShopContext    //for using this.context
+   constructor(props,context){
+      super(props,context)
       // const [product] = productsObj.filter((product) => (product.title ===  props.match.params.id))
+      const [product] = this.context.products.filter((product) => (product.title ===  this.props.match.params.id))
       this.callRef=React.createRef();
       this.state={
-        loading: false,
+        loading: true,
+        product: product,
         numOfItems: 1,
       }
       
    }
 
-   componentDidMount(){
-    this.fetch()
-  }
+  //  componentDidMount(){
+    //! version 1
+  //   const [product] = this.context.products.filter((product) => (product.title ===  this.props.match.params.id))
+  //   this.setState(()=> { 
+  //     return{
+  //       product:product, 
+  //       myObj:this.context.products,
+  //       title: product.title,
+  //       productDescription: product.productDescription,
+  //       src:product.src,
+  //       image1:product.image1,
+  //       image2:product.image2,
+  //       image3:product.image3,
+  //       image4:product.image4,
+  //       filter:product.filter,
+  //       price: product.price,
+  //       previousPrice: product.previousPrice,
+  //       rating: product.rating,
+  //       stock: product.stock,
+  //       printingTime: product.printingTime,
+  //       sku:product.sku,
+  //       related:product.related,
+  //       size: product.size,
+  //       note: product.note,
+  //       loading:true,
+  //   }})
+  //!version 1 end & version 2 starts - with fetch()
+    // this.fetch()
+  // }
 
-  fetch(){
-    axios.get('http://localhost:3000/products')
-        .then((response)=> {
-          const [product] = response.data.filter((product) => (product.title ===  this.props.match.params.id))
-          this.setState({
-              product:product, 
-              myObj:response.data,
-              title: product.title,
-              productDescription: product.productDescription,
-              src:product.src,
-              image1:product.image1,
-              image2:product.image2,
-              image3:product.image3,
-              image4:product.image4,
-              filter:product.filter,
-              price: product.price,
-              previousPrice: product.previousPrice,
-              rating: product.rating,
-              stock: product.stock,
-              printingTime: product.printingTime,
-              sku:product.sku,
-              related:product.related,
-              size: product.size,
-              note: product.note,
-              loading:true,
+//   async fetch(){
+  //!version 2 - continue, with async-await
+//     try {
+//       const response = await axios.get('http://localhost:3000/products')
+//       const [product] = response.data.filter((product) => (product.title ===  this.props.match.params.id))
+//       this.setState(()=> { 
+//         return{
+//           product:product, 
+//           myObj:response.data,
+//           title: product.title,
+//           productDescription: product.productDescription,
+//           src:product.src,
+//           image1:product.image1,
+//           image2:product.image2,
+//           image3:product.image3,
+//           image4:product.image4,
+//           filter:product.filter,
+//           price: product.price,
+//           previousPrice: product.previousPrice,
+//           rating: product.rating,
+//           stock: product.stock,
+//           printingTime: product.printingTime,
+//           sku:product.sku,
+//           related:product.related,
+//           size: product.size,
+//           note: product.note,
+//           loading:true,
+//       }})
+//   } catch(err) {
+//       console.log(err)
+//   }
+//! version 2 end & version 3 starts - no async before fetch() signature
+    // axios.get('http://localhost:3000/products')
+    //     .then((response)=> {
+    //       const [product] = response.data.filter((product) => (product.title ===  this.props.match.params.id))
+    //       this.setState(()=> { return{
+    //           product:product, 
+    //           myObj:response.data,
+    //           title: product.title,
+    //           productDescription: product.productDescription,
+    //           src:product.src,
+    //           image1:product.image1,
+    //           image2:product.image2,
+    //           image3:product.image3,
+    //           image4:product.image4,
+    //           filter:product.filter,
+    //           price: product.price,
+    //           previousPrice: product.previousPrice,
+    //           rating: product.rating,
+    //           stock: product.stock,
+    //           printingTime: product.printingTime,
+    //           sku:product.sku,
+    //           related:product.related,
+    //           size: product.size,
+    //           note: product.note,
+    //           loading:true,
           
-        })})
-        .catch((error)=> {
-          console.log(error);
-        })
-}
+    //     }})})
+    //     .catch((error)=> {
+    //       console.log(error);
+    //     })
+    //!version 3 end
+// }
 
    rating(){
-     console.log('yes');
     console.log(document.starRating.star1);
    }
 
@@ -77,31 +137,29 @@ export default class ProductPage extends Component{
    }
 
     render(){
-      
+  
        return(this.state.loading) ? (
         <div  className="container-fluid p-5">
-         
           <div className="row ">
            {/* images */}
-             <div className="col-md-12 col-lg-6">
-             
+          <div className="col-md-12 col-lg-6">
             <div id="custCarousel" className="carousel slide carousel-fade m-2" data-ride="carousel" align="center">
                 {/* <!-- slides --> */}
                 <div className="carousel-inner shadow-lg ">
                     <div className="carousel-item active"> 
-                    <InnerImageZoom fadeDuration={0}  src={this.state.image1} zoomScale={0.3} alt="img1"/>
+                    <InnerImageZoom fadeDuration={0}  src={this.state.product.image1} zoomScale={0.3} alt="img1"/>
                     {/* <img className="img-fluid" src={this.state.image1} alt="img1"/>  */}
                     </div>
                     <div className="carousel-item">
-                    <InnerImageZoom fadeDuration={0} src={this.state.image2} zoomScale={0.3} alt="img2"/>
+                    <InnerImageZoom fadeDuration={0} src={this.state.product.image2} zoomScale={0.3} alt="img2"/>
                      {/* <img className="img-fluid" src={this.state.image2} alt="img2"/>  */}
                      </div>
                     <div className="carousel-item">
-                    <InnerImageZoom fadeDuration={0} src={this.state.image3} zoomScale={0.3}  alt="img3"/> 
+                    <InnerImageZoom fadeDuration={0} src={this.state.product.image3} zoomScale={0.3}  alt="img3"/> 
                     {/* <img className="img-fluid" src={this.state.image3} alt="img3"/>  */}
                     </div>
                     <div className="carousel-item"> 
-                    <InnerImageZoom fadeDuration={0} src={this.state.image4} zoomScale={0.3}  alt="img4"/>
+                    <InnerImageZoom fadeDuration={0} src={this.state.product.image4} zoomScale={0.3}  alt="img4"/>
                     {/* <img className="img-fluid" src={this.state.image4} alt="img4"/>  */}
                     </div>
                 </div> 
@@ -115,28 +173,20 @@ export default class ProductPage extends Component{
                  
                   {/* <!-- Thumbnails --> */}
                 <ol className="carousel-indicators list-inline ">
-                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href='#'> <img src={this.state.image1} className="img-fluid " alt='img1'/> </a> </li>
-                    <li className="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel" href=''> <img src={this.state.image2} className="img-fluid " alt='img2'/> </a> </li>
-                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel" href=''> <img src={this.state.image3} className="img-fluid " alt='img3'/> </a> </li>
-                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel" href=''> <img src={this.state.image4} className="img-fluid " alt='img4'/> </a> </li>
+                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href='#'> <img src={this.state.product.image1} className="img-fluid " alt='img1'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel" href=''> <img src={this.state.product.image2} className="img-fluid " alt='img2'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel" href=''> <img src={this.state.product.image3} className="img-fluid " alt='img3'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel" href=''> <img src={this.state.product.image4} className="img-fluid " alt='img4'/> </a> </li>
                 </ol>
             </div>
         
-		 	        {/* <img src={this.state.src} id="big-img" className="img-fluid  shadow-lg " alt=''/>
-              <div className="row m-2 ">
-                 <img onClick={this.changeSrc.bind(this)} id='img1' src={this.state.image1} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
-                 <img onClick={this.changeSrc.bind(this)} id='img2' src={this.state.image2} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
-                 <img onClick={this.changeSrc.bind(this)} id='img3' src={this.state.image3} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
-                 <img onClick={this.changeSrc.bind(this)} id='img4' src={this.state.image4} className="gallary col-md-3 col-sm-6 p-2 img-fluid" alt=''/>
-              </div> */}
-
-		         </div>
+		      </div>
            {/* product datails */}
           <div className="col-md-12 col-lg-6">
-		 	      <h2 className='font-weight-bold' >{this.state.title}</h2>
-             <span>{this.state.rating}</span><br/>
-                  was: <span className='line-through mr-4'>${this.state.previousPrice}</span>now: <span className='font-weight-bold '>
-                  ${this.state.price}</span>
+		 	      <h2 className='font-weight-bold' >{this.state.product.title}</h2>
+             <span>{this.state.product.rating}</span><br/>
+                  was: <span className='line-through mr-4'>${this.state.product.previousPrice}</span>now: <span className='font-weight-bold '>
+                  ${this.state.product.price}</span>
                {/* star rating */}
                <div className="row">
                   <div className="col-md-12">
@@ -157,15 +207,19 @@ export default class ProductPage extends Component{
                   </div>
               </div>
             {/* product description */}
-		 	        <p>{this.state.productDescription}</p>
+		 	        <p>{this.state.product.productDescription}</p>
 		 	        <br/>
               {/* product sku */}
-              <p id='sku'>Product Sku: {this.state.sku}</p>
+              <p id='sku'>Product Sku: {this.state.product.sku}</p>
               {/* add to cart  */}
-              <input ref={this.callRef} onChange={this.updateNumOfItems.bind(this)} className='mr-5' type='number' min="1" max={this.state.stock} placeholder='1'></input>
-		 	        <button onClick={() => this.props.addToCart(this.state.product,this.state.numOfItems)}  className="addToCart btn btn-primary">Add To Cart</button>
+              <input ref={this.callRef} onChange={this.updateNumOfItems.bind(this)} className='mr-5' type='number' min="1" max={this.state.product.stock} placeholder='1'></input>
+              <ShopContext.Consumer>
+		 	          {context =>(
+                  <button onClick={() => context.addToCart(this.state.product,this.state.numOfItems)}  className="addToCart btn btn-primary">Add To Cart</button>
+                 )}
+              </ShopContext.Consumer>
               {/* items in stock */}
-              <p id='stock'>{this.state.stock} in stock</p>
+              <p id='stock'>{this.state.product.stock} in stock</p>
               {/* add to favorite */}
               <div className="main-div">
                <div className="button-div"> 
@@ -198,12 +252,12 @@ export default class ProductPage extends Component{
                  </div>
                  <div id="collapseTwo" className="collapse" data-parent="#accordion">
                    <div className="card-body">
-                     Material: {this.state.filter[0]} <br/>
-                     Color: {this.state.filter[1]} <br/>
-                     Printing Time: {this.state.printingTime} Hours <br/>
-                     Category: {this.state.filter[2]}<br/>
-                     Size: {this.state.size}<br/>
-                     Note: {this.state.note}
+                     Material: {this.state.product.filter[0]} <br/>
+                     Color: {this.state.product.filter[1]} <br/>
+                     Printing Time: {this.state.product.printingTime} Hours <br/>
+                     Category: {this.state.product.filter[2]}<br/>
+                     Size: {this.state.product.size}<br/>
+                     Note: {this.state.product.note}
                    </div>
                  </div>
                </div>
@@ -227,13 +281,13 @@ export default class ProductPage extends Component{
           <div className=" mx-auto mt-5 related-product">
            <h2 className='font-weight-bold'>You may also like</h2>
            <div className="row p-5">
-                        { this.state.myObj.map((el) => {
-                           return this.state.related.includes(el.title) &&
+                        { this.context.products.map((el) => {
+                           return this.state.product.related.includes(el.title) &&
                             <Product
                              key={el.title} 
-                             title={el.title}
-                             description={el.description} src={el.src} price={el.price} rating={el.rating} 
-                             obj={el} addToCart={this.props.addToCart}
+                            //  title={el.title}
+                            //  description={el.description} src={el.src} price={el.price} rating={el.rating} 
+                             obj={el} 
                              /> 
                           }
                          )

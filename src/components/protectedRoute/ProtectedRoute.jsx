@@ -1,32 +1,50 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import {auth} from '../../firebase'
+import React from "react"
+import { Route, Redirect } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
-export default function ProtectedRoute ({component: Component,...rest}) {
+export default function PrivateRoute({ component: Component, ...rest }) {
+  const { currentUser } = useAuth()
+
   return (
     <Route
       {...rest}
       render={props => {
-        auth.onAuthStateChanged((user)=>{
-            if(user){
-                console.log("protected true")
-                return <Component {...props} />
-            }  
-            else {
-                console.log("protected false")
-                return (
-                <Redirect
-                  to={{
-                    pathname: "/",
-                    state: {
-                      from: props.location,
-                    },
-                  }}/>)}
-          })
+        return currentUser ? <Component {...props} /> : <Redirect to="/login" />
       }}
-    />
-  );
-};
+    ></Route>
+  )
+}
+
+
+// import React from "react";
+// import { Route, Redirect } from "react-router-dom";
+// import {auth} from '../../firebase'
+
+// export default function ProtectedRoute ({component: Component,...rest}) {
+//   return (
+//     <Route
+//       {...rest}
+//       render={props => {
+//         auth.onAuthStateChanged((user)=>{
+//             if(user){
+//                 console.log("protected true")
+//                 return <Component {...props} />
+//             }  
+//             else {
+//                 console.log("protected false")
+//                 return (
+//                 <Redirect
+//                   to={{
+//                     pathname: "/",
+//                     state: {
+//                       from: props.location,
+//                     },
+//                   }}/>)}
+//           })
+//       }}
+//     />
+//   );
+// };
 
 // export default function ProtectedRoute({component: Component, ...rest}) {
 

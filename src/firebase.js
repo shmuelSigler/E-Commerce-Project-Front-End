@@ -12,4 +12,6 @@ const app = firebase.initializeApp ({
 })
 
 
-  export const auth= app.auth()
+export const auth= app.auth() //veriable for authentication instance
+export const google = new firebase.auth.GoogleAuthProvider();
+export default app         //app is firebase in general

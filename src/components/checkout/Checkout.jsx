@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ShopContext from '../context/shopContext'
 import { Link } from 'react-router-dom'
 import { PayPalButton } from "react-paypal-button-v2";
 import { Redirect } from 'react-router'
@@ -11,69 +12,67 @@ export default class Checkout extends Component {
         super(props)
         this.state={
             allOk: false,
-            totalPrice: 0,
-            arrayOfOccurrences: [],
-            arrayOfUniqueObjects: [],
-            shipmentMethod: '',
-            shipmentPrice: 0,
+            orderNo:0,
+            // totalPrice: 0,
+            // arrayOfOccurrences: [],
+            // arrayOfUniqueObjects: [],
+            // shipmentMethod: '',
+            // shipmentPrice: 0,
         }
     }
    
-    componentDidMount(){
-        //the below this.props.location.state came from cart <Link/>
-        const { totalPrice } = this.props.location.state;
-        const arrayOfUniqueObjects = [...this.props.location.state.arrayOfUniqueObjects];
-        const arrayOfOccurrences = [...this.props.location.state.arrayOfOccurrences];
-        const {shipmentMethod} = this.props.location.state;
-        const {shipmentPrice} = this.props.location.state;
-        this.setState({
-            totalPrice: totalPrice, 
-            arrayOfOccurrences:arrayOfOccurrences, 
-            arrayOfUniqueObjects:arrayOfUniqueObjects,
-            shipmentMethod: shipmentMethod,
-            shipmentPrice: shipmentPrice,
-            orderNo: 0,
-        })  
-        // console.log(this.props.location.state);   
-    }
+    // componentDidMount(){
+    //     //the below this.props.location.state came from cart <Link/>
+    //     const { totalPrice } = this.props.location.state;
+    //     const arrayOfUniqueObjects = [...this.props.location.state.arrayOfUniqueObjects];
+    //     const arrayOfOccurrences = [...this.props.location.state.arrayOfOccurrences];
+    //     const {shipmentMethod} = this.props.location.state;
+    //     const {shipmentPrice} = this.props.location.state;
+    //     this.setState({
+    //         totalPrice: totalPrice, 
+    //         arrayOfOccurrences:arrayOfOccurrences, 
+    //         arrayOfUniqueObjects:arrayOfUniqueObjects,
+    //         shipmentMethod: shipmentMethod,
+    //         shipmentPrice: shipmentPrice,
+    //         orderNo: 0,
+    //     })  
+    //     // console.log(this.props.location.state);   
+    // }
 
     validation(){
         // console.log(document.feedback);
         const orderNo = Math.round(Math.random()*100000000)
-        
         this.setState({orderNo: orderNo, allOk:true})
-        
         return false; // return false to fail submit, for redirecting to Receipt component
     }
 
-    componentWillUnmount(){
-        if(this.state.allOk){
-            localStorage.removeItem("myCart");
-            localStorage.removeItem("numOfItems");
-            window.location.reload(); //refresh to update cart badge
-        } 
-    }
+    // componentWillUnmount(){
+    //     if(this.state.allOk){
+    //         localStorage.removeItem("myCart");
+    //         localStorage.removeItem("numOfItems");
+    //         // window.location.reload(); //refresh to update cart badge
+    //     } 
+    // }
 
     render() {
-        return ( 
-      <div>
-      {this.state.allOk? <Redirect to={{
-                                        pathname:"/receipt",
-                                        state:{ totalPrice: this.state.totalPrice,
-                                            arrayOfOccurrences: this.state.arrayOfOccurrences,
-                                            arrayOfUniqueObjects: this.state.arrayOfUniqueObjects,
-                                            shipmentMethod: this.state.shipmentMethod,
-                                            shipmentPrice: this.state.shipmentPrice,
-                                            orderNo: this.state.orderNo,
-                                            name: document.feedback.fname.value,
-                                            city: document.feedback.city.value,
-                                            street: document.feedback.str.value,
-                                            strNum: document.feedback.strNum.value,
-                                            apt: document.feedback.apt.value,
-                                            subscribe: document.feedback.subscribe.checked,
-                                            email:  document.feedback.email.value,
-                                             
-                                    }}} /> : ""}
+        if(this.state.allOk){
+            return ( 
+           <Redirect to={{
+                        pathname:"/receipt",
+                        state:{ 
+                            orderNo: this.state.orderNo,
+                            name: document.feedback.fname.value,
+                            city: document.feedback.city.value,
+                            street: document.feedback.str.value,
+                            strNum: document.feedback.strNum.value,
+                            apt: document.feedback.apt.value,
+                            subscribe: document.feedback.subscribe.checked,
+                            email:  document.feedback.email.value,
+                             
+                    }}} />)
+        }else{
+            return(
+    <ShopContext.Consumer>{ value =>(                                
     <div className="container-fluid p-5 checkout-container">
         <Link to="/cart">
             <span className="a" >&larr;</span><span className="text-muted">Back to cart</span>
@@ -186,7 +185,7 @@ export default class Checkout extends Component {
                         </div>
                         </div>
                         <PayPalButton
-                            amount={this.state.totalPrice}
+                            amount={value.totalPrice}
                             // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                             onSuccess={(details, data) => {
                             alert("Transaction completed by " + details.payer.name.given_name);
@@ -224,29 +223,33 @@ export default class Checkout extends Component {
                 <h4>Cart
                     <span className=" price-checkout" >
                     <i className="fa fa-shopping-cart mr-2"></i>
-                    <b>{this.state.arrayOfOccurrences.length}</b>
+                    <b>{value.arrayOfOccurrences.length}</b>
                     </span>
                 </h4>
-                {this.state.arrayOfUniqueObjects.map((el,i) =>{ return<div key={el.title}>
-                     <p>{el.title} <small>X{this.state.arrayOfOccurrences[i]}</small><span className="price-checkout">${this.state.arrayOfOccurrences[i]*el.price}</span></p></div>
+                {value.arrayOfUniqueObjects.map((el,i) =>{ return<div key={el.title}>
+                     <p>{el.title} <small>X{value.arrayOfOccurrences[i]}</small><span className="price-checkout">${value.arrayOfOccurrences[i]*el.price}</span></p></div>
                 })
                 }
                 <hr/>
                 <p>Shipment 
                     <span className="price-checkout">
-                        ${this.state.shipmentPrice}
+                        ${value.shipmentPrice}
                     </span>
-                    <br/><small>{this.state.shipmentMethod}</small>
+                    <br/><small>{value.shipmentMethod}</small>
                 </p>
                 <hr/>
-                <p>Total <span className=" price-checkout" ><b>${this.state.totalPrice}</b></span></p>
+                <p>Total <span className=" price-checkout" ><b>${value.totalPrice}</b></span></p>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+      )}
+      
+    </ShopContext.Consumer>
+)
+        }
 
 
-        )
+        
     }
 }

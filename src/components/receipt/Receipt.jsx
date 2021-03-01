@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ShopContext from '../context/shopContext'
 import { Link } from 'react-router-dom'
 
 import ThreeDRotationIcon from '@material-ui/icons/ThreeDRotation';
@@ -6,18 +7,18 @@ import StoreIcon from '@material-ui/icons/Store';
 import './receipt.css'
 
 export default class Receipt extends Component {
-   
-    // componentDidMount(){
-    //     console.log(this.props.location.state)
-        
-    // }
+    static contextType = ShopContext
+
+    componentWillUnmount(){
+        // console.log(this.props.location.state)
+        this.context.emptyCart()  
+    }
 
     render() {
         const timeElapsed = Date.now();
         const today = new Date(timeElapsed);
         
         return (
-            <div>
                 <div className="container p-5 mt-3 mb-5 ">
     <div className="row d-flex justify-content-center ">
         <div className="col-md-8 ">
@@ -61,15 +62,14 @@ export default class Receipt extends Component {
                     <div className="product border-bottom table-responsive">
                         <table className="table table-borderless">
                             <tbody>
-                                
-                               {this.props.location.state.arrayOfUniqueObjects.map((el,i) =>{
+                               {this.context.arrayOfUniqueObjects.map((el,i) =>{
                                    return <tr key={el.title}>
                                     <td width="20%"> <img src={el.thumbnail} width="90" alt={el.title}/> </td>
                                     <td width="60%"> 
                                         <span className="font-weight-bold">{el.title}</span>
                                         <div className="product-qty">
                                             <span className="d-block">Quantity:&nbsp;
-                                                {this.props.location.state.arrayOfOccurrences[i]}
+                                                {this.context.arrayOfOccurrences[i]}
                                             </span> 
                                             <span>Price: ${el.price}</span>
                                         </div>
@@ -77,13 +77,12 @@ export default class Receipt extends Component {
                                     <td width="20%">
                                         <div className="text-right"> 
                                             <span className="font-weight-bold">$
-                                                {el.price*this.props.location.state.arrayOfOccurrences[i]}
+                                                {el.price*this.context.arrayOfOccurrences[i]}
                                             </span> 
                                         </div>
                                     </td>
                                 </tr>
                                })}
-
                             </tbody>
                         </table>
                     </div>
@@ -96,7 +95,7 @@ export default class Receipt extends Component {
                                             <div className="text-left"> <span className="text-muted">Subtotal</span> </div>
                                         </td>
                                         <td>
-                                            <div className="text-right"> <span>${this.props.location.state.totalPrice-this.props.location.state.shipmentPrice}</span> </div>
+                                            <div className="text-right"> <span>${this.context.totalPrice-this.context.shipmentPrice}</span> </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -104,7 +103,7 @@ export default class Receipt extends Component {
                                             <div className="text-left"> <span className="text-muted">Shipping Fee</span> </div>
                                         </td>
                                         <td>
-                                            <div className="text-right"> <span>${this.props.location.state.shipmentPrice}</span> </div>
+                                            <div className="text-right"> <span>${this.context.shipmentPrice}</span> </div>
                                         </td>
                                     </tr>
                                     {/* <tr>
@@ -130,7 +129,7 @@ export default class Receipt extends Component {
                                             <div className="text-left"> <span className="font-weight-bold">Subtotal</span> </div>
                                         </td>
                                         <td>
-                                            <div className="text-right"> <span className="font-weight-bold">${this.props.location.state.totalPrice}</span> </div>
+                                            <div className="text-right"> <span className="font-weight-bold">${this.context.totalPrice}</span> </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -150,7 +149,7 @@ export default class Receipt extends Component {
         </div>
     </div>
 </div>
-            </div>
+            
         )
     }
 }

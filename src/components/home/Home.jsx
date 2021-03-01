@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ShopContext from '../context/shopContext'
 import {Link} from 'react-router-dom';
 
 import axios from 'axios';
@@ -16,9 +17,9 @@ import Zoom from '@material-ui/core/Zoom';
 import "./home.css"
 
 export default class Home extends Component {
-
-    constructor(){
-        super();
+    static contextType = ShopContext            //for using this.context
+    constructor(props){
+        super(props);
         this.state={
             loading:false,
             productsObj: [],
@@ -26,18 +27,21 @@ export default class Home extends Component {
     }
 
     componentDidMount(){
-        this.fetch()
+        this.setState( ()=>{
+        return {productsObj:this.context.products,  loading:true}
+    })
+        // this.fetch()
       }
     
-      fetch(){
-        axios.get('http://localhost:3000/products')
-            .then((response)=> {
-              this.setState({productsObj:response.data, loading:true})
-            })
-            .catch((error)=> {
-              console.log(error);
-            })
-      }
+    //   fetch(){
+    //     axios.get('http://localhost:3000/products')
+    //         .then((response)=> {
+    //           this.setState({productsObj:response.data, loading:true})
+    //         })
+    //         .catch((error)=> {
+    //           console.log(error);
+    //         })
+    //   }
 
     render(){
         return(

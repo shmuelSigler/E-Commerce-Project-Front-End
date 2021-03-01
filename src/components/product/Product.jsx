@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import ShopContext from '../context/shopContext'
 import "./product.css"
 //ICONS
 import FiberNewOutlinedIcon from '@material-ui/icons/FiberNew';
@@ -14,7 +14,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 //react.js example components
-// import {Animated} from "react-animated-css";
+import {Animated} from "react-animated-css";
 //! IN THE Popover DOCUMANTION (MATERIAL-UI) THERE IS A FUNCTION AND NOT CLASS SO I CONVERTED IT FROM CLASS TO FUNCTION
 
 const useStyles = makeStyles((theme) => ({      // useStyles for the padding inside the popup
@@ -37,47 +37,48 @@ export default function Product(props)  {
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
-
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
     
-     
         return (
           
             <div className="singleProduct col-lg-4 col-md-6 ">
-              {/* <Animated animationIn="pulse" animationOut="rollOut" animationInDuration={1000} animationOutDuration= {800} isVisible={true}> */}
+              <Animated animationIn="pulse" animationOut="rollOut" animationInDuration={1000} animationOutDuration= {800} isVisible={true}>
                 <figure className="">
                   <div className="image">
                    <Zoom in={true}>
                      <div className="special display-4 float-right">
-                        { (props.special ==='New' && <FiberNewOutlinedIcon fontSize="large" 
+                        { (props.obj.special ==='New' && <FiberNewOutlinedIcon fontSize="large" 
                            style={{ fill: '#8e24aa' }}/>) ||
-                          (props.special ==='Sale' && <TrendingDownIcon fontSize="large" color="error"/>)  ||
-                          (props.special ==='Featured' && <WhatshotIcon fontSize="large" 
+                          (props.obj.special ==='Sale' && <TrendingDownIcon fontSize="large" color="error"/>)  ||
+                          (props.obj.special ==='Featured' && <WhatshotIcon fontSize="large" 
                            style={{ fill: '#ffeb3b' }}/>)
                         }
                      </div>
                    </Zoom>
-                      <Link to={"/product/" + props.title}>
-                        <img className="img-fluid change-product" src={props.src} alt={props.title} />
+                      <Link to={"/product/" + props.obj.title}>
+                        <img className="img-fluid change-product" src={props.obj.src} alt={props.obj.title} />
                       </Link>
                   </div>
                     
                     <figcaption>
-                        <h3 className="font-weight-bolder">{props.title}</h3>
-                        <span>{props.rating}</span><br/>
-                        <span><b>${props.price}</b></span><br/>
-                        <span>{props.description}</span>
+                        <h3 className="font-weight-bolder">{props.obj.title}</h3>
+                        <span>{props.obj.rating}</span><br/>
+                        <span><b>${props.obj.price}</b></span><br/>
+                        <span>{props.obj.description}</span>
                     </figcaption>
                    
          {/* QUICK VIEW & ADD TO CART BUTTUNS */}
                 <div className='d-flex justify-content-center mt-3'>
                 {/* ADD TO CART BUTTON */}
-                  <button id="addToCart" onClick={() => {props.addToCart(props.obj)}} className="addToCart btn btn-primary mr-5">
-                    add to cart
-                  </button>
+                  <ShopContext.Consumer>
+                    {context =>(
+                      <button id="addToCart" onClick={() => {context.addToCart(props.obj)}} className="addToCart btn btn-primary mr-5">
+                      add to cart
+                      </button>
+                    )}
+                  </ShopContext.Consumer>
                   <Button  aria-describedby={id} variant="contained" color="primary" onClick={handleClick}
                   style={{ backgroundColor: '#4285f4' ,
                           fontSize: '16px',
@@ -130,7 +131,7 @@ export default function Product(props)  {
                 </div>
 
                 </figure>
-                {/* </Animated> */}
+                </Animated>
             </div>
             
         );

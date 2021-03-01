@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ShopContext from '../context/shopContext'
 import {Link} from 'react-router-dom';
 //MATERIAL UI
 import ThreeDRotationIcon from '@material-ui/icons/ThreeDRotation';
@@ -25,13 +26,13 @@ const StyledBadge = withStyles((theme) => ({
 
 
 export default class Header extends Component{
-
+static contextType = ShopContext
   constructor(props){
     super(props)
     this.callRef=React.createRef(); //refrenece to dom element
     this.state={
       query: '',
-      numOfItems:this.props.numOfItems,
+      // numOfItems:this.props.numOfItems,
       name: '',
       // anchorEl: null,
     }
@@ -53,29 +54,28 @@ export default class Header extends Component{
   // static getDerivedStateFromProps(props, state) {
   //   return {cartBadge: props.numOfItems };
   // }
-  componentDidMount(){
-    // localStorage.setItem('filterArr',[])
+//   componentDidMount(){
+//     let {name} = JSON.parse(localStorage.getItem("user"))? JSON.parse(localStorage.getItem("user")): "" ;
+//     if (name){
+//         this.setState({name:name})
+//     }
+// }
 
-    let {name} = JSON.parse(localStorage.getItem("user"))? JSON.parse(localStorage.getItem("user")): "" ;
-    if (name){
-        this.setState({name:name})
-    }
-}
   changeQuery(e){
     this.setState( {query:this.callRef.current.value} )
   }
 
-  logOut(){
-    localStorage.removeItem("user")
-  //   logOutBtn=()=>{
-  //     auth.signOut().then(() => {
-  //         this.props.history.push("/");
-  //       }).catch((error) => {
-  //             alert(error," try again");
-  //       });
+  // logOut(){
+  //   localStorage.removeItem("user")
+  // //   logOutBtn=()=>{
+  // //     auth.signOut().then(() => {
+  // //         this.props.history.push("/");
+  // //       }).catch((error) => {
+  // //             alert(error," try again");
+  // //       });
+  // // }
   // }
 
-  }
   // handlePopoverOpen  = (event) => {
     
   //   this.setState({anchorEl: event.currentTarget});
@@ -99,7 +99,8 @@ export default class Header extends Component{
     // const id = open ? 'simple-popover' : undefined;
     // console.log(open);
     return(
-    <div >
+    <>
+    
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
       <ThreeDRotationIcon fontSize="large"/>
@@ -136,7 +137,6 @@ export default class Header extends Component{
           <form className="form-inline  my-lg-0 mr-4" action='/shop'>
               <input ref={this.callRef} className="form-control mr-sm-2" type="search" placeholder="Search" onChange={this.changeQuery.bind(this)} name='q' pattern="[a-z A-Z]{1,}" title="one or more characters in the search phrase a-z, A-Z and no numbers" required="required"/>
               <button className="serach btn btn-outline-success my-2 my-sm-0" type="submit"><span>Search</span></button>
-              
           </form>
       </div>
       <div className="details ">
@@ -151,7 +151,7 @@ export default class Header extends Component{
             <div className="col-4 d-inline ">
               <Link to={"/cart"}>
                   <IconButton aria-label="cart">
-                    <StyledBadge badgeContent={Number(localStorage.getItem("numOfItems"))} color="secondary">
+                    <StyledBadge badgeContent={this.context.numOfItems} color="secondary">
                         <ShoppingCartIcon />
                     </StyledBadge>
                   </IconButton>
@@ -164,31 +164,37 @@ export default class Header extends Component{
                 Items in Cart
                 </a>
                 <ul className="dropdown-menu dropdown-menu-right dropdown-cart" role="menu">
-                    { this.props.arrayOfUniqueObjects.length !==0?
-                      this.props.arrayOfUniqueObjects.map((el,i)=>{ 
-                      return <Link to={"/product/" + el.title} key={el.title}>
+                    { this.context.arrayOfUniqueObjects.length !==0?
+                      this.context.arrayOfUniqueObjects.map((el,i)=>{ 
+                         return i<5? 
                         <b><li>
-                          <span className="item">
-                            <span className="item-left">
-                                <img className="shadow" src={el.thumbnail} alt={el.title} width="40"/>
-                                <span className="item-info">
-                                    <span>{el.title}</span>
-                                    <span>price: {el.price}$ <small>X{this.props.arrayOfOccurrences[i]}</small></span>
-                                </span>
+                          <span className="item ">
+                            <span className="item-left ">
+                              <Link to={"/product/" + el.title} key={el.title}>
+                                  <img className="shadow" src={el.thumbnail} alt={el.title} width="40"/>
+                                  <span className="item-info">
+                                      <span>{el.title}</span>
+                                      <span>price: {el.price}$ <small>X{this.context.arrayOfOccurrences[i]}</small></span>
+                                  </span>
+                                  
+                              </Link>
+                              <button id='remove-btn' className="btn btn-danger p-1" onClick={()=> this.context.eraseProductFromCart(el)}>remove from cart</button>
                             </span>
+                            
                           </span>
                         </li></b>
-                    </Link>
+                     : null 
                     })
-                    : <span>There are no items in cart</span>}
+                    : <span>There are no items in cart</span>
+                    }
                     <hr/>
-                    <li>Subtotal: ${this.props.arrayOfUniqueObjects.reduce(
-                                    (acc,el,i)=> {return acc+el.price*this.props.arrayOfOccurrences[i]}
+                    <li>Subtotal: ${this.context.arrayOfUniqueObjects.reduce(
+                                    (acc,el,i)=> {return acc+el.price*this.context.arrayOfOccurrences[i]}
                                     ,0)}
                     </li>
                    
                     <li className="btn d-flex justify-content-center mt-1">
-                      <Link className="text-center" to={"/cart"}>View Cart</Link>
+                      <Link className="text-center" to={"/cart"}>View Cart For More Details</Link>
                     </li>
                             
                 </ul>
@@ -199,7 +205,7 @@ export default class Header extends Component{
 
       </div>
       </nav> 
-    </div>
+    </>
     );
   }
  }

@@ -21,128 +21,9 @@ import Welcome from "../welcome/Welcome"
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
 import PasswordReset from "../passwordReset/PasswordReset";
 import {auth} from '../../firebase'
-// let myCart = JSON.parse(localStorage.getItem("myCart"));
-// if (! myCart){
-//     myCart=[]
-// }
 
-// let numOfItems = Number(localStorage.getItem("numOfItems"));
-// if (!numOfItems) {
-//     numOfItems= 0;
-// }
-console.log(auth);
 
 export default class Routes extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            myCart: [],         //array of objects
-            numOfItems: 0,  //number of products in the cart
-            arrayOfOccurrences:[],
-            arrayOfUniqueObjects: [],
-        }
-       
-    }
-
-    componentDidMount(){
-        // localStorage.setItem('filterArr',[])
-        let myCart = JSON.parse(localStorage.getItem("myCart"));
-        if (! myCart){
-            myCart=[]
-        }
-
-        let numOfItems = Number(localStorage.getItem("numOfItems"));
-        if (!numOfItems) {
-            numOfItems= 0;
-        }
-        this.countTheOccurrenceOfEachObject(myCart,numOfItems)
-    }
-
-    // shouldComponentUpdate(nextProps, nextState){
-    //     console.log(this.state.filterArr);
-    //     console.log(nextState.filterArr);
-    //     return  this.state.numOfItems !== nextState.numOfItems
-    // }
-
-    countTheOccurrenceOfEachObject(copyArr,totalNum){
-        // let arrayOfObjs=[...this.state.myCart]
-        let result = {};
-        let fixMyCart = []              //fix cart to remove duplicates
-        copyArr.forEach(function(item) {            
-            var objStr = JSON.stringify(item);
-            result[objStr] = result[objStr] ? ++result[objStr] : 1;
-        });
-
-        let keys= Object.keys(result)           
-        let values=Object.values(result)    //array of Occurrences
-        keys=keys.map(el=>JSON.parse(el))   //array of unique objects
-        //fix duplicates in cart - update myCart & numOfItems
-        let sum=0
-        for( let i=0; i<values.length ;i++ ){
-            if( values[i] > keys[i].stock) values[i]=keys[i].stock  //fix to stock number
-            sum+=values[i]
-            for( let j=0; j<values[i]; j++ ){
-                fixMyCart.push(keys[i])
-            }
-        }
-        
-        localStorage.setItem('myCart',JSON.stringify(fixMyCart))
-        localStorage.setItem('numOfItems',sum)
-        // localStorage.setItem('filterArr',filterArr)
-        this.setState({ arrayOfOccurrences:values, arrayOfUniqueObjects:keys, myCart: fixMyCart,numOfItems:sum})
-        // this.setState({ arrayOfUniqueObjects:keys})
-        // this.setState({myCart: fixMyCart})
-        // this.setState({numOfItems:sum})
-
-    }
-
-    addToCart=(product,num=1) =>{
-      let copyArr=[...this.state.myCart]
-    //   let totalNum= this.state.numOfItems;
-    //   totalNum+=Number(num)
-
-    //   if( !copyArr.includes(product) ){     //if the product not in the cart
-    //     copyArr.push(product)
-    //     this.setState({myCart: copyArr})
-    //     localStorage.setItem('myCart',JSON.stringify(copyArr))
-    //   }
-      for (let i = 0; i < num; i++) {
-        copyArr.push(product)  
-      }
-      let totalNum= copyArr.length;
-    //   localStorage.setItem('myCart',JSON.stringify(copyArr))
-    //   localStorage.setItem('numOfItems',totalNum)
-    //   this.setState({myCart: copyArr})
-    //   this.setState({numOfItems:totalNum})
-    //   this.setState({ currentProduct: product })
-    //   this.setState({ numOfCurrentProduct: num })
-      this.countTheOccurrenceOfEachObject(copyArr,totalNum)
-   }
-
-   removeFromCart=(product) =>{
-    let copyArr=[...this.state.myCart]
-    // let totalNum= this.state.numOfItems;
-    // totalNum-=Number(num)
-    let index = copyArr.indexOf(product);
-    copyArr.splice(index,1);
-    let totalNum= copyArr.length;
-    // localStorage.setItem('myCart',JSON.stringify(copyArr))
-    // localStorage.setItem('numOfItems',totalNum)
-    // this.setState({myCart: copyArr})
-    // this.setState({numOfItems:totalNum})
-    this.countTheOccurrenceOfEachObject(copyArr,totalNum)
-   }
-
-   eraseProductFromCart = (product) =>{
-    let copyArr=[...this.state.myCart]
-    copyArr= copyArr.filter(el =>  el.title !== product.title)
-    let totalNum= copyArr.length;
-    // localStorage.setItem('myCart',JSON.stringify(copyArr))
-    // localStorage.setItem('numOfItems',totalNum)
-    // this.setState({myCart: copyArr})
-    // this.setState({numOfItems:totalNum})
-    this.countTheOccurrenceOfEachObject(copyArr,totalNum)
-   }
 
     render() {
         
@@ -150,17 +31,20 @@ export default class Routes extends Component {
             <React.Fragment> 
             <Router>
             <ScrollToTop/>
-               <Header numOfItems={this.state.numOfItems} 
+                <Header/>
+               {/* <Header numOfItems={this.state.numOfItems} 
                arrayOfOccurrences={this.state.arrayOfOccurrences}
                arrayOfUniqueObjects={this.state.arrayOfUniqueObjects}
-               />    
-               <div>
+               />     */}
+               <>
                   <Switch>
                   {/* Route only load the component when specific path is in the url */}
                     <Route exact path='/' component={Home}/>
-                    <ProtectedRoute exact path="/welcome" component={Welcome} />
+                    <ProtectedRoute exact path="/account/profile" component={Welcome} />
 
-                    <Route path="/cart"  component={(props)=>  
+                    <Route path="/cart"  component={Cart}/>
+
+                    {/* <Route path="/cart"  component={(props)=>  
                         <Cart {...props} myCart={this.state.myCart} 
                         numOfItems={this.state.numOfItems} 
                         arrayOfOccurrences={this.state.arrayOfOccurrences}
@@ -168,39 +52,36 @@ export default class Routes extends Component {
                         addToCart={this.addToCart} 
                         removeFromCart={this.removeFromCart}
                         eraseProductFromCart={this.eraseProductFromCart}
-                        />} />
-                    <Route path="/checkout" component={Checkout}
-                        // arrayOfOccurrences={this.state.arrayOfOccurrences}
-                        // arrayOfUniqueObjects={this.state.arrayOfUniqueObjects}
-                    />
+                        />} /> */}
+
+                    <Route path="/checkout" component={Checkout}/>
                     <Route path="/receipt" component={Receipt} />
                     <Route path="/login" component={Login}/>
                     <Route path="/signUp" component={SignUp}/>
                     <Route path="/passwordReset" component={PasswordReset}/>
-                    {/* <Route path="/productPage" component={ProductPage}/>     */}
+
                     {/* key meant for re-render Product when choosing from You may also like */}
-                    <Route path="/product/:id" component={(props) => <ProductPage {...props} 
-                        key={window.location.pathname} addToCart={this.addToCart}/>} />
+                    {/* <Route key={window.location.pathname} path="/product/:id" component={ProductPage} /> */}
+                    <Route path="/product/:id"  render={(matchProps) => (<ProductPage {...matchProps} {...this.props}key={window.location.pathname}/>)} />
                     
                     {/* /shop is from search in header */}
-                    <Route path="/shop" component={(props) => <CatalogPage {...props} 
-                        addToCart={this.addToCart}/>}/>
-                      
-                    {/* catalogPage/:id is from Home page carousel */}
-                    <Route path="/catalogPage/:id" component={(props) => <CatalogPage {...props} 
-                        addToCart={this.addToCart}/>}/> 
+                    <Route  path="/shop" component={CatalogPage} />
 
-                    <Route key={window.location.pathname} 
+                    {/* catalogPage/:id is from Home page carousel */}
+                    <Route path="/catalogPage/:id" component={CatalogPage} />
+
+                    <Route path="/catalogPage" key={window.location.pathname} component={CatalogPage} />
+                    {/* <Route key={window.location.pathname} 
                     path="/catalogPage" 
-                    component={(props) => <CatalogPage {...props} addToCart={this.addToCart}/>} />
+                    component={(props) => <CatalogPage {...props} addToCart={this.addToCart}/>} /> */}
 
                     <Route path="/about" component={About}/>
                     <Route path="/blog" component={Blog} />
                     <Route path="/disclaimers" component={Disclaimers}/>
                     <Route path="/contacts" component={Contacts}/>
-                    <Route  component={NotFound}/>
+                    <Route component={NotFound}/>
                   </Switch>
-               </div>
+               </>
                <Footer/>
             </Router>
             </React.Fragment>

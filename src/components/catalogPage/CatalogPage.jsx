@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import ShopContext from '../context/shopContext'
 // import {productsObj} from "../product/productsObj.js"
 import axios from 'axios'
 // import {Route, Link} from 'react-router-dom';
@@ -17,32 +18,16 @@ import {Animated} from "react-animated-css";
 import './catalogPage.css';
 
 export default class CatalogPage extends Component {
-    
+  static contextType = ShopContext
   constructor(props){
     super(props)
-    // console.log(queryString.parse(props.location.search)); // return {q: "Impossible Table"}
     // this.search = (props.location.search)? queryString.parse(props.location.search).q : '';
-    // let productsObjs;
-    // this.match ='';
-    // if (this.search)
-    //   productsObjs = productsObj.filter( product => {
-    //     //check if the phrase in the title or productDescription
-    //     if ( product.title.toLowerCase().includes(this.search.toLowerCase()) )
-    //       return product
-    //     else if( product.productDescription.toLowerCase().includes(this.search.toLowerCase()) )
-    //       return product
-    //     else
-    //       this.match='No Matching'
-    //       return []
-    //   })
-    // else
-    //   productsObjs = productsObj;
-    
     this.state = {
-      products:[],
+        loading:false,
+        // products:[],               //store the  all inventory
         sort: 'High to Low',
         filterArr: [],
-        myObj: [], 
+        myObj: [],                //products to display
         checkbox:{
           material: ['PLA','PLA+'],
           color:['Black','Blue','White'],
@@ -59,33 +44,51 @@ export default class CatalogPage extends Component {
   }
 
   componentDidMount(){
-    this.fetch()
+    if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
+    else this.matchSearch()  // check if came from search input in header
+    //!version 1
+    // this.setState({products:this.context.products,loading:true}, (prevState,props)=>{
+    //   if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
+    //   else this.matchSearch()  // check if came from search input in header 
+    // })
+    //! version 1 end & version 2 starts
+    // this.setState( ()=>{
+    //   return {products:this.context.products}
+    // })
+    // if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
+    // this.matchSearch()  // check if came from search input in header
+    //! version 2 end & version 3 starts - with fetch()
+    // this.fetch()
   }
 
-  fetch(){
-    axios.get('http://localhost:3000/products')
-        .then((response)=> {
-          this.setState({products:response.data, myObj:response.data})
-          if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
-          this.matchSearch()    // check if came from search input in header
-        })
-        .catch((error)=> {
-          console.log(error);
-        })
-
-  }
+  // fetch(){
+  //   axios.get('http://localhost:3000/products')
+  //       .then((response)=> {
+  //         this.setState({products:response.data, myObj:response.data})
+  //         if(this.props.match.params.id) this.filter( this.props.match.params.id,true ) //check if came from HomePage
+  //         this.matchSearch()    // check if came from search input in header
+  //       })
+  //       .catch((error)=> {
+  //         console.log(error);
+  //       })
+  //!version 3 end
+  // }
 
   matchSearch(){
     this.setState({noMatch: ''})
     let productsObjs=[];
     if(this.state.search){
-      productsObjs = this.state.products.filter( product => {
+      productsObjs = this.context.products.filter( product => {
           //check if the phrase in the title or productDescription
           return ( product.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
           product.productDescription.toLowerCase().includes(this.state.search.toLowerCase()))
         })
       this.setState({myObj:productsObjs})
       if(productsObjs.length===0) this.setState({noMatch:"No Matching"})
+    }
+    //if there is no search input, just set the state
+    else{
+      this.setState({myObj:this.context.products})
     }
   }
 
@@ -125,12 +128,11 @@ export default class CatalogPage extends Component {
         return el !==id;
       })
     }
-    copyArr=this.state.products.filter((el)=>{         //filter out the products  
+    copyArr=this.context.products.filter((el)=>{         //filter out the products  
       return difference(arr,el.filter).length === 0
     })
 
-    this.setState({ myObj: copyArr, filterArr: arr })
-    setTimeout(()=> this.sort(this.state.sort),0) 
+    this.setState({ myObj: copyArr, filterArr: arr },() => this.sort(this.state.sort)) 
   }
     
   resetFilter(){
@@ -139,13 +141,12 @@ export default class CatalogPage extends Component {
          if (el.checked) return el.checked=false;
     })
     setTimeout(()=> this.sort(this.state.sort),0)
-    this.setState({noMatch:'', myObj: this.state.products, filterArr:[]})
+    this.setState({noMatch:'', myObj: this.context.products, filterArr:[]})
   }
 
 
 
   render() {
-    
         return (
             <div className="container-fluid p-5">
             {this.state.noMatch && <Animated animationIn="lightSpeedIn" animationOut="lightSpeedOut" animationInDuration={800} animationOutDuration={400} isVisible={true}>
@@ -197,7 +198,7 @@ export default class CatalogPage extends Component {
                            <div className="card-body">
                            { this.state.checkbox.material.map((el)=>{
                                return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)
-                              } products={this.state.products}/>
+                              } products={this.context.products}/>
                            }) 
                            }
                            </div>
@@ -212,7 +213,7 @@ export default class CatalogPage extends Component {
                         <div id="collapseTwo" className="collapse bg-light" data-parent="#accordion">
                           <div className="card-body">
                           { this.state.checkbox.color.map((el)=>{
-                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)} products={this.state.products}/>
+                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)} products={this.context.products}/>
                            })
                            }
                           </div>
@@ -227,7 +228,7 @@ export default class CatalogPage extends Component {
                       <div id="collapseThree" className="collapse bg-light" data-parent="#accordion">
                         <div className="card-body">
                         { this.state.checkbox.theme.map((el)=>{
-                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)} products={this.state.products}/>
+                               return <Checkbox key={el} idFor={el} print={el} id={el} filter={this.filter.bind(this)} products={this.context.products}/>
                            })
                            }
                         </div>
@@ -244,7 +245,7 @@ export default class CatalogPage extends Component {
                         <div className="card-body">
                         { this.state.checkbox.rating.map((el)=>{
                                return <Checkbox key={el.number} idFor={el.number} print={el.star} id={el.number}
-                                 filter={this.filter.bind(this)} products={this.state.products}
+                                 filter={this.filter.bind(this)} products={this.context.products}
                                />
                            })
                            }
@@ -259,10 +260,11 @@ export default class CatalogPage extends Component {
                         { this.state.myObj.map((el)=>{
                             return (
                               <Product 
-                              key={el.title} 
-                               title={el.title}
-                               description={el.description} src={el.src} price={el.price} rating={el.rating}
-                                 special={el.special} obj={el} addToCart={this.props.addToCart}
+                                key={el.title} 
+                                // title={el.title}
+                                // description={el.description} src={el.src} price={el.price} rating={el.rating}
+                                // special={el.special} 
+                                obj={el} 
                                />
                             )
                           })
