@@ -6,14 +6,13 @@
 import './login.css'
 
 import React, { useRef, useState } from "react"
-import { auth,google } from "../../firebase"
 import { useAuth } from "../context/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login } = useAuth()
+  const { login,googleLogin } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -33,9 +32,17 @@ export default function Login() {
     setLoading(false)
   }
 
-   function handleGoogle(){
-	auth.signInWithPopup(google)
-}
+  async function handleGoogle(){
+	try {
+		setError("")
+		setLoading(true)
+		await googleLogin()
+		history.push("/account/profile")
+	  } catch {
+		setError("Failed to log in")
+	  }
+  }
+  
 
   return (
     
@@ -49,7 +56,7 @@ export default function Login() {
 			<h1 className="font-weight-bold m-0">Sign in</h1>
 			<div className="social-container">
 				<a className="a-login social" href="#" ><i className="fab fa-facebook-f"></i></a>
-				<a className="a-login social"  onClick={handleGoogle}><i className="fab fa-google-plus-g"></i></a>
+				<a className="a-login social" href="#" ><i onClick={handleGoogle} className="fab fa-google-plus-g"></i></a>
 				<a className="a-login social" href="#" ><i className="fab fa-github"></i></a>
 			</div>
 			{error && <div className="text-danger">{error}</div>}

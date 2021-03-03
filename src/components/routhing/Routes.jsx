@@ -4,6 +4,7 @@ import {Route, BrowserRouter as Router ,Switch} from 'react-router-dom';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import Home from '../home/Home';
+import Administrator from '../admin/Administrator'
 import ProductPage from '../productPage/ProductPage';
 import CatalogPage from '../catalogPage/CatalogPage';
 import NotFound from '../notFound/NotFound';
@@ -20,7 +21,7 @@ import ScrollToTop from '../scrollToTop/ScrollToTop';
 import Welcome from "../welcome/Welcome"
 import ProtectedRoute from '../protectedRoute/ProtectedRoute'
 import PasswordReset from "../passwordReset/PasswordReset";
-import {auth} from '../../firebase'
+// import {auth} from '../../firebase'
 
 
 export default class Routes extends Component {
@@ -40,6 +41,7 @@ export default class Routes extends Component {
                   <Switch>
                   {/* Route only load the component when specific path is in the url */}
                     <Route exact path='/' component={Home}/>
+                    <Route exact path='/administrator' component={Administrator}/>
                     <ProtectedRoute exact path="/account/profile" component={Welcome} />
 
                     <Route path="/cart"  component={Cart}/>

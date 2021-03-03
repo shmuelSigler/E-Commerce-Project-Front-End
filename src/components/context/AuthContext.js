@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { auth } from "../../firebase"
+import { auth, google, db } from "../../firebase"
 
 const AuthContext = React.createContext()
 
@@ -11,23 +11,35 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 
-  function signup(email, password) {
+  function signup(email, password, name) {
     return auth.createUserWithEmailAndPassword(email, password)
+    .then(userCredential =>{
+      // const uid = userCredential.user.uid
+      // console.log(user);
+      const autoId = db.ref("students").push().key
+      let data ={id: autoId ,role: "user",name: name, email:email, active: true, phone: ''
+      }
+      db.ref('users').child(autoId).set(data)
+    })
 
   }
 
-  function sendEmailVerifaction(email,actionCodeSettings) {
-    return auth.sendSignInLinkToEmail(email,actionCodeSettings).then(() => {
-      // Save the users email to verify it after they access their email
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    
-  }
+  // function sendEmailVerifaction(email,actionCodeSettings) {
+  //   return auth.sendSignInLinkToEmail(email,actionCodeSettings).then(() => {
+  //     // Save the users email to verify it after they access their email
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   }) 
+  // }
 
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password)
+  }
+
+  function googleLogin(){
+    google.setCustomParameters({prompt: 'select_account'})
+    return auth.signInWithPopup(google)
   }
 
   function logout() {
@@ -66,8 +78,9 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     login,
+    googleLogin,
     signup,
-    sendEmailVerifaction,
+    // sendEmailVerifaction,
     logout,
     resetPassword,
     updateProfile,

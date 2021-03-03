@@ -167,6 +167,7 @@ static contextType = ShopContext
                     { this.context.arrayOfUniqueObjects.length !==0?
                       this.context.arrayOfUniqueObjects.map((el,i)=>{ 
                          return i<5? 
+                         <div key={el.title}>
                         <b><li>
                           <span className="item ">
                             <span className="item-left ">
@@ -182,7 +183,7 @@ static contextType = ShopContext
                             </span>
                             
                           </span>
-                        </li></b>
+                        </li></b></div>
                      : null 
                     })
                     : <span>There are no items in cart</span>

@@ -88,7 +88,8 @@ export default class App extends Component{
                   arrayOfUniqueObjects:keys, 
                   myCart: fixMyCart,
                   numOfItems:sum,
-                  initialPrice: initialPrice,}
+                  initialPrice: initialPrice,
+                  totalPrice: initialPrice}
       })
       localStorage.setItem('myCart',JSON.stringify(fixMyCart))
       localStorage.setItem('numOfItems',sum)

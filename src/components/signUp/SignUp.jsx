@@ -4,8 +4,6 @@
 import './signUp.css'
 
 
-
-
 import React, { useRef, useState } from "react"
 import { auth } from "../../firebase"
 import { useAuth } from "../context/AuthContext"
@@ -22,23 +20,23 @@ export default function SignUp() {
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
 	
-
-	React.useEffect(() => {
-		// Get the saved email
-		const saved_email = window.localStorage.getItem("emailForSignIn");
+	//!below, for sending email verification and the link leads to straight to account/profile
+	// React.useEffect(() => {
+	// 	// Get the saved email
+	// 	const saved_email = window.localStorage.getItem("emailForSignIn");
 	
-		// Verify the user went through an email link and the saved email is not null
-		if (auth.isSignInWithEmailLink(window.location.href) && !!saved_email) {
-		  // Sign the user in
-		  auth.signInWithEmailLink(saved_email, window.location.href)
-		  .then((result) => {
-			window.localStorage.removeItem('emailForSignIn');
-			// history.push("/login")
-		  })
-		  .catch((error) => {
-		  });;
-		}
-	  }, []);
+	// 	// Verify the user went through an email link and the saved email is not null
+	// 	if (auth.isSignInWithEmailLink(window.location.href) && !!saved_email) {
+	// 	  // Sign the user in
+	// 	  auth.signInWithEmailLink(saved_email, window.location.href)
+	// 	  .then((result) => {
+	// 		window.localStorage.removeItem('emailForSignIn');
+	// 		// history.push("/login")
+	// 	  })
+	// 	  .catch((error) => {
+	// 	  });;
+	// 	}
+	//   }, []);
 
 	async function handleSubmit(e) {
 		e.preventDefault()
@@ -48,27 +46,24 @@ export default function SignUp() {
 		}
 		
 		try {
-			setError("")
-			setMessage("")
-			setLoading(true)		//prevent user from multiple click that creates multiple accounts
-			await updateProfile(nameRef.current.value)
-		}catch (err) {
-			console.log(err); 
-		}
-
-		try {
 		  setError("")
 		  setMessage("")
 		  setLoading(true)		//prevent user from multiple click that creates multiple accounts
-		  await signup(emailRef.current.value, passwordRef.current.value)
-  		  await sendEmailVerifaction(emailRef.current.value, {
-			url: 'http://localhost:3001/login',
-			handleCodeInApp: true,
-			}) 
-			setMessage('Verification email was sent to your mailbox')
+		  await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value)
+		  setMessage('You are redirecting to login page')
 		  setTimeout(() => {
 			history.push("/login")
-		  }, 1000);
+		  }, 2000);
+		  //!below, for sending email verification and the link leads to straight to account/profile
+  		//   await sendEmailVerifaction(emailRef.current.value, {
+		// 	url: 'http://localhost:3001/login',
+		// 	handleCodeInApp: true,
+		// 	}) 
+		// 	setMessage('Verification email was sent to your mailbox')
+		//   setTimeout(() => {
+		// 	history.push("/login")
+		//   }, 1000);
+
 		}catch {
 		  setError("Failed to create an account")
 		}
