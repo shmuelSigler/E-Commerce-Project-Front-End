@@ -23,7 +23,7 @@ export default class CatalogPage extends Component {
     super(props)
     // this.search = (props.location.search)? queryString.parse(props.location.search).q : '';
     this.state = {
-        loading:false,
+        // loading:false,
         // products:[],               //store the  all inventory
         sort: 'High to Low',
         filterArr: [],

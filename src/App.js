@@ -3,6 +3,8 @@ import Routes from "./components/routhing/Routes"
 import ShopContext from './components/context/shopContext'
 import { AuthProvider } from "./components/context/AuthContext"
 import axios from 'axios'
+import LoadingOverlay from 'react-loading-overlay';
+import RingLoader from 'react-spinners/RingLoader'
 // import {Link} from 'react-router-dom';
 // import {productsObj} from "../src/components/product/productsObj"
 
@@ -18,7 +20,7 @@ import axios from 'axios'
 export default class App extends Component{
    
    state={
-      loading:false,
+      loading:true, //was false
       products:[],
       myCart: [],         //array of objects
       numOfItems: 0,  //number of products in the cart
@@ -50,7 +52,7 @@ export default class App extends Component{
       this.setState(()=> { 
          return{
             products:response.data, 
-            loading:true, 
+            loading:false, 
       }})
       }catch(err) {
       console.log(err)
@@ -151,20 +153,27 @@ export default class App extends Component{
 
    render(){
       
-      return(this.state.loading) ? (
-         <AuthProvider>
-            <ShopContext.Provider value={{
-               ...this.state,
-               addToCart: this.addToCart,
-               removeFromCart: this.removeFromCart,
-               eraseProductFromCart: this.eraseProductFromCart,
-               computeTotalPrice : this.computeTotalPrice,
-               emptyCart: this.emptyCart,
-            }}>
-               <Routes/>
-            </ShopContext.Provider>
-         </AuthProvider>
-         ): (<div>Loading...</div>);
+      return(
+         <LoadingOverlay
+            active={this.state.loading}
+            fadeSpeed={1000}
+            spinner={<RingLoader color={'#20cee6'} size={250}/>}
+            text='Loading your content...'
+            >
+            <AuthProvider>
+               <ShopContext.Provider value={{
+                  ...this.state,
+                  addToCart: this.addToCart,
+                  removeFromCart: this.removeFromCart,
+                  eraseProductFromCart: this.eraseProductFromCart,
+                  computeTotalPrice : this.computeTotalPrice,
+                  emptyCart: this.emptyCart,
+               }}>
+                  <Routes/>
+               </ShopContext.Provider>
+            </AuthProvider>
+         </LoadingOverlay>
+         )
    }
 }
 

@@ -138,7 +138,7 @@ export default class ProductPage extends Component{
 
     render(){
   
-       return(this.state.loading) ? (
+       return(
         <div  className="container-fluid p-5">
           <div className="row ">
            {/* images */}
@@ -298,6 +298,6 @@ export default class ProductPage extends Component{
      
         </div>    
          
-       ) : (<div>Loading...</div>);
+       )
     }
 }

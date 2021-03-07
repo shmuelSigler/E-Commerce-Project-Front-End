@@ -10,18 +10,27 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
+  
 
-  function signup(email, password, name) {
+  function signup(email, password, name,role,active,phone,address,city) {
     return auth.createUserWithEmailAndPassword(email, password)
     .then(userCredential =>{
       // const uid = userCredential.user.uid
       // console.log(user);
-      const autoId = db.ref("students").push().key
-      let data ={id: autoId ,role: "user",name: name, email:email, active: true, phone: ''
+      const autoId = db.ref("users").push().key
+      let data ={
+        id: autoId,
+        role: '',
+        name: name,
+        email:email,
+        password:password,
+        active: '', 
+        phone: '',
+        address:'',
+        city:''
       }
       db.ref('users').child(autoId).set(data)
-    })
-
+    }).catch(err => console.log(err))
   }
 
   // function sendEmailVerifaction(email,actionCodeSettings) {

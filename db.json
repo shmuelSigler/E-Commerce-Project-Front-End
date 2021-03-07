@@ -1,24 +1,32 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "role": "coustomer",
-      "name": "shmolik",
-      "email": "yakovsig@gmail.com",
-      "active": true,
-      "phone": "050-1234567890"
+ 
+  "users" : {
+    "-MV7kIFhFYrE8WK9bM4R" : {
+      "active" : true,
+      "address" : "HaSharon 4/14",
+      "city" : "asdad",
+      "email" : "yakoi@gmail.com",
+      "id" : "-MV7kIFhFYrE8WK9bM4R",
+      "name" : "Shmuel Sigler",
+      "password" : "123456",
+      "phone" : 123456,
+      "role" : "admin"
     },
-    {
-      "id": 2,
-      "role": "user",
-      "name": "natanel",
-      "email": "natanel@gmail.com",
-      "active": false,
-      "phone": "050-0987654321"
+    "-MVCfwhHBaPg2s2yQcgK" : {
+      "active" : true,
+      "address" : "add",
+      "city" : "cy",
+      "email" : "test@test.com",
+      "id" : "-MVCfwhHBaPg2s2yQcgK",
+      "name" : "test2",
+      "password" : "123456",
+      "phone" : 1234324,
+      "role" : "user"
     }
-  ],
+  },
+ 
   "products": [
-    {
+    {"id": 1,
       "src": "/images/catalog-page/Marble Machine.jpg",
       "thumbnail": "/images/thumbnail/Marble Machine.jpg",
       "image1": "/images/product-imgs/Marble Machine1.jpg",
@@ -48,7 +56,7 @@
       "size": "Medium",
       "note": "Does not come with marbles"
     },
-    {
+    {"id": 2,
       "src": "/images/catalog-page/Impossible Table.jpg",
       "thumbnail": "/images/thumbnail/Impossible Table.jpg",
       "image1": "/images/product-imgs/Impossible Table1.jpg",
@@ -80,7 +88,7 @@
       "size": "Small",
       "note": "Assembly is DIY"
     },
-    {
+    {"id": 3,
       "src": "/images/catalog-page/Little Boat.jpg",
       "thumbnail": "/images/thumbnail/Little Boat.jpg",
       "image1": "/images/product-imgs/Little Boat1.jpg",
@@ -112,7 +120,7 @@
       "size": "Small",
       "note": "Does not float"
     },
-    {
+    {"id": 4,
       "src": "/images/catalog-page/Jet Fighter.jpg",
       "thumbnail": "/images/thumbnail/Jet Fighter.jpg",
       "image1": "/images/product-imgs/Jet Fighter1.jpg",
@@ -144,7 +152,7 @@
       "size": "Small",
       "note": ""
     },
-    {
+    {"id": 5,
       "src": "/images/catalog-page/Color Lithophane - Aoraki.jpg",
       "thumbnail": "/images/thumbnail/Color Lithophane - Aoraki.jpg",
       "image1": "/images/product-imgs/Color Lithophane - Aoraki1.jpg",
@@ -172,7 +180,7 @@
       "size": "Various",
       "note": "Come with various sizes"
     },
-    {
+    {"id": 6,
       "src": "/images/catalog-page/Batmobile.jpg",
       "thumbnail": "/images/thumbnail/Batmobile.jpg",
       "image1": "/images/product-imgs/Batmobile1.jpg",
@@ -204,7 +212,7 @@
       "size": "Medium",
       "note": "Does not roll"
     },
-    {
+    {"id": 7,
       "src": "/images/catalog-page/Bistable Mechanism.jpg",
       "thumbnail": "/images/thumbnail/Bistable Mechanism.jpg",
       "image1": "/images/product-imgs/Bistable Mechanism1.jpg",
@@ -236,7 +244,7 @@
       "size": "Medium",
       "note": "Bistable mechanisms are mechanical systems with two stable positions like a switch"
     },
-    {
+    {"id": 8,
       "src": "/images/catalog-page/Elephant Compliant Mechanism.jpg",
       "thumbnail": "/images/thumbnail/Elephant Compliant Mechanism.jpg",
       "image1": "/images/product-imgs/Elephant Compliant Mechanism1.jpg",
@@ -268,7 +276,7 @@
       "size": "Medium",
       "note": "Observe the trunk while moving his tail"
     },
-    {
+    {"id": 9,
       "src": "/images/catalog-page/Mini Crossbow.jpg",
       "thumbnail": "/images/thumbnail/Mini Crossbow.jpg",
       "image1": "/images/product-imgs/Mini Crossbow1.jpg",
@@ -298,7 +306,7 @@
       "size": "Medium",
       "note": "Load with Toothpick"
     },
-    {
+    {"id":10 ,
       "src": "/images/catalog-page/Oriceps.jpg",
       "thumbnail": "/images/thumbnail/Oriceps.jpg",
       "image1": "/images/product-imgs/Oriceps1.jpg",
@@ -330,7 +338,7 @@
       "size": "Small",
       "note": ""
     },
-    {
+    {"id": 11,
       "src": "/images/catalog-page/Tiny Jet Fighter.jpg",
       "thumbnail": "/images/thumbnail/Tiny Jet Fighter.jpg",
       "image1": "/images/product-imgs/Tiny Jet Fighter1.jpg",
@@ -362,5 +370,12 @@
       "size": "Extra small",
       "note": ""
     }
-  ]
+  ],
+
+  "orders":{
+    "-MVCfwhHBaPg2s2yQcdK" : {
+      "id":1
+     
+    }
+}
 }
