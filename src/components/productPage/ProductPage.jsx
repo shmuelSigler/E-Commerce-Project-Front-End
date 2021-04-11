@@ -221,14 +221,14 @@ export default class ProductPage extends Component{
               {/* items in stock */}
               <p id='stock'>{this.state.product.stock} in stock</p>
               {/* add to favorite */}
-              <div className="main-div">
+              {/* <div className="main-div">
                <div className="button-div"> 
                <button className="fav-button"> 
                  <i className="fa fa-star"></i> 
                  <span>Favorites</span> 
                </button> 
                </div>
-              </div>
+              </div> */}
               {/* accordion */}
               <div id="accordion" className='mt-5 mb-3'>
                 {/* <div className="card">

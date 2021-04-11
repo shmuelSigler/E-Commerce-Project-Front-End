@@ -58,7 +58,7 @@ export default function Product(props)  {
                      </div>
                    </Zoom>
                       <Link to={"/product/" + props.obj.title}>
-                        <img className="img-fluid change-product" src={props.obj.src} alt={props.obj.title} />
+                        <img className="img-fluid change-product" src={`${props.obj.src}`} alt={props.obj.title} />
                       </Link>
                   </div>
                     

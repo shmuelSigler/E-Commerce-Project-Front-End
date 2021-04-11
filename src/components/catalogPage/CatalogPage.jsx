@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ShopContext from '../context/shopContext'
 // import {productsObj} from "../product/productsObj.js"
-import axios from 'axios'
+// import axios from 'axios'
 // import {Route, Link} from 'react-router-dom';
 import Checkbox from '../checkbox/Checkbox'
 import Product from '../product/Product'

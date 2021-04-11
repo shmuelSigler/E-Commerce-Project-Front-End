@@ -62,7 +62,7 @@ export default class Home extends Component {
               <div className="p-0 col-md-6">
                   <div className="carousel slide" data-ride="carousel" id="carousel1">
                       <div className="carousel-inner" role="listbox">
-                          <div className="carousel-item"> <img className="d-block img-fluid w-100" src="/images/product-imgs/Mini Crossbow3.jpg" alt="first slide"/>
+                          <div className="carousel-item"> <img className="d-block img-fluid w-100" src="/images/product-imgs/MiniCrossbow3.jpg" alt="first slide"/>
                               <div className="carousel-caption ">
                                   <h3 className="display-4 ">Featured Product</h3>
                                   <p className="font-">finest engineering</p>
@@ -71,7 +71,7 @@ export default class Home extends Component {
                                   </Link>
                               </div>
                           </div>
-                          <div className="carousel-item active"> <img className="d-block img-fluid w-100" src="/images/product-imgs/Jet Fighter4.jpg" data-holder-rendered="true" alt=''/>
+                          <div className="carousel-item active"> <img className="d-block img-fluid w-100" src="/images/product-imgs/JetFighter4.jpg" data-holder-rendered="true" alt=''/>
                               <div className="carousel-caption">
                                   <h3 className="display-4">New Products</h3>
                                   <p className="display-5">edge technology</p>
