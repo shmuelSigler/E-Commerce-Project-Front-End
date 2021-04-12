@@ -1,18 +1,18 @@
 import * as React from "react";
-import { fetchUtils,Admin, Resource } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 // import {FirebaseAuthProvider} from 'react-admin-firebase';
 // import firebaseDataProvider from 'ra-data-firebase-client'
 // import firebase from "../../firebase"
 import {MyLoginPage} from './MyLoginPage'
 import { ProductsFilter,ProductsList, ProductsEdit, ProductsCreate, ProductsTitle } from './products';
-import {UserFilter, UserList ,UserEdit, UserCreate, UserTitle} from './users';
-import { OrderList, OrderEdit } from './orders';
+// import {UserFilter, UserList ,UserEdit, UserCreate, UserTitle} from './users';
+// import { OrderList, OrderEdit } from './orders';
 
-import UserIcon from '@material-ui/icons/Group';
+// import UserIcon from '@material-ui/icons/Group';
 import StorageIcon from '@material-ui/icons/Storage';
 import Dashboard from './Dashboard';
-import ReceiptIcon from '@material-ui/icons/Receipt';
+// import ReceiptIcon from '@material-ui/icons/Receipt';
 
 // import {RolesList} from './roles';
 

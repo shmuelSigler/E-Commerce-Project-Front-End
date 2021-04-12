@@ -5,7 +5,7 @@ import './signUp.css'
 
 
 import React, { useRef, useState } from "react"
-import { auth } from "../../firebase"
+// import { auth } from "../../firebase"
 import { useAuth } from "../context/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
@@ -14,7 +14,8 @@ export default function SignUp() {
 	const emailRef = useRef()
 	const passwordRef = useRef()
 	const passwordConfirmRef = useRef()
-	const { signup, updateProfile, sendEmailVerifaction } = useAuth()
+	// const { signup, updateProfile, sendEmailVerifaction } = useAuth()
+	const { signup } = useAuth()
 	const [error, setError] = useState("")			//used for  Password Confirmation input
 	const [message, setMessage] = useState("")
 	const [loading, setLoading] = useState(false)

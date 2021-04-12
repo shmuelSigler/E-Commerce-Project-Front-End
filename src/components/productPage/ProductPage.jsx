@@ -173,10 +173,10 @@ export default class ProductPage extends Component{
                  
                   {/* <!-- Thumbnails --> */}
                 <ol className="carousel-indicators list-inline ">
-                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href='#'> <img src={this.state.product.image1} className="img-fluid " alt='img1'/> </a> </li>
-                    <li className="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel" href=''> <img src={this.state.product.image2} className="img-fluid " alt='img2'/> </a> </li>
-                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel" href=''> <img src={this.state.product.image3} className="img-fluid " alt='img3'/> </a> </li>
-                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel" href=''> <img src={this.state.product.image4} className="img-fluid " alt='img4'/> </a> </li>
+                    <li className="list-inline-item active"> <a id="carousel-selector-0" className="selected" data-slide-to="0" data-target="#custCarousel" href='/#'> <img src={this.state.product.image1} className="img-fluid " alt='img1'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel" href='/#'> <img src={this.state.product.image2} className="img-fluid " alt='img2'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel" href='/#'> <img src={this.state.product.image3} className="img-fluid " alt='img3'/> </a> </li>
+                    <li className="list-inline-item"> <a id="carousel-selector-2" data-slide-to="3" data-target="#custCarousel" href='/#'> <img src={this.state.product.image4} className="img-fluid " alt='img4'/> </a> </li>
                 </ol>
             </div>
         

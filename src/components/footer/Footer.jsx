@@ -63,7 +63,7 @@ export default class Footer extends Component{
                     </div>
 
                     <span className="text-muted font-weight-light">
-                    Copyright ©{`${year}`} All rights reserved | This website is made with <i className="fas    fa-heart"></i> by <a href="#">Shmuel Sigler</a>
+                    Copyright ©{`${year}`} All rights reserved | This website is made with <i className="fas    fa-heart"></i> by <a href="/#">Shmuel Sigler</a>
                     </span>
                 </div>
             </footer>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ShopContext from '../context/shopContext'
 import {Link} from 'react-router-dom';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 //react.js examples
 import {Animated} from "react-animated-css";

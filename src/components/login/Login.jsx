@@ -55,9 +55,9 @@ export default function Login() {
 		<form method="POST" name="signIn" className="form-login" onSubmit={handleSubmit}>
 			<h1 className="font-weight-bold m-0">Sign in</h1>
 			<div className="social-container">
-				<a className="a-login social" href="#" ><i className="fab fa-facebook-f"></i></a>
-				<a className="a-login social" href="#" ><i onClick={handleGoogle} className="fab fa-google-plus-g"></i></a>
-				<a className="a-login social" href="#" ><i className="fab fa-github"></i></a>
+				<a className="a-login social" href="/#" ><i className="fab fa-facebook-f"></i></a>
+				<a className="a-login social" href="/#" ><i onClick={handleGoogle} className="fab fa-google-plus-g"></i></a>
+				<a className="a-login social" href="/#" ><i className="fab fa-github"></i></a>
 			</div>
 			{error && <div className="text-danger">{error}</div>}
 			<span className="span-login">or use your account</span>

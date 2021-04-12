@@ -31,7 +31,7 @@ export default function Dashboard() {
     const name = document.profile.fname.value +' '+document.profile.lname.value
     const email = document.profile.email.value
     const password = document.profile.password.value
-    const phone = document.profile.phone.value
+    // const phone = document.profile.phone.value
     const photoURL = document.profile.photoURL.value
 
     if (document.profile.password.value !== document.profile.passwordConfirmation.value) {
