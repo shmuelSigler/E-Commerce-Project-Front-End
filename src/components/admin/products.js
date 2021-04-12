@@ -11,20 +11,20 @@ import {
     TextField,
     ImageField ,
     NumberField,
-    ReferenceField,
-    DeleteButton,
+    // ReferenceField,
+    // DeleteButton,
     NumberInput ,
     EditButton,
     Edit,
     Create,
     SimpleForm,
     Filter,
-    ReferenceInput,
-    SelectInput,
+    // ReferenceInput,
+    // SelectInput,
     TextInput,
     SimpleShowLayout,
     RichTextField,
-    useTranslate,
+    // useTranslate,
     ArrayInput,
     SimpleFormIterator,
     SaveButton,
@@ -85,7 +85,7 @@ export const ProductsFilter = (props) => (
 );
 
 export const ProductsList = props => {
-    const translate = useTranslate();
+    // const translate = useTranslate();
 
    return (
    <List {...props} filters={<ProductsFilter />} actions={<ProductActionsButtons/>} bulkActionButtons={<ProductBulkActionButtons />}>
