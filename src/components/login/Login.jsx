@@ -43,9 +43,9 @@ export default function Login() {
 	  }
   }
   
-  async function OAuthHandleGoogle(){
+//   async function OAuthHandleGoogle(){
 	  
-  }
+//   }
 
   return (
     
@@ -59,8 +59,8 @@ export default function Login() {
 			<h1 className="font-weight-bold m-0">Sign in</h1>
 			<div className="social-container">
 				<a className="a-login social" href="/#" ><i className="fab fa-facebook-f"></i></a>
-				{/* <a className="a-login social" href="/#" ><i onClick={firebaseHandleGoogle} className="fab fa-google-plus-g"></i></a> */}
-				<a className="a-login social" href="/#" ><i onClick={OAuthHandleGoogle} className="fab fa-google-plus-g"></i></a>
+				<a className="a-login social" href="/#" ><i onClick={firebaseHandleGoogle} className="fab fa-google-plus-g"></i></a>
+				{/* <a className="a-login social" href="/#" ><i onClick={OAuthHandleGoogle} className="fab fa-google-plus-g"></i></a> */}
 				<a className="a-login social" href="/#" ><i className="fab fa-github"></i></a>
 			</div>
 			{error && <div className="text-danger">{error}</div>}
