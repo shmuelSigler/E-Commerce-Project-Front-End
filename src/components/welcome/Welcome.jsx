@@ -3,7 +3,7 @@
 
 
 import React, { useState } from "react"
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/FirebaseAuthContext"
 import { Link, useHistory } from "react-router-dom"
 import './welcome.css'
 

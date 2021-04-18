@@ -1,13 +1,13 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth, google, db } from "../../firebase"
 
-const AuthContext = React.createContext()
+const FirebaseAuthContext = React.createContext()
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(FirebaseAuthContext)
 }
 
-export function AuthProvider({ children }) {
+export function FirebaseAuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
   
@@ -98,9 +98,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={value}>
+    <FirebaseAuthContext.Provider value={value}>
       {!loading && children}
-    </AuthContext.Provider>
+    </FirebaseAuthContext.Provider>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Routes from "./components/routhing/Routes"
 import ShopContext from './components/context/shopContext'
-import { AuthProvider } from "./components/context/AuthContext"
+import { FirebaseAuthProvider } from "./components/context/FirebaseAuthContext"
 import axios from 'axios'
 import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader'
@@ -13,8 +13,6 @@ import RingLoader from 'react-spinners/RingLoader'
 // import "./App.css"
 // import ProductPage from "./components/productPage/ProductPage.jsx";
 // import CatalogPage from "./components/catalogPage/CatalogPage.jsx";
-
-
 
 
 export default class App extends Component{
@@ -160,7 +158,7 @@ export default class App extends Component{
             spinner={<RingLoader color={'#20cee6'} size={250}/>}
             text='Loading your content...'
             >
-            <AuthProvider>
+            <FirebaseAuthProvider>
                <ShopContext.Provider value={{
                   ...this.state,
                   addToCart: this.addToCart,
@@ -171,7 +169,7 @@ export default class App extends Component{
                }}>
                   <Routes/>
                </ShopContext.Provider>
-            </AuthProvider>
+            </FirebaseAuthProvider>
          </LoadingOverlay>
          )
    }

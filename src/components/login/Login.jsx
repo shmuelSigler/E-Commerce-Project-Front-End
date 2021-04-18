@@ -6,7 +6,7 @@
 import './login.css'
 
 import React, { useRef, useState } from "react"
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/FirebaseAuthContext"
 import { Link, useHistory } from "react-router-dom"
 
 export default function Login() {
@@ -32,7 +32,7 @@ export default function Login() {
     setLoading(false)
   }
 
-  async function handleGoogle(){
+  async function firebaseHandleGoogle(){
 	try {
 		setError("")
 		setLoading(true)
@@ -43,6 +43,9 @@ export default function Login() {
 	  }
   }
   
+  async function OAuthHandleGoogle(){
+	  
+  }
 
   return (
     
@@ -56,7 +59,8 @@ export default function Login() {
 			<h1 className="font-weight-bold m-0">Sign in</h1>
 			<div className="social-container">
 				<a className="a-login social" href="/#" ><i className="fab fa-facebook-f"></i></a>
-				<a className="a-login social" href="/#" ><i onClick={handleGoogle} className="fab fa-google-plus-g"></i></a>
+				{/* <a className="a-login social" href="/#" ><i onClick={firebaseHandleGoogle} className="fab fa-google-plus-g"></i></a> */}
+				<a className="a-login social" href="/#" ><i onClick={OAuthHandleGoogle} className="fab fa-google-plus-g"></i></a>
 				<a className="a-login social" href="/#" ><i className="fab fa-github"></i></a>
 			</div>
 			{error && <div className="text-danger">{error}</div>}

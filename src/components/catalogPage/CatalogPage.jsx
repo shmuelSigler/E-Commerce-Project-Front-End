@@ -115,6 +115,10 @@ export default class CatalogPage extends Component {
     
   }
 
+  show(e){
+    console.log(e.target.value);
+  }
+
   filter(id,bool){
     this.setState({noMatch: ''})
     let copyArr = [...this.state.myObj]    
@@ -163,7 +167,7 @@ export default class CatalogPage extends Component {
                     <option>12</option>
                 </select>  */}
 
-                <label className="mr-2">Sort By</label> 
+                <label className="mx-2">Sort By</label> 
                 <select onChange={ (e)=> this.sort.call( this, e.target.value) } >
                     <option >High to Low</option>
                     <option>Low to High</option>
