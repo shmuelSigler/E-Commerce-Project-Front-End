@@ -30,7 +30,7 @@ import Dashboard from './Dashboard';
 //     return fetchUtils.fetchJson(url, options);
 // };
 // const dataProvider = simpleRestProvider('http://localhost:3000', httpClient);
-const dataProvider = simpleRestProvider('http://localhost:3000')
+const dataProvider = simpleRestProvider(process.env.REACT_APP_BACKEND_URL)
 //<Admin> component, which is the root component of a react-admin application
 //This component expects a dataProvider prop - a function capable of fetching data from an API.
 // console.log(app)

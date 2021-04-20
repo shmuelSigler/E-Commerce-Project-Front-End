@@ -46,7 +46,7 @@ export default class App extends Component{
 
   async fetch(){
       try {
-      const response = await axios.get('/products')
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/products`)
       this.setState(()=> { 
          return{
             products:response.data, 

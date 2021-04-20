@@ -14,7 +14,7 @@ export default class Contacts extends Component {
   async submitForm(e){
     e.preventDefault()
     try {
-      const response = await axios.post('/mail/sendMailToClient',{
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/mail/sendMailToClient`,{
         name: document.contact.name.value,
         phone: document.contact.phone.value,
         from:   document.contact.from.value,
@@ -37,7 +37,7 @@ export default class Contacts extends Component {
      }})
       } 
       try {
-        const response = await axios.post('/mail/sendMailFromClient',{
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/mail/sendMailFromClient`,{
           name: document.contact.name.value,
           phone: document.contact.phone.value,
           from:   document.contact.from.value,
