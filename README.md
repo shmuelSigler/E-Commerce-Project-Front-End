@@ -12,7 +12,8 @@ This single page application was built on the front-end with React and designed 
 
 The back-end is built with Node.js and Express, and “under the hood” REST API and MongoDB database for functionality. Development of all server-side logic and ensuring high performance and responsiveness to requests from the front-end.
 
-![Image home page](https://i.ibb.co/ggznc7g/home-page.png)
+
+![Image home page](https://i.ibb.co/RDLT71L/product-page.png)
 
 
 
