@@ -80,7 +80,7 @@ export default class Checkout extends Component {
         <div className="row row-checkout">
             <div className="col-75">
                 <div className="container container-checkout">
-                <form name="feedback"  onSubmit={ this.validation.bind(this)}>
+                <form name="feedback" onSubmit={ this.validation.bind(this)}>
 
                     <div className="row row-checkout">
                     <div className="col-50">
